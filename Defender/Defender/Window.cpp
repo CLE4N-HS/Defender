@@ -15,6 +15,7 @@ Window::Window(const sf::String& title, sf::Uint32 style) : m_videoMode(sf::Vide
 
 	createWindow();
 	m_renderTexture.create(m_videoMode.width, m_videoMode.height);
+	//m_renderTexture.create(7680, 1080);
 	m_font.loadFromFile("../Resources/NeoTech.ttf"); // default font for now
 	text.setFont(m_font);
 }
@@ -96,6 +97,11 @@ void Window::setView(const sf::Vector2f& center, const sf::FloatRect& viewport, 
 	m_view.setViewport(viewport);
 	m_view.zoom(factor);
 	m_renderTexture.setView(m_view);
+}
+
+sf::Vector2f Window::viewCorrectPos(const sf::Vector2f& _pos, const bool& mainView) const
+{
+	return (mainView ? _pos : sf::Vector2f(_pos.x * 0.25f, _pos.y));
 }
 
 void Window::toggleFullscreen()

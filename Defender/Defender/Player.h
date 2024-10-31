@@ -9,7 +9,9 @@ public:
 	~Player();
 
 	void update(Window& _window);
-	void display(Window& _window);
+	void display(Window& _window, bool mainView);
+
+	sf::Vector2f getPos();
 
 private:
 	sf::Vector2f m_pos;

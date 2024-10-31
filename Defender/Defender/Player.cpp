@@ -1,7 +1,7 @@
 #include "Player.h"
 #include "textureManager.h"
 
-Player::Player() : Player(sf::Vector2f(100.f, 100.f))
+Player::Player() : Player(sf::Vector2f(100.f, 540.f))
 {
 }
 
@@ -119,18 +119,24 @@ void Player::update(Window& _window)
 	}
 	m_velocity = m_forward * m_speed;
 
-	m_speed = fminf(500.f, m_movingTime * 500.f);
+	m_speed = fminf(800.f, m_movingTime * 800.f);
 	m_speed = fmaxf(m_speed, 0.f);
 	m_pos += m_velocity * dt;
-
 }
 
-void Player::display(Window& _window)
+void Player::display(Window& _window, bool mainView)
 {
 	_window.rectangle.setTexture(tex_getTexture("all"));
 	_window.rectangle.setTextureRect(tex_getAnimRect("all", (m_wasFacingRight ? "playerR" : "playerL")));
-	_window.rectangle.setPosition(m_pos);
+	//_window.rectangle.setPosition(mainView ? m_pos : sf::Vector2f(m_pos.x / 4.f, m_pos.y)); don't use this, just an example
+	_window.rectangle.setPosition(_window.viewCorrectPos(m_pos, mainView));
 	_window.rectangle.setSize(sf::Vector2f(60.f, 24.f));
 	_window.rectangle.setOrigin(sf::Vector2f(30.f, 12.f));
 	_window.draw(_window.rectangle);
+
+}
+
+sf::Vector2f Player::getPos()
+{
+	return m_pos;
 }

@@ -11,11 +11,13 @@ Game::~Game()
 void Game::update(Window& _window , State*& _state)
 {
 	m_player.update(_window);
+	m_map.update(_window, m_player.getPos());
 }
 
 void Game::display(Window& _window)
 {
-	_window.setView(sf::Vector2f(960.f, 540.f), sf::FloatRect(0.f, 0.f, 1.f, 1.f), 1.f);
+	// black background
+	_window.setView(sf::Vector2f(960.f, 540.f), sf::FloatRect(0.f, 0.f, 1.f, 1.f));
 
 	_window.rectangle.setPosition(sf::Vector2f(0.f, 0.f));
 	_window.rectangle.setSize(sf::Vector2f(1920.f, 1080.f));
@@ -23,15 +25,18 @@ void Game::display(Window& _window)
 	_window.rectangle.setTexture(nullptr);
 	_window.draw(_window.rectangle);
 	_window.rectangle.setFillColor(sf::Color(255, 255, 255, 255));
+	//
 
+	// main View
+	_window.setView(sf::Vector2f(m_player.getPos().x, 540.f), sf::FloatRect(0.f, 0.f, 1.f, 1.f));
 
-
-	m_player.display(_window);
-
+	m_player.display(_window, true);
+	m_map.display(_window, true, m_player.getPos());
+	//
 	
 
+	// black background (green for now but TODO just the outline)
 	_window.setView(sf::Vector2f(960.f, 540.f), sf::FloatRect(0.3f, 0.f, 0.4f, 0.15f), 1.f);
-	//_window.setView(sf::Vector2f(960.f, 540.f), sf::FloatRect(0.3f, 0.f, 0.4f, 0.15f), 1.f, sf::Vector2f(1920.f * 6.f, 1080.f));
 
 	_window.rectangle.setPosition(sf::Vector2f(0.f, 0.f));
 	_window.rectangle.setSize(sf::Vector2f(1920.f, 1080.f));
@@ -39,8 +44,12 @@ void Game::display(Window& _window)
 	_window.rectangle.setTexture(nullptr);
 	_window.draw(_window.rectangle);
 	_window.rectangle.setFillColor(sf::Color(255, 255, 255, 255));
+	//
 
+	// 2nd View
+	_window.setView(sf::Vector2f(m_player.getPos().x / 4.f, 540.f), sf::FloatRect(0.3f, 0.f, 0.4f, 0.15f));
 
-	m_player.display(_window);
-
+	m_player.display(_window, false);
+	m_map.display(_window, false, m_player.getPos());
+	//
 }
