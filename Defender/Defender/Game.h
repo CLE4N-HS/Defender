@@ -10,5 +10,6 @@ public:
 	virtual void display(Window& _window);
 
 private:
+	sf::Vector2f m_viewPos;
 
 };
