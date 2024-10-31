@@ -149,7 +149,33 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Master.cpp" />
+    <ClCompile Include="MouseManager.cpp" />
+    <ClCompile Include="musicManager.cpp" />
+    <ClCompile Include="particleManager.cpp" />
+    <ClCompile Include="ressourcesManager.cpp" />
+    <ClCompile Include="soundManager.cpp" />
+    <ClCompile Include="State.cpp" />
+    <ClCompile Include="StateManager.cpp" />
+    <ClCompile Include="textureManager.cpp" />
+    <ClCompile Include="tools.cpp" />
+    <ClCompile Include="Window.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="Master.h" />
+    <ClInclude Include="MouseManager.h" />
+    <ClInclude Include="musicManager.h" />
+    <ClInclude Include="particleManager.h" />
+    <ClInclude Include="ressourcesManager.h" />
+    <ClInclude Include="soundManager.h" />
+    <ClInclude Include="State.h" />
+    <ClInclude Include="StateManager.h" />
+    <ClInclude Include="textureManager.h" />
+    <ClInclude Include="tools.h" />
+    <ClInclude Include="Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
