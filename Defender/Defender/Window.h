@@ -17,6 +17,7 @@ public:
 	sf::Vector2f getMousePos() const;
 	void draw(const sf::Drawable& drawable, const sf::RenderStates& states = sf::RenderStates::Default);
 	void setView(const sf::Vector2f& center, const sf::FloatRect& viewport, float factor);
+	void setView(const sf::Vector2f& center, const sf::FloatRect& viewport, float factor, sf::Vector2f size);
 
 	sf::RectangleShape rectangle;
 	sf::Text text;

@@ -155,6 +155,7 @@
     <ClCompile Include="MouseManager.cpp" />
     <ClCompile Include="musicManager.cpp" />
     <ClCompile Include="particleManager.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="ressourcesManager.cpp" />
     <ClCompile Include="soundManager.cpp" />
     <ClCompile Include="State.cpp" />
@@ -169,6 +170,7 @@
     <ClInclude Include="MouseManager.h" />
     <ClInclude Include="musicManager.h" />
     <ClInclude Include="particleManager.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="ressourcesManager.h" />
     <ClInclude Include="soundManager.h" />
     <ClInclude Include="State.h" />
