@@ -1,5 +1,6 @@
 #pragma once
 #include "State.h"
+#include "Enemies.h"
 
 class Game : public State
 {
@@ -11,5 +12,6 @@ public:
 
 private:
 	sf::Vector2f m_viewPos;
-
+	std::list<Enemies*> enemiesList;
+	
 };

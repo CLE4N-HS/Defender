@@ -149,11 +149,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Bullets.cpp" />
+    <ClCompile Include="Enemies.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Lander.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Master.cpp" />
     <ClCompile Include="MouseManager.cpp" />
     <ClCompile Include="musicManager.cpp" />
+    <ClCompile Include="Mutant.cpp" />
     <ClCompile Include="particleManager.cpp" />
     <ClCompile Include="ressourcesManager.cpp" />
     <ClCompile Include="soundManager.cpp" />
@@ -164,10 +168,14 @@
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bullets.h" />
+    <ClInclude Include="Enemies.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Lander.h" />
     <ClInclude Include="Master.h" />
     <ClInclude Include="MouseManager.h" />
     <ClInclude Include="musicManager.h" />
+    <ClInclude Include="Mutant.h" />
     <ClInclude Include="particleManager.h" />
     <ClInclude Include="ressourcesManager.h" />
     <ClInclude Include="soundManager.h" />

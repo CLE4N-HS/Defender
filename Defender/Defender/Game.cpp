@@ -2,6 +2,7 @@
 
 Game::Game() : m_viewPos()
 {
+	//enemiesList.push_back(new Lander());
 }
 
 Game::~Game()
