@@ -16,6 +16,7 @@ public:
 	float getDeltaTime() const;
 	sf::Vector2f getMousePos() const;
 	void draw(const sf::Drawable& drawable, const sf::RenderStates& states = sf::RenderStates::Default);
+	void setView(const sf::Vector2f& center, const sf::FloatRect& viewport, float factor);
 
 	sf::RectangleShape rectangle;
 	sf::Text text;
@@ -23,6 +24,7 @@ public:
 private:
 	sf::RenderWindow m_renderWindow;
 	sf::RenderTexture m_renderTexture;
+	sf::View m_view;
 	sf::Font m_font;
 
 	sf::VideoMode m_videoMode;

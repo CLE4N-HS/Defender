@@ -6,6 +6,7 @@ Window::Window() : Window("Title", sf::Style::Default)
 }
 
 Window::Window(const sf::String& title, sf::Uint32 style) : m_videoMode(sf::VideoMode::getDesktopMode()), m_title(title), m_style(style),
+	m_view(),
 	rectangle(), text(), m_renderTexture(), m_font(),
 	m_framerateLimit(60), m_isDone(false), m_fullscreenTimer(0.f),
 	m_event(), m_clock(), m_time(), m_deltaTime(), m_mousePos(), m_sprite(), m_texture()
@@ -77,6 +78,15 @@ sf::Vector2f Window::getMousePos() const
 void Window::draw(const sf::Drawable& drawable, const sf::RenderStates& states)
 {
 	m_renderTexture.draw(drawable, states);
+}
+
+void Window::setView(const sf::Vector2f& center, const sf::FloatRect& viewport, float factor)
+{
+	m_view.setCenter(center);
+	m_view.setSize(sf::Vector2f(1920.f, 1080.f));
+	m_view.setViewport(viewport);
+	m_view.zoom(factor);
+	m_renderTexture.setView(m_view);
 }
 
 void Window::toggleFullscreen()
