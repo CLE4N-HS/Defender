@@ -89,6 +89,15 @@ void Window::setView(const sf::Vector2f& center, const sf::FloatRect& viewport, 
 	m_renderTexture.setView(m_view);
 }
 
+void Window::setView(const sf::Vector2f& center, const sf::FloatRect& viewport, float factor, sf::Vector2f size)
+{
+	m_view.setCenter(center);
+	m_view.setSize(size);
+	m_view.setViewport(viewport);
+	m_view.zoom(factor);
+	m_renderTexture.setView(m_view);
+}
+
 void Window::toggleFullscreen()
 {
 	m_fullscreenTimer = 0.f;

@@ -1,6 +1,6 @@
 #include "Game.h"
 
-Game::Game() : m_viewPos()
+Game::Game() : m_viewPos(), m_player()
 {
 }
 
@@ -10,6 +10,7 @@ Game::~Game()
 
 void Game::update(Window& _window , State*& _state)
 {
+	m_player.update(_window);
 }
 
 void Game::display(Window& _window)
@@ -19,12 +20,27 @@ void Game::display(Window& _window)
 	_window.rectangle.setPosition(sf::Vector2f(0.f, 0.f));
 	_window.rectangle.setSize(sf::Vector2f(1920.f, 1080.f));
 	_window.rectangle.setFillColor(sf::Color::Black);
+	_window.rectangle.setTexture(nullptr);
 	_window.draw(_window.rectangle);
+	_window.rectangle.setFillColor(sf::Color(255, 255, 255, 255));
+
+
+
+	m_player.display(_window);
+
+	
 
 	_window.setView(sf::Vector2f(960.f, 540.f), sf::FloatRect(0.3f, 0.f, 0.4f, 0.15f), 1.f);
+	//_window.setView(sf::Vector2f(960.f, 540.f), sf::FloatRect(0.3f, 0.f, 0.4f, 0.15f), 1.f, sf::Vector2f(1920.f * 6.f, 1080.f));
 
 	_window.rectangle.setPosition(sf::Vector2f(0.f, 0.f));
 	_window.rectangle.setSize(sf::Vector2f(1920.f, 1080.f));
 	_window.rectangle.setFillColor(sf::Color::Green);
+	_window.rectangle.setTexture(nullptr);
 	_window.draw(_window.rectangle);
+	_window.rectangle.setFillColor(sf::Color(255, 255, 255, 255));
+
+
+	m_player.display(_window);
+
 }
