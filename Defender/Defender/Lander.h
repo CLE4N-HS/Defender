@@ -5,13 +5,13 @@ class Lander : public Enemies
 {
 public:
 
-	//Lander();
+	Lander();
 
-	/*void update(Window& _window);
-	void display(Window& _window);*/
+	void update(Window& _window);
+	void display(Window& _window);
 
 private:
-	/*void addBullet();*/
+	void addBullet();
 
 
 };

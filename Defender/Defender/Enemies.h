@@ -1,7 +1,6 @@
 #pragma once
 #include "Window.h"
 #include "Bullets.h"
-#include "Lander.h"
 
 
 typedef enum {

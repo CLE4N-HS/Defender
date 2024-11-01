@@ -1,8 +1,9 @@
 #include "Game.h"
+#include "Lander.h"
 
 Game::Game() : m_viewPos()
 {
-	//enemiesList.push_back(new Lander());
+	enemiesList.push_back(new Lander());
 }
 
 Game::~Game()
