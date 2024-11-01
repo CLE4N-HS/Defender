@@ -17,5 +17,4 @@ private:
 	std::list<Enemies*> enemiesList;
 	Player m_player;
 	Map m_map;
-
 };

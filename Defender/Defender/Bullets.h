@@ -6,16 +6,17 @@ class Bullets
 {
 public:
 	Bullets();
-	Bullets(sf::Vector2f _pos, float _timeToDie);
+	Bullets(sf::Vector2f _pos, sf::Vector2f _norDirection, sf::Vector2f _velocity);
 
 
-	void update();
-	void display();
+	virtual void update(Window& _window) = 0;
+	virtual void display(Window& _window) = 0;
 
-private:
+protected:
 
-	sf::Vector2f m_pos;
-	float m_timeToDie;
+	sf::Vector2f pos;
+	sf::Vector2f norDirction;
+	sf::Vector2f velocity;
 
 };
 

@@ -7,12 +7,16 @@ public:
 
 	Lander();
 
-	void update(Window& _window);
-	void display(Window& _window);
+	void update(Window& _window, sf::Vector2f _playerPos);
+	void display(Window& _window, bool _isMainView);
 
 private:
-	void addBullet();
+	void addBullet(sf::Vector2f _pos);
+	void shouldMove(sf::Vector2f _centerView);
 
-
+	float m_timerEachMoveY;
+	float m_timerDuringMoveY;
+	int m_directionX;
+	int m_directionY;
 };
 

@@ -5,11 +5,24 @@ float vec2fGetMagnitude(sf::Vector2f _vec)
     return sqrtf(_vec.x * _vec.x + _vec.y * _vec.y);
 }
 
+float vec2fGetSqrtMagnitude(sf::Vector2f _vec)
+{
+    return _vec.x * _vec.x + _vec.y * _vec.y;
+}
+
 void vec2fNormalize(sf::Vector2f& _vec)
 {
     float magnitude = vec2fGetMagnitude(_vec);
     if (magnitude >= EPSILON)
         _vec /= magnitude;
+}
+
+sf::Vector2f vec2fNormalizeValue(sf::Vector2f _vec)
+{
+    float magnitude = vec2fGetMagnitude(_vec);
+    if (magnitude >= EPSILON)
+        _vec /= magnitude;
+    return _vec;
 }
 
 sf::Vector2f polarCoord(sf::Vector2f const& _a, float const& _r, float const& _teta)

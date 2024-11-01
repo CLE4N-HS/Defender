@@ -149,7 +149,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Bullets.cpp" />
     <ClCompile Include="Enemies.cpp" />
+    <ClCompile Include="enemiesBullets.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Lander.cpp" />
     <ClCompile Include="main.cpp" />
@@ -168,7 +170,9 @@
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bullets.h" />
     <ClInclude Include="Enemies.h" />
+    <ClInclude Include="enemiesBullets.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Lander.h" />
     <ClInclude Include="Map.h" />
