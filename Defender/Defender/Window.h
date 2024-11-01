@@ -16,7 +16,14 @@ public:
 	float getDeltaTime() const;
 	sf::Vector2f getMousePos() const;
 	void draw(const sf::Drawable& drawable, const sf::RenderStates& states = sf::RenderStates::Default);
-	void setView(const sf::Vector2f& center, const sf::FloatRect& viewport, float factor);
+	void setView(const sf::Vector2f& center, const sf::FloatRect& viewport, float factor = 1.f);
+	void setView(const sf::Vector2f& center, const sf::FloatRect& viewport, float factor, sf::Vector2f size);
+
+	/// <summary>
+	/// Correct the pos if you're not using the main view,
+	/// Should not be used outside of Defender project
+	/// </summary>
+	sf::Vector2f viewCorrectPos(const sf::Vector2f& _pos, const bool& mainView) const;
 
 	sf::RectangleShape rectangle;
 	sf::Text text;
