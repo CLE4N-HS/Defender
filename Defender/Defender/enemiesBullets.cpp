@@ -22,7 +22,8 @@ void enemiesBullets::update(Window& _window)
 {
 	float delta = _window.getDeltaTime();
 
-	norDirction = sf::Vector2f(norDirction.x * velocity.x * delta, norDirction.y * velocity.y * delta);
+	//norDirction = sf::Vector2f(norDirction.x * velocity.x * delta, norDirction.y * velocity.y * delta);
+	norDirction = sf::Vector2f(norDirction.x * 100.f * delta, norDirction.y * 100.f * delta);
 	pos += norDirction;
 }
 

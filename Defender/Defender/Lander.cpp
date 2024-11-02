@@ -25,7 +25,7 @@ void Lander::update(Window& _window, sf::Vector2f _playerPos)
 			attackTimer -= delta;
 		else
 		{
-			bulletsList.push_back(new enemiesBullets(pos,vec2fNormalizeValue(sf::Vector2f(_playerPos - pos)), sf::Vector2f(50.f,50.f)));
+			bulletsList.push_back(new enemiesBullets(pos,vec2fNormalizeValue(sf::Vector2f(_playerPos - pos)), sf::Vector2f(100.f,100.f)));
 			attackTimer = rand() % 5 + 1;
 		}
 	}
@@ -80,8 +80,6 @@ void Lander::update(Window& _window, sf::Vector2f _playerPos)
 		pPosNor = sf::Vector2f(pPosNor.x * velocity.x * delta, pPosNor.y * velocity.y * delta);
 		pos += pPosNor;
 	}
-
-
 
 	for (std::list<Bullets*>::iterator it = bulletsList.begin(); it != bulletsList.end(); it++)
 		(*it)->update(_window);

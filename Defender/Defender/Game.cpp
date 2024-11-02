@@ -17,6 +17,8 @@ void Game::update(Window& _window , State*& _state)
 
 	for (std::list<Enemies*>::iterator it = enemiesList.begin(); it != enemiesList.end(); it++)
 		(*it)->update(_window, m_player.getPos());
+
+
 		
 }
 
