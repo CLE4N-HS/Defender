@@ -18,12 +18,19 @@ public:
 	void draw(const sf::Drawable& drawable, const sf::RenderStates& states = sf::RenderStates::Default);
 	void setView(const sf::Vector2f& center, const sf::FloatRect& viewport, float factor = 1.f);
 	void setView(const sf::Vector2f& center, const sf::FloatRect& viewport, float factor, sf::Vector2f size);
+	sf::Vector2f getViewPos() const;
+	void setViewPos(sf::Vector2f _pos);
 
 	/// <summary>
 	/// Correct the pos if you're not using the main view,
 	/// Should not be used outside of Defender project
 	/// </summary>
 	sf::Vector2f viewCorrectPos(const sf::Vector2f& _pos, const bool& mainView) const;
+
+	/// <summary>
+	/// Correct the pos like the view was default
+	/// </summary>
+	sf::Vector2f viewDefaultPos(const sf::Vector2f& _pos) const;
 
 	sf::RectangleShape rectangle;
 	sf::Text text;

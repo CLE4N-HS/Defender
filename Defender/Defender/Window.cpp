@@ -1,4 +1,6 @@
 #include "Window.h"
+#include "ressourcesManager.h"
+#include "particleManager.h"
 
 Window::Window() : Window("Title", sf::Style::Default)
 {
@@ -12,11 +14,12 @@ Window::Window(const sf::String& title, sf::Uint32 style) : m_videoMode(sf::Vide
 	m_event(), m_clock(), m_time(), m_deltaTime(), m_mousePos(), m_sprite(), m_texture()
 {
 	srand((unsigned int)time(NULL));
+	res_load(RES_ALL);
+	prt_InitParticles();
 
 	createWindow();
 	m_renderTexture.create(m_videoMode.width, m_videoMode.height);
-	//m_renderTexture.create(7680, 1080);
-	m_font.loadFromFile("../Resources/NeoTech.ttf"); // default font for now
+	m_font.loadFromFile("../Resources/Fonts/Square.ttf"); // default font
 	text.setFont(m_font);
 }
 
@@ -99,9 +102,24 @@ void Window::setView(const sf::Vector2f& center, const sf::FloatRect& viewport, 
 	m_renderTexture.setView(m_view);
 }
 
+sf::Vector2f Window::getViewPos() const
+{
+	return m_view.getCenter();
+}
+
+void Window::setViewPos(sf::Vector2f _pos)
+{
+	m_view.setCenter(_pos);
+}
+
 sf::Vector2f Window::viewCorrectPos(const sf::Vector2f& _pos, const bool& mainView) const
 {
 	return (mainView ? _pos : sf::Vector2f(_pos.x * 0.25f, _pos.y));
+}
+
+sf::Vector2f Window::viewDefaultPos(const sf::Vector2f& _pos) const
+{
+	return (m_view.getCenter() - (m_view.getSize() * 0.5f) + _pos);
 }
 
 void Window::toggleFullscreen()

@@ -66,7 +66,7 @@ void tex_load(int _state)
 		sscanf(tmpLine, "%s %s", tmpTexName, tmpTexPath);
 		sprintf(tmpTexFullPath, "%s%s", PATH_RESOURCES_TEXTURE, tmpTexPath);
 
-		int tmpTexPathLengthCount = strlen(tmpTexFullPath) - 1;
+		int tmpTexPathLengthCount = (int)strlen(tmpTexFullPath) - 1;
 		strcpy(tmpFilePath, tmpTexFullPath);
 
 		tex_SData* tmpTex = (tex_SData*)calloc(1, sizeof(tex_SData));
