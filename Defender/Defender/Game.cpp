@@ -4,6 +4,12 @@
 Game::Game() : m_viewPos(), m_player()
 {
 	enemiesList.push_back(new Lander());
+	enemiesList.push_back(new Lander());
+	enemiesList.push_back(new Lander());
+	enemiesList.push_back(new Lander());
+	enemiesList.push_back(new Lander());
+	enemiesList.push_back(new Lander());
+	enemiesList.push_back(new Lander());
 }
 
 Game::~Game()
@@ -12,13 +18,27 @@ Game::~Game()
 
 void Game::update(Window& _window , State*& _state)
 {
-	m_player.update(_window);
+	m_player.update(_window, bulletsList);
 	m_map.update(_window, m_player.getPos());
 
 	for (std::list<Enemies*>::iterator it = enemiesList.begin(); it != enemiesList.end(); it++)
-		(*it)->update(_window, m_player.getPos());
+		(*it)->update(_window, m_player.getPos(), bulletsList);
 
+	for (std::list<Bullets*>::iterator it = bulletsList.begin(); it != bulletsList.end(); it++)
+		(*it)->update(_window, particuleList);
 
+	for (std::list<Particule*>::iterator it = particuleList.begin(); it != particuleList.end();)
+	{
+		if ((*it)->getTimerValue() > 0)
+		{
+			(*it)->update(_window);
+			it++;
+		}
+		else
+			it = particuleList.erase(it);
+	}
+
+	colManager.update(bulletsList, m_player, enemiesList);
 		
 }
 
@@ -44,6 +64,12 @@ void Game::display(Window& _window)
 
 	for (std::list<Enemies*>::iterator it = enemiesList.begin(); it != enemiesList.end(); it++)
 		(*it)->display(_window,true);
+
+	for (std::list<Bullets*>::iterator it = bulletsList.begin(); it != bulletsList.end(); it++)
+		(*it)->display(_window);
+
+	for (std::list<Particule*>::iterator it = particuleList.begin(); it != particuleList.end(); it++)
+		(*it)->display(_window);
 	//
 	
 

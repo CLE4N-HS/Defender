@@ -16,8 +16,9 @@ public:
 
 	Enemies();
 
-	virtual void update(Window& _window, sf::Vector2f _playerPos) = 0;
+	virtual void update(Window& _window, sf::Vector2f _playerPos, std::list<Bullets*>& _bulList) = 0;
 	virtual void display(Window& _window, bool _isMainView) = 0;
+	virtual sf::FloatRect getEnemyColRect() const = 0;
 
 protected:
 	virtual void addBullet(sf::Vector2f _pos) = 0;
@@ -27,8 +28,7 @@ protected:
 	Enemy_state state;
 	float attackTimer;
 	sf::Vector2f velocity;
-
-	std::list<Bullets *> bulletsList;
+	sf::FloatRect colRect;
 };
 
 

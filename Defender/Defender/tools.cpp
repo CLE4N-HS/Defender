@@ -17,6 +17,16 @@ void vec2fNormalize(sf::Vector2f& _vec)
         _vec /= magnitude;
 }
 
+sf::Vector2f vec2fMultiply(sf::Vector2f _vec, float _num)
+{
+    return sf::Vector2f(_vec.x * _num, _vec.y * _num);
+}
+
+sf::Vector2f vec2fMultiplyVector(sf::Vector2f _vec1, sf::Vector2f _vec2)
+{
+    return sf::Vector2f(_vec1.x * _vec2.x, _vec1.y * _vec2.y);
+}
+
 sf::Vector2f vec2fNormalizeValue(sf::Vector2f _vec)
 {
     float magnitude = vec2fGetMagnitude(_vec);
@@ -43,4 +53,13 @@ float randomFloat(float min, float max)
 float lerp(float v0, float v1, float t)
 {
     return (1 - t) * v0 + t * v1;
+}
+
+float randFloat(const float& _min, const float& _max)
+{
+    float range = (_max - _min);
+    if (range <= 0.f)
+        return 0.f;
+    float div = (float)RAND_MAX / range;
+    return _min + (rand() / div);
 }

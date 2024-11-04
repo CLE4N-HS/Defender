@@ -5,7 +5,7 @@
 Lander::Lander()
 {
 	pos = sf::Vector2f(200.f, 150.0f);
-	velocity = sf::Vector2f(150.f, 150.f);
+	velocity = sf::Vector2f(300.f, 300.f);
 	state = E_GODOWN;		           //the current state
 	attackTimer = rand() % 5 + 1;          //timer bewteen each attack
 	m_timerEachMoveY = rand() % 4 + 1;     //timer between each Y movement 
@@ -14,7 +14,7 @@ Lander::Lander()
 	m_directionY = rand() % 2;          //direction y of the lander
 }
 
-void Lander::update(Window& _window, sf::Vector2f _playerPos)
+void Lander::update(Window& _window, sf::Vector2f _playerPos, std::list<Bullets*>& _bulList)
 {
 	float delta = _window.getDeltaTime();  //difference between player and enemy = 3500
 	shouldMove(_playerPos);
@@ -25,7 +25,7 @@ void Lander::update(Window& _window, sf::Vector2f _playerPos)
 			attackTimer -= delta;
 		else
 		{
-			bulletsList.push_back(new enemiesBullets(pos,vec2fNormalizeValue(sf::Vector2f(_playerPos - pos)), sf::Vector2f(100.f,100.f)));
+			_bulList.push_back(new enemiesBullets(pos,vec2fNormalizeValue(sf::Vector2f(_playerPos - pos)), sf::Vector2f(500.f,500.f)));
 			attackTimer = rand() % 5 + 1;
 		}
 	}
@@ -80,9 +80,6 @@ void Lander::update(Window& _window, sf::Vector2f _playerPos)
 		pPosNor = sf::Vector2f(pPosNor.x * velocity.x * delta, pPosNor.y * velocity.y * delta);
 		pos += pPosNor;
 	}
-
-	for (std::list<Bullets*>::iterator it = bulletsList.begin(); it != bulletsList.end(); it++)
-		(*it)->update(_window);
 }
 
 void Lander::display(Window& _window, bool _isMainView)
@@ -95,11 +92,13 @@ void Lander::display(Window& _window, bool _isMainView)
 	_window.rectangle.setPosition(_window.viewCorrectPos(pos, _isMainView));
 	_window.rectangle.setSize(sf::Vector2f(36.f, 32.f));
 	_window.rectangle.setOrigin(sf::Vector2f(18.f, 16.f));
-
+	colRect = sf::FloatRect(pos - _window.rectangle.getOrigin(), _window.rectangle.getSize());
 	_window.draw(_window.rectangle);
+}
 
-	for (std::list<Bullets*>::iterator it = bulletsList.begin(); it != bulletsList.end(); it++)
-		(*it)->display(_window);
+sf::FloatRect Lander::getEnemyColRect() const
+{
+	return colRect;
 }
 
 void Lander::addBullet(sf::Vector2f _pos)

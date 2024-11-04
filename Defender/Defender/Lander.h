@@ -7,8 +7,9 @@ public:
 
 	Lander();
 
-	void update(Window& _window, sf::Vector2f _playerPos);
+	void update(Window& _window, sf::Vector2f _playerPos,std::list<Bullets*>& _bulList);
 	void display(Window& _window, bool _isMainView);
+	virtual sf::FloatRect getEnemyColRect() const;
 
 private:
 	void addBullet(sf::Vector2f _pos);

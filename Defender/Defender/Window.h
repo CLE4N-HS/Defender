@@ -28,6 +28,8 @@ public:
 	sf::RectangleShape rectangle;
 	sf::Text text;
 
+	sf::RenderStates getRenderState() const;
+
 private:
 	sf::RenderWindow m_renderWindow;
 	sf::RenderTexture m_renderTexture;
@@ -52,6 +54,12 @@ private:
 	sf::Sprite m_sprite;
 	sf::Texture m_texture;
 
+	sf::RenderStates m_renderState;
+	sf::Shader m_shader;
+	float m_r;
+	float m_g;
+	float m_b;
+	float m_iTime;
 
 	void toggleFullscreen();
 	void createWindow();

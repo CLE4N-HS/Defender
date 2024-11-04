@@ -8,7 +8,7 @@ Window::Window() : Window("Title", sf::Style::Default)
 Window::Window(const sf::String& title, sf::Uint32 style) : m_videoMode(sf::VideoMode::getDesktopMode()), m_title(title), m_style(style),
 	m_view(),
 	rectangle(), text(), m_renderTexture(), m_font(),
-	m_framerateLimit(60), m_isDone(false), m_fullscreenTimer(0.f),
+	m_framerateLimit(1000), m_isDone(false), m_fullscreenTimer(0.f),
 	m_event(), m_clock(), m_time(), m_deltaTime(), m_mousePos(), m_sprite(), m_texture()
 {
 	srand((unsigned int)time(NULL));
@@ -18,6 +18,19 @@ Window::Window(const sf::String& title, sf::Uint32 style) : m_videoMode(sf::Vide
 	//m_renderTexture.create(7680, 1080);
 	m_font.loadFromFile("../Resources/NeoTech.ttf"); // default font for now
 	text.setFont(m_font);
+
+	m_shader.loadFromFile("","shader.frag");
+
+	m_renderState.blendMode = sf::BlendAlpha;
+	m_renderState.transform = sf::Transform::Identity;
+	m_renderState.shader = &m_shader;
+	m_renderState.texture = nullptr;
+
+	m_r = 0.0f;
+	m_g = 0.0f;
+	m_b = 0.0f;
+	m_iTime = 0.0f;
+
 }
 
 Window::~Window()
@@ -42,6 +55,14 @@ void Window::update()
 	m_fullscreenTimer += ((m_fullscreenTimer > 0.5f) ? 0.f : m_deltaTime);
 	if (m_hasFocus && m_fullscreenTimer >= 0.5f && sf::Keyboard::isKeyPressed(sf::Keyboard::F11))
 		toggleFullscreen();
+
+	float delta = getDeltaTime();
+	m_iTime += delta;
+
+	//m_shader.setUniform("r", m_r);
+	//m_shader.setUniform("g", m_g);
+	//m_shader.setUniform("b", m_b);
+	m_shader.setUniform("iTime", m_iTime);
 }
 
 void Window::display()
@@ -102,6 +123,11 @@ void Window::setView(const sf::Vector2f& center, const sf::FloatRect& viewport, 
 sf::Vector2f Window::viewCorrectPos(const sf::Vector2f& _pos, const bool& mainView) const
 {
 	return (mainView ? _pos : sf::Vector2f(_pos.x * 0.25f, _pos.y));
+}
+
+sf::RenderStates Window::getRenderState() const
+{
+	return m_renderState;
 }
 
 void Window::toggleFullscreen()
