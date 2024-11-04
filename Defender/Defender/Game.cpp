@@ -28,10 +28,10 @@ void Game::display(Window& _window)
 	//
 
 	// main View
-	_window.setView(sf::Vector2f(m_player.getPos().x, 540.f), sf::FloatRect(0.f, 0.f, 1.f, 1.f));
+	_window.setView(sf::Vector2f(m_player.getCenter().x, 540.f), sf::FloatRect(0.f, 0.f, 1.f, 1.f));
 
 	m_player.display(_window, true);
-	m_map.display(_window, true, m_player.getPos());
+	m_map.display(_window, true, m_player.getCenter());
 	//
 	
 
@@ -47,9 +47,9 @@ void Game::display(Window& _window)
 	//
 
 	// 2nd View
-	_window.setView(sf::Vector2f(m_player.getPos().x / 4.f, 540.f), sf::FloatRect(0.3f, 0.f, 0.4f, 0.15f));
+	_window.setView(sf::Vector2f(m_player.getCenter().x / 4.f, 540.f), sf::FloatRect(0.3f, 0.f, 0.4f, 0.15f));
 
 	m_player.display(_window, false);
-	m_map.display(_window, false, m_player.getPos());
+	m_map.display(_window, false, m_player.getCenter());
 	//
 }

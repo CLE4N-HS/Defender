@@ -18,6 +18,8 @@ public:
 	void draw(const sf::Drawable& drawable, const sf::RenderStates& states = sf::RenderStates::Default);
 	void setView(const sf::Vector2f& center, const sf::FloatRect& viewport, float factor = 1.f);
 	void setView(const sf::Vector2f& center, const sf::FloatRect& viewport, float factor, sf::Vector2f size);
+	sf::Vector2f getViewPos() const;
+	void setViewPos(sf::Vector2f _pos);
 
 	/// <summary>
 	/// Correct the pos if you're not using the main view,

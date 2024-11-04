@@ -99,6 +99,16 @@ void Window::setView(const sf::Vector2f& center, const sf::FloatRect& viewport, 
 	m_renderTexture.setView(m_view);
 }
 
+sf::Vector2f Window::getViewPos() const
+{
+	return m_view.getCenter();
+}
+
+void Window::setViewPos(sf::Vector2f _pos)
+{
+	m_view.setCenter(_pos);
+}
+
 sf::Vector2f Window::viewCorrectPos(const sf::Vector2f& _pos, const bool& mainView) const
 {
 	return (mainView ? _pos : sf::Vector2f(_pos.x * 0.25f, _pos.y));

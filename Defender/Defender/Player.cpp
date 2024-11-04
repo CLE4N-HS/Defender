@@ -5,7 +5,7 @@ Player::Player() : Player(sf::Vector2f(100.f, 540.f))
 {
 }
 
-Player::Player(sf::Vector2f _pos) : m_pos(_pos), m_forward(1.f, 0.f), m_speed(500.f), m_movingTime(0.f), m_wasFacingRight(true), m_hasReleased(true), m_wasMoving(false)
+Player::Player(sf::Vector2f _pos) : m_pos(_pos), m_forward(1.f, 0.f), m_speed(500.f), m_movingTime(0.f), m_wasFacingRight(true), m_hasReleased(true), m_wasMoving(false), m_facingTime(0.f)
 {
 }
 
@@ -68,6 +68,8 @@ void Player::update(Window& _window)
 
 
 	bool isMoving(false);
+	bool directionSave = m_wasFacingRight;
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
 	{
 		if (!m_wasMoving)
@@ -106,9 +108,20 @@ void Player::update(Window& _window)
 		isMoving = true;
 		m_wasMoving = true;
 	}
-
-
 	vec2fNormalize(m_forward);
+
+	if (directionSave != m_wasFacingRight)
+	{
+		m_facingTime = 0.f;
+		m_saveOffset = m_posOffset;
+	}
+	else
+	{
+		m_facingTime += dt;
+		m_facingTime = fminf(m_facingTime, 1.f);
+	}
+	m_posOffset = sf::Vector2f(lerp(m_saveOffset.x, 500.f + m_saveOffset.x, (m_wasFacingRight ? m_facingTime : -m_facingTime)), 0.f);
+	//_window.setViewPos(sf::Vector2f(_window.getViewPos().x + lerp(0.f, 500.f, (m_wasFacingRight ? m_facingTime : m_facingTime)), _window.getViewPos().y));
 
 
 	if (isMoving)
@@ -222,4 +235,9 @@ void Player::display(Window& _window, bool mainView)
 sf::Vector2f Player::getPos()
 {
 	return m_pos;
+}
+
+sf::Vector2f Player::getCenter()
+{
+	return (m_pos - m_posOffset);
 }
