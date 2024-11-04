@@ -27,6 +27,11 @@ public:
 	/// </summary>
 	sf::Vector2f viewCorrectPos(const sf::Vector2f& _pos, const bool& mainView) const;
 
+	/// <summary>
+	/// Correct the pos like the view was default
+	/// </summary>
+	sf::Vector2f viewDefaultPos(const sf::Vector2f& _pos) const;
+
 	sf::RectangleShape rectangle;
 	sf::Text text;
 

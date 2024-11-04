@@ -36,3 +36,18 @@ sf::Vector2f lerpVector(sf::Vector2f v0, sf::Vector2f v1, float t)
 {
     return sf::Vector2f(lerp(v0.x, v1.x, t), lerp(v0.y, v1.y, t));
 }
+
+float lerp_smooth(float v0, float v1, float t)
+{
+    return v0 + (v1 - v0) * (t * t * (3.f - 2.f * t));
+}
+
+sf::Color randomColor(sf::Uint8 _alpha)
+{
+    sf::Color c;
+    c.r = (sf::Uint8)(rand() % 255);
+    c.g = (sf::Uint8)(rand() % 255);
+    c.b = (sf::Uint8)(rand() % 255);
+    c.a = _alpha;
+    return c;
+}

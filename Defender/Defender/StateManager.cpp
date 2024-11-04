@@ -4,7 +4,6 @@
 
 StateManager::StateManager() : m_state(new Game)
 {
-	res_load(RES_ALL);
 }
 
 StateManager::~StateManager()
