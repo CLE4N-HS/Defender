@@ -24,10 +24,15 @@ int randomInt(int min, int max)
 
 float randomFloat(float min, float max)
 {
-    return (float)randomInt(min, max);
+    return (float)randomInt((int)min, (int)max);
 }
 
 float lerp(float v0, float v1, float t)
 {
-    return (1 - t) * v0 + t * v1;
+    return (1.f - t) * v0 + t * v1;
+}
+
+sf::Vector2f lerpVector(sf::Vector2f v0, sf::Vector2f v1, float t)
+{
+    return sf::Vector2f(lerp(v0.x, v1.x, t), lerp(v0.y, v1.y, t));
 }
