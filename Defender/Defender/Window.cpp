@@ -60,7 +60,7 @@ void Window::update()
 		toggleFullscreen();
 
 	float delta = getDeltaTime();
-	m_iTime += delta * 0.2f;
+	m_iTime += delta * 0.5f;
 
 	//m_shader.setUniform("r", m_r);
 	//m_shader.setUniform("g", m_g);

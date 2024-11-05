@@ -18,6 +18,8 @@ public:
 	sf::Vector2f getViewCenterPos() const;
 
 	void setDamage(int _damage);
+	int getLife() const;
+
 private:
 	sf::Vector2f m_pos;
 	sf::FloatRect m_colRect;

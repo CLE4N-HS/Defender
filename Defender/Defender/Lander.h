@@ -7,7 +7,7 @@ public:
 
 	Lander();
 
-	void update(Window& _window, sf::Vector2f _playerPos,std::list<Bullets*>& _bulList);
+	void update(Window& _window, Player _player,std::list<Bullets*>& _bulList);
 	void display(Window& _window, bool _isMainView);
 	virtual sf::FloatRect getEnemyColRect() const;
 

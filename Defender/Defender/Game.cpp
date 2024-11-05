@@ -21,12 +21,14 @@ Game::~Game()
 void Game::update(Window& _window , State*& _state)
 {
 	_window.setView(sf::Vector2f(m_player.getViewCenterPos().x, 540.f), sf::FloatRect(0.f, 0.f, 1.f, 1.f));
+	
+	if(m_player.getLife() > 0)
+		m_player.update(_window, bulletsList);
 
-	m_player.update(_window, bulletsList);
 	m_map.update(_window, m_player.getPos());
 
 	for (std::list<Enemies*>::iterator it = enemiesList.begin(); it != enemiesList.end(); it++)
-		(*it)->update(_window, m_player.getPos(), bulletsList);
+		(*it)->update(_window, m_player, bulletsList);
 
 	for (std::list<Bullets*>::iterator it = bulletsList.begin(); it != bulletsList.end(); it++)
 		(*it)->update(_window, particuleList);
@@ -74,7 +76,9 @@ void Game::display(Window& _window)
 	_window.setView(sf::Vector2f(m_player.getViewCenterPos().x, 540.f), sf::FloatRect(0.f, 0.f, 1.f, 1.f));
 
 	m_map.display(_window, true, m_player.getViewCenterPos());
-	m_player.display(_window, true);
+
+	if(m_player.getLife() > 0)
+		m_player.display(_window, true);
 
 	for (std::list<Enemies*>::iterator it = enemiesList.begin(); it != enemiesList.end(); it++)
 		(*it)->display(_window,true);

@@ -14,19 +14,24 @@ Lander::Lander()
 	m_directionY = rand() % 2;          //direction y of the lander
 }
 
-void Lander::update(Window& _window, sf::Vector2f _playerPos, std::list<Bullets*>& _bulList)
+void Lander::update(Window& _window, Player _player, std::list<Bullets*>& _bulList)
 {
 	float delta = _window.getDeltaTime();  //difference between player and enemy = 3500
-	shouldMove(_playerPos);
+	sf::Vector2f tmpPlayerPos = _player.getPos();
+
+	shouldMove(tmpPlayerPos);
 
 	if (state != E_MUTANT)
 	{
-		if (attackTimer > 0.0f)
-			attackTimer -= delta;
-		else
+		if (_player.getLife() > 0)
 		{
-			_bulList.push_back(new enemiesBullets(pos,vec2fNormalizeValue(sf::Vector2f(_playerPos - pos)), sf::Vector2f(500.f,500.f)));
-			attackTimer = rand() % 5 + 1;
+			if (attackTimer > 0.0f)
+				attackTimer -= delta;
+			else
+			{
+				_bulList.push_back(new enemiesBullets(pos, vec2fNormalizeValue(sf::Vector2f(tmpPlayerPos - pos)), sf::Vector2f(500.f, 500.f)));
+				attackTimer = rand() % 5 + 1;
+			}
 		}
 	}
 
@@ -55,7 +60,7 @@ void Lander::update(Window& _window, sf::Vector2f _playerPos, std::list<Bullets*
 		}
 		
 		if (pos.y >= 800.f) m_directionY = 0;
-		if (pos.y <= 150.f) m_directionY = 1;
+		if (pos.y <= 172.f - 16.f) m_directionY = 1;
 
 
 	}
@@ -73,7 +78,7 @@ void Lander::update(Window& _window, sf::Vector2f _playerPos, std::list<Bullets*
 	}
 	else if (state == E_MUTANT)
 	{
-		sf::Vector2f pPosNor = _playerPos - pos;
+		sf::Vector2f pPosNor = tmpPlayerPos - pos;
 		vec2fNormalize(pPosNor);
 
 
