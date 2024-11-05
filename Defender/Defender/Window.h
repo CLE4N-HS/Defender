@@ -32,8 +32,12 @@ public:
 	/// </summary>
 	sf::Vector2f viewDefaultPos(const sf::Vector2f& _pos) const;
 
+	sf::Vector2f viewCurrentPos(const sf::Vector2f& _pos) const;
+
 	sf::RectangleShape rectangle;
 	sf::Text text;
+
+	const sf::RenderStates& getRenderState() const;
 
 private:
 	sf::RenderWindow m_renderWindow;
@@ -59,6 +63,12 @@ private:
 	sf::Sprite m_sprite;
 	sf::Texture m_texture;
 
+	sf::RenderStates m_renderState;
+	sf::Shader m_shader;
+	float m_r;
+	float m_g;
+	float m_b;
+	float m_iTime;
 
 	void toggleFullscreen();
 	void createWindow();

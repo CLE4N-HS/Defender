@@ -1,7 +1,11 @@
 #pragma once
 #include "State.h"
+#include "Enemies.h"
 #include "Player.h"
 #include "Map.h"
+#include "Bullets.h"
+#include "CollisionManager.h"
+#include "Particule.h"
 
 class Game : public State
 {
@@ -13,8 +17,10 @@ public:
 
 private:
 	sf::Vector2f m_viewPos;
-
+	std::list<Enemies*> enemiesList;
+	std::list<Bullets*> bulletsList;
+	std::list<Particule*> particuleList;
 	Player m_player;
 	Map m_map;
-
+	CollisionManager colManager;
 };

@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "textureManager.h"
+#include "playerBullets.h"
 #include "particleManager.h"
 
 Player::Player() : Player(sf::Vector2f(100.f, 540.f))
@@ -7,70 +8,30 @@ Player::Player() : Player(sf::Vector2f(100.f, 540.f))
 }
 
 Player::Player(sf::Vector2f _pos) : m_pos(_pos), m_forward(1.f, 0.f), m_speed(1000.f), m_movingTime(0.f), m_wasFacingRight(true), m_hasReleased(true), m_wasMoving(false), m_facingTime(0.f),
-	m_boostTime(0.f), m_score(0)
+	m_boostTime(0.f), m_score(0), m_colRect()
 {
 	sf::IntRect tmpRect = tex_getAnimRect("all", "playerR");
 	m_size = sf::Vector2f(tmpRect.getSize());
 	m_origin = m_size * 0.5f;
+	m_life = 100.f;
+	m_fireRate = 0.2f;
+
 }
 
 Player::~Player()
 {
 }
 
-void Player::update(Window& _window)
+void Player::update(Window& _window, std::list<Bullets*>& _bulletsList)
 {
 	float dt = _window.getDeltaTime();
+	m_fireRate -= dt;
 
-	//sf::Vector2f previousForward(m_forward);
-	////m_forward = sf::Vector2f(0.f, 0.f);
-	//bool isMoving(false);
-	//// keyboard Movement
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
-	//{
-	//	m_forward.y -= 1.f;
-	//	isMoving = true;
-	//}
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
-	//{
-	//	m_forward.x -= 1.f;
-	//	m_wasFacingRight = false;
-	//	isMoving = true;
-	//}
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-	//{
-	//	m_forward.y += 1.f;
-	//	isMoving = true;
-	//}
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-	//{
-	//	m_forward.x += 1.f;
-	//	m_wasFacingRight = true;
-	//	isMoving = true;
-	//}
-	//vec2fNormalize(m_forward);
-	//
-	//// moving time
-	//if (isMoving)
-	//{
-	//	m_movingTime -= dt;
-	//	m_movingTime = fmaxf(0.f, m_movingTime);
-	//}
-	//else
-	//{
-	//	m_movingTime += dt;
-	//	m_movingTime = fminf(m_movingTime, 1.f);
-	//}
-	//
-	//
-	//
-	//m_speed = 500.f;
-	//m_velocity = m_forward * m_speed * dt;
-	//
-	////m_speed = fminf(500.f, m_movingTime * 500.f);
-	////m_speed = fmaxf(m_speed, 0.f);
-	//m_pos += m_velocity * dt;
-
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && m_fireRate < 0.0f )
+	{
+		m_fireRate = 0.2f;
+		_bulletsList.push_back(new playerBullets(m_pos, _window.viewCurrentPos(m_pos), m_wasFacingRight == 1 ? sf::Vector2f(1.f,0.f) : sf::Vector2f(-1.f, 0.f),sf::Vector2f(2000.f,2000.f)));
+	}
 
 	bool isMoving(false);
 	bool isMovingSideway(false);
@@ -136,12 +97,6 @@ void Player::update(Window& _window)
 
 	m_posOffset.x += (m_wasFacingRight ? 1.f : -1.f) * m_boostTime * 300.f;
 
-	//if (m_facingTime > 1.f)
-	{
-		//m_counterSteer.x = (m_posOffset.x < 0.f ? 1.f : -1.f) * fminf(m_movingTime - 1.f, 1.f) * 100.f;
-		//m_counterSteer.x = (m_posOffset.x < 0.f ? 1.f : -1.f) * fminf(m_boostTime, 1.f) * 100.f;
-		//m_posOffset.x += (m_posOffset.x < 0.f ? 1.f : -1.f) * fminf(m_movingTime - 1.f, 1.f) * 100.f;
-	}
 
 	if (isMovingSideway)
 	{
@@ -204,58 +159,6 @@ void Player::update(Window& _window)
 		m_pos.y = 1080.f - m_origin.y;
 
 
-
-
-
-	//// NO
-	//sf::Vector2f previousForward(m_forward);
-	//m_forward = sf::Vector2f(0.f, 0.f);
-	//bool isMoving(false);
-	//// keyboard Movement
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
-	//{
-	//	m_forward.y -= 1.f;
-	//	isMoving = true;
-	//}
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
-	//{
-	//	m_forward.x -= 1.f;
-	//	m_wasFacingRight = false;
-	//	isMoving = true;
-	//}
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-	//{
-	//	m_forward.y += 1.f;
-	//	isMoving = true;
-	//}
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-	//{
-	//	m_forward.x += 1.f;
-	//	m_wasFacingRight = true;
-	//	isMoving = true;
-	//}
-	//vec2fNormalize(m_forward);
-
-	//// moving time
-	//if (m_forward.x == 0.f && m_forward.y == 0.f)
-	//{
-	//	m_movingTime -= dt * 3.f;
-	//	m_movingTime = fmaxf(0.f, m_movingTime);
-
-	//	m_forward = previousForward;
-	//}
-	//else
-	//{
-	//	m_movingTime += dt;
-	//	m_movingTime = fminf(m_movingTime, 1.f);
-	//}
-	//m_velocity = m_forward * m_speed;
-
-	//m_speed = fminf(800.f, m_movingTime * 800.f);
-	//m_speed = fmaxf(m_speed, 0.f);
-	//m_pos += m_velocity * dt;
-
-
 }
 
 void Player::display(Window& _window, bool mainView)
@@ -263,8 +166,11 @@ void Player::display(Window& _window, bool mainView)
 	_window.rectangle.setTexture(tex_getTexture("all"));
 	_window.rectangle.setTextureRect(tex_getAnimRect("all", (m_wasFacingRight ? "playerR" : "playerL")));
 	_window.rectangle.setPosition(_window.viewCorrectPos(m_pos, mainView));
+
 	_window.rectangle.setSize(m_size);
 	_window.rectangle.setOrigin(m_origin);
+	m_colRect = sf::FloatRect(m_pos - _window.rectangle.getOrigin(), m_size);
+	
 	_window.draw(_window.rectangle);
 
 	if (mainView)
@@ -283,6 +189,16 @@ void Player::display(Window& _window, bool mainView)
 sf::Vector2f Player::getPos() const
 {
 	return m_pos;
+}
+
+sf::FloatRect Player::getRect() const
+{
+	return m_colRect;
+}
+
+void Player::setDamage(int _damage)
+{
+	m_life -= _damage;
 }
 
 sf::Vector2f Player::getViewCenterPos() const
