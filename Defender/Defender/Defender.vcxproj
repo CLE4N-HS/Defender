@@ -151,9 +151,11 @@
   <ItemGroup>
     <ClCompile Include="Bullets.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
+    <ClCompile Include="controller.cpp" />
     <ClCompile Include="Enemies.cpp" />
     <ClCompile Include="enemiesBullets.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="KeyboardManager.cpp" />
     <ClCompile Include="Lander.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
@@ -175,9 +177,11 @@
   <ItemGroup>
     <ClInclude Include="Bullets.h" />
     <ClInclude Include="CollisionManager.h" />
+    <ClInclude Include="controller.h" />
     <ClInclude Include="Enemies.h" />
     <ClInclude Include="enemiesBullets.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="KeyboardManager.h" />
     <ClInclude Include="Lander.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Master.h" />

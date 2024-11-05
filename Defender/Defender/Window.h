@@ -1,5 +1,7 @@
 #pragma once
 #include "tools.h"
+#include "KeyboardManager.h"
+#include "controller.h"
 
 class Window
 {
@@ -26,6 +28,8 @@ public:
 	/// Should not be used outside of Defender project
 	/// </summary>
 	sf::Vector2f viewCorrectPos(const sf::Vector2f& _pos, const bool& mainView) const;
+	sf::Vector2f viewCorrectOrigin(const sf::Vector2f& _origin, const bool& mainView) const;
+	sf::Vector2f viewCorrectScale(const sf::Vector2f& _scale, const bool& mainView) const;
 
 	/// <summary>
 	/// Correct the pos like the view was default
@@ -36,6 +40,7 @@ public:
 
 	sf::RectangleShape rectangle;
 	sf::Text text;
+	KeyboardManager keyboardManager;
 
 	const sf::RenderStates& getRenderState() const;
 

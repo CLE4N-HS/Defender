@@ -27,7 +27,7 @@ void Player::update(Window& _window, std::list<Bullets*>& _bulletsList)
 	float dt = _window.getDeltaTime();
 	m_fireRate -= dt;
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && m_fireRate < 0.0f )
+	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || Gamepad_isButtonPressed(0, gamepadXBOX::X) || Gamepad_getTriggerPos(0, false) > 0.1f) && m_fireRate < 0.0f)
 	{
 		m_fireRate = 0.2f;
 		_bulletsList.push_back(new playerBullets(m_pos, _window.viewCurrentPos(m_pos), m_wasFacingRight == 1 ? sf::Vector2f(1.f,0.f) : sf::Vector2f(-1.f, 0.f),sf::Vector2f(2000.f,2000.f)));
@@ -37,7 +37,15 @@ void Player::update(Window& _window, std::list<Bullets*>& _bulletsList)
 	bool isMovingSideway(false);
 	bool directionSave = m_wasFacingRight;
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
+	sf::Vector2f leftStickPos = Gamepad_getStickPos(0, STICKL);
+
+	bool up    = ((sf::Keyboard::isKeyPressed(sf::Keyboard::Z) && !sf::Keyboard::isKeyPressed(sf::Keyboard::S)) || leftStickPos.y < -10.f);
+	bool down  = ((sf::Keyboard::isKeyPressed(sf::Keyboard::S) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Z)) || leftStickPos.y > +10.f);
+	bool left  = ((sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && !sf::Keyboard::isKeyPressed(sf::Keyboard::D)) || leftStickPos.x < -10.f);
+	bool right = ((sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) || leftStickPos.x > +10.f);
+	bool cheatcode = (up && down && left && right); // little easter egg
+
+	if (up)
 	{
 		if (!m_wasMoving)
 			m_forward = sf::Vector2f();
@@ -46,7 +54,7 @@ void Player::update(Window& _window, std::list<Bullets*>& _bulletsList)
 		isMoving = true;
 		m_wasMoving = true;
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+	if (left)
 	{
 		if (!m_wasMoving)
 			m_forward = sf::Vector2f();
@@ -57,7 +65,7 @@ void Player::update(Window& _window, std::list<Bullets*>& _bulletsList)
 		isMovingSideway = true;
 		m_wasMoving = true;
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+	if (down)
 	{
 		if (!m_wasMoving)
 			m_forward = sf::Vector2f();
@@ -66,7 +74,7 @@ void Player::update(Window& _window, std::list<Bullets*>& _bulletsList)
 		isMoving = true;
 		m_wasMoving = true;
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !isMovingSideway)
+	if (right)
 	{
 		if (!m_wasMoving)
 			m_forward = sf::Vector2f();
@@ -166,7 +174,6 @@ void Player::display(Window& _window, bool mainView)
 	_window.rectangle.setTexture(tex_getTexture("all"));
 	_window.rectangle.setTextureRect(tex_getAnimRect("all", (m_wasFacingRight ? "playerR" : "playerL")));
 	_window.rectangle.setPosition(_window.viewCorrectPos(m_pos, mainView));
-
 	_window.rectangle.setSize(m_size);
 	_window.rectangle.setOrigin(m_origin);
 	m_colRect = sf::FloatRect(m_pos - _window.rectangle.getOrigin(), m_size);
