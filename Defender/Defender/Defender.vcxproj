@@ -172,6 +172,7 @@
     <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="textureManager.cpp" />
     <ClCompile Include="tools.cpp" />
+    <ClCompile Include="wave.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -197,6 +198,7 @@
     <ClInclude Include="StateManager.h" />
     <ClInclude Include="textureManager.h" />
     <ClInclude Include="tools.h" />
+    <ClInclude Include="wave.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>

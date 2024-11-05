@@ -4,7 +4,7 @@
 
 Lander::Lander()
 {
-	pos = sf::Vector2f(200.f, 150.0f);
+	pos = sf::Vector2f(randomFloat(0.0f,1920.f), randomFloat(0.0f,1080.f));
 	velocity = sf::Vector2f(300.f, 300.f);
 	state = E_GODOWN;		           //the current state
 	attackTimer = rand() % 5 + 1;          //timer bewteen each attack
