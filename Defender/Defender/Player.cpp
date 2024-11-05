@@ -46,7 +46,6 @@ void Player::update(Window& _window, std::list<Bullets*>& _bulletsList)
 		isMoving = true;
 		m_wasMoving = true;
 	}
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && !sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !_window.keyboardManager.hasJustReleased(sf::Keyboard::D))
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && !sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
 		if (!m_wasMoving)
@@ -67,7 +66,6 @@ void Player::update(Window& _window, std::list<Bullets*>& _bulletsList)
 		isMoving = true;
 		m_wasMoving = true;
 	}
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && !_window.keyboardManager.hasJustReleased(sf::Keyboard::Q))
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
 	{
 		if (!m_wasMoving)
