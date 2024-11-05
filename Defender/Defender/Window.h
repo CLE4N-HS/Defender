@@ -1,5 +1,6 @@
 #pragma once
 #include "tools.h"
+#include "KeyboardManager.h"
 
 class Window
 {
@@ -36,6 +37,7 @@ public:
 
 	sf::RectangleShape rectangle;
 	sf::Text text;
+	KeyboardManager keyboardManager;
 
 	const sf::RenderStates& getRenderState() const;
 

@@ -37,7 +37,7 @@ void Player::update(Window& _window, std::list<Bullets*>& _bulletsList)
 	bool isMovingSideway(false);
 	bool directionSave = m_wasFacingRight;
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z) && !sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
 		if (!m_wasMoving)
 			m_forward = sf::Vector2f();
@@ -46,7 +46,8 @@ void Player::update(Window& _window, std::list<Bullets*>& _bulletsList)
 		isMoving = true;
 		m_wasMoving = true;
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && !sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !_window.keyboardManager.hasJustReleased(sf::Keyboard::D))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && !sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
 		if (!m_wasMoving)
 			m_forward = sf::Vector2f();
@@ -57,7 +58,7 @@ void Player::update(Window& _window, std::list<Bullets*>& _bulletsList)
 		isMovingSideway = true;
 		m_wasMoving = true;
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
 	{
 		if (!m_wasMoving)
 			m_forward = sf::Vector2f();
@@ -66,7 +67,8 @@ void Player::update(Window& _window, std::list<Bullets*>& _bulletsList)
 		isMoving = true;
 		m_wasMoving = true;
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !isMovingSideway)
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && !_window.keyboardManager.hasJustReleased(sf::Keyboard::Q))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
 	{
 		if (!m_wasMoving)
 			m_forward = sf::Vector2f();
