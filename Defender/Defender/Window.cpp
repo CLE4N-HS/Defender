@@ -9,7 +9,7 @@ Window::Window() : Window("Title", sf::Style::Default)
 
 Window::Window(const sf::String& title, sf::Uint32 style) : m_videoMode(sf::VideoMode::getDesktopMode()), m_title(title), m_style(style),
 	m_view(),
-	rectangle(), text(), m_renderTexture(), m_font(),
+	rectangle(), text(), keyboardManager(), m_renderTexture(), m_font(),
 	m_framerateLimit(1000), m_isDone(false), m_fullscreenTimer(0.f),
 	m_event(), m_clock(), m_time(), m_deltaTime(), m_mousePos(), m_sprite(), m_texture()
 {
@@ -58,6 +58,11 @@ void Window::update()
 	m_fullscreenTimer += ((m_fullscreenTimer > 0.5f) ? 0.f : m_deltaTime);
 	if (m_hasFocus && m_fullscreenTimer >= 0.5f && sf::Keyboard::isKeyPressed(sf::Keyboard::F11))
 		toggleFullscreen();
+
+	keyboardManager.update();
+
+	if (m_hasFocus)
+		GamepadManager(0, m_event);
 
 	float delta = getDeltaTime();
 	m_iTime += delta * 0.2f;
@@ -135,7 +140,21 @@ void Window::setViewPos(sf::Vector2f _pos)
 
 sf::Vector2f Window::viewCorrectPos(const sf::Vector2f& _pos, const bool& mainView) const
 {
-	return (mainView ? _pos : sf::Vector2f(_pos.x * 0.25f, _pos.y));
+	sf::Vector2f z = (mainView ? _pos : sf::Vector2f(_pos.x * 0.25f, _pos.y + lerp(-172.f, 0.f, _pos.y / 1080.f)));
+	//return (mainView ? _pos : sf::Vector2f(_pos.x * 0.25f, _pos.y));
+	return (mainView ? _pos : sf::Vector2f(_pos.x * 0.25f, _pos.y + lerp(-172.f, 0.f, _pos.y / 1080.f)));
+}
+
+sf::Vector2f Window::viewCorrectOrigin(const sf::Vector2f& _origin, const bool& mainView) const
+{
+	sf::Vector2f o = (mainView ? _origin : sf::Vector2f(_origin.x * 0.25f, _origin.y / 1080.f * 172.f));
+	return o;
+}
+
+sf::Vector2f Window::viewCorrectScale(const sf::Vector2f& _scale, const bool& mainView) const
+{
+	sf::Vector2f a = (mainView ? _scale : sf::Vector2f(_scale.x * 0.25f, _scale.y));
+	return (mainView ? _scale : sf::Vector2f(_scale.x * 0.25f, _scale.y));
 }
 
 const sf::RenderStates& Window::getRenderState() const
