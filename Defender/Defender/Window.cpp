@@ -61,6 +61,9 @@ void Window::update()
 
 	keyboardManager.update();
 
+	if (m_hasFocus)
+		GamepadManager(0, m_event);
+
 	float delta = getDeltaTime();
 	m_iTime += delta * 0.2f;
 
@@ -137,7 +140,21 @@ void Window::setViewPos(sf::Vector2f _pos)
 
 sf::Vector2f Window::viewCorrectPos(const sf::Vector2f& _pos, const bool& mainView) const
 {
-	return (mainView ? _pos : sf::Vector2f(_pos.x * 0.25f, _pos.y));
+	sf::Vector2f z = (mainView ? _pos : sf::Vector2f(_pos.x * 0.25f, _pos.y + lerp(-172.f, 0.f, _pos.y / 1080.f)));
+	//return (mainView ? _pos : sf::Vector2f(_pos.x * 0.25f, _pos.y));
+	return (mainView ? _pos : sf::Vector2f(_pos.x * 0.25f, _pos.y + lerp(-172.f, 0.f, _pos.y / 1080.f)));
+}
+
+sf::Vector2f Window::viewCorrectOrigin(const sf::Vector2f& _origin, const bool& mainView) const
+{
+	sf::Vector2f o = (mainView ? _origin : sf::Vector2f(_origin.x * 0.25f, _origin.y / 1080.f * 172.f));
+	return o;
+}
+
+sf::Vector2f Window::viewCorrectScale(const sf::Vector2f& _scale, const bool& mainView) const
+{
+	sf::Vector2f a = (mainView ? _scale : sf::Vector2f(_scale.x * 0.25f, _scale.y));
+	return (mainView ? _scale : sf::Vector2f(_scale.x * 0.25f, _scale.y));
 }
 
 const sf::RenderStates& Window::getRenderState() const
