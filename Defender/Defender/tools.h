@@ -22,3 +22,7 @@ int randomInt(int min, int max);
 float randomFloat(float min, float max);
 float lerp(float v0, float v1, float t);
 float randFloat(const float& _min, const float& _max);
+sf::Vector2f lerpVector(sf::Vector2f v0, sf::Vector2f v1, float t);
+float lerp_smooth(float v0, float v1, float t);
+sf::Color randomColor(sf::Uint8 _alpha = 255);
+
