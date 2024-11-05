@@ -20,6 +20,8 @@ Game::~Game()
 
 void Game::update(Window& _window , State*& _state)
 {
+	_window.setView(sf::Vector2f(m_player.getViewCenterPos().x, 540.f), sf::FloatRect(0.f, 0.f, 1.f, 1.f));
+
 	m_player.update(_window, bulletsList);
 	m_map.update(_window, m_player.getPos());
 

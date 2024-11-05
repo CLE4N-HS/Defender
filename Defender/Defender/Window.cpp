@@ -22,7 +22,7 @@ Window::Window(const sf::String& title, sf::Uint32 style) : m_videoMode(sf::Vide
 	m_font.loadFromFile("../Resources/Fonts/Square.ttf"); // default font
 	text.setFont(m_font);
 
-	m_shader.loadFromFile("","shader.frag");
+	m_shader.loadFromFile("shader.frag", sf::Shader::Type::Fragment);
 
 	m_renderState.blendMode = sf::BlendAlpha;
 	m_renderState.transform = sf::Transform::Identity;
@@ -60,7 +60,7 @@ void Window::update()
 		toggleFullscreen();
 
 	float delta = getDeltaTime();
-	m_iTime += delta;
+	m_iTime += delta * 0.2f;
 
 	//m_shader.setUniform("r", m_r);
 	//m_shader.setUniform("g", m_g);
@@ -138,7 +138,7 @@ sf::Vector2f Window::viewCorrectPos(const sf::Vector2f& _pos, const bool& mainVi
 	return (mainView ? _pos : sf::Vector2f(_pos.x * 0.25f, _pos.y));
 }
 
-sf::RenderStates Window::getRenderState() const
+const sf::RenderStates& Window::getRenderState() const
 {
 	return m_renderState;
 }
@@ -146,6 +146,11 @@ sf::RenderStates Window::getRenderState() const
 sf::Vector2f Window::viewDefaultPos(const sf::Vector2f& _pos) const
 {
 	return (m_view.getCenter() - (m_view.getSize() * 0.5f) + _pos);
+}
+
+sf::Vector2f Window::viewCurrentPos(const sf::Vector2f& _pos) const
+{
+	return (sf::Vector2f(_pos.x - m_view.getCenter().x + m_view.getSize().x * 0.5f, _pos.y));
 }
 
 void Window::toggleFullscreen()

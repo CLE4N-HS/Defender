@@ -6,7 +6,7 @@ class playerBullets : public Bullets
 
 public:
 	playerBullets();
-	playerBullets(sf::Vector2f _pos, sf::Vector2f _norDirection, sf::Vector2f _velocity);
+	playerBullets(sf::Vector2f _pos, sf::Vector2f _viewPos, sf::Vector2f _norDirection, sf::Vector2f _velocity);
 
 
 	~playerBullets();

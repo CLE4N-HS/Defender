@@ -6,7 +6,7 @@ class Bullets
 {
 public:
 	Bullets();
-	Bullets(sf::Vector2f _pos, sf::Vector2f _norDirection, sf::Vector2f _velocity);
+	Bullets(sf::Vector2f _pos, sf::Vector2f _viewPos, sf::Vector2f _norDirection, sf::Vector2f _velocity);
 
 
 	virtual void update(Window& _window, std::list<Particule*>& _particuleList) = 0;
@@ -18,6 +18,7 @@ public:
 protected:
 
 	sf::Vector2f pos;
+	sf::Vector2f viewPos;
 	sf::Vector2f norDirction;
 	sf::Vector2f velocity;
 	sf::FloatRect colRect;

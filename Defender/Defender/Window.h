@@ -32,10 +32,12 @@ public:
 	/// </summary>
 	sf::Vector2f viewDefaultPos(const sf::Vector2f& _pos) const;
 
+	sf::Vector2f viewCurrentPos(const sf::Vector2f& _pos) const;
+
 	sf::RectangleShape rectangle;
 	sf::Text text;
 
-	sf::RenderStates getRenderState() const;
+	const sf::RenderStates& getRenderState() const;
 
 private:
 	sf::RenderWindow m_renderWindow;

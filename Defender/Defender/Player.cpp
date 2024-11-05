@@ -30,7 +30,7 @@ void Player::update(Window& _window, std::list<Bullets*>& _bulletsList)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && m_fireRate < 0.0f )
 	{
 		m_fireRate = 0.2f;
-		_bulletsList.push_back(new playerBullets(m_pos,m_wasFacingRight == 1 ? sf::Vector2f(1.f,0.f) : sf::Vector2f(-1.f, 0.f),sf::Vector2f(2000.f,2000.f)));
+		_bulletsList.push_back(new playerBullets(m_pos, _window.viewCurrentPos(m_pos), m_wasFacingRight == 1 ? sf::Vector2f(1.f,0.f) : sf::Vector2f(-1.f, 0.f),sf::Vector2f(2000.f,2000.f)));
 	}
 
 	bool isMoving(false);

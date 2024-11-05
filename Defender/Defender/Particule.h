@@ -6,7 +6,7 @@ class Particule
 public:
 	
 	Particule();
-	Particule(sf::Vector2f _pos, float _timeToDie);
+	Particule(sf::Vector2f _pos, sf::Vector2f _viewPos, float _timeToDie);
 
 	~Particule();
 
@@ -17,6 +17,7 @@ public:
 
 private:
 	sf::Vector2f m_pos;
+	sf::Vector2f m_viewPos;
 	float m_timeToDie;
 };
 
