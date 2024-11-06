@@ -154,6 +154,7 @@
     <ClCompile Include="controller.cpp" />
     <ClCompile Include="Enemies.cpp" />
     <ClCompile Include="enemiesBullets.cpp" />
+    <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="HighScore.cpp" />
     <ClCompile Include="KeyboardManager.cpp" />
@@ -161,6 +162,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Master.cpp" />
+    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="MouseManager.cpp" />
     <ClCompile Include="musicManager.cpp" />
     <ClCompile Include="particleManager.cpp" />
@@ -181,12 +183,14 @@
     <ClInclude Include="controller.h" />
     <ClInclude Include="Enemies.h" />
     <ClInclude Include="enemiesBullets.h" />
+    <ClInclude Include="Entity.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="HighScore.h" />
     <ClInclude Include="KeyboardManager.h" />
     <ClInclude Include="Lander.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Master.h" />
+    <ClInclude Include="Menu.h" />
     <ClInclude Include="MouseManager.h" />
     <ClInclude Include="musicManager.h" />
     <ClInclude Include="particleManager.h" />

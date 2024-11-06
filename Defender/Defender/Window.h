@@ -38,6 +38,8 @@ public:
 
 	sf::Vector2f viewCurrentPos(const sf::Vector2f& _pos) const;
 
+	void textCenterOrigin();
+
 	sf::RectangleShape rectangle;
 	sf::Text text;
 	KeyboardManager keyboardManager;

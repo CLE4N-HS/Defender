@@ -10,7 +10,7 @@ Window::Window() : Window("Title", sf::Style::Default)
 Window::Window(const sf::String& title, sf::Uint32 style) : m_videoMode(sf::VideoMode::getDesktopMode()), m_title(title), m_style(style),
 	m_view(),
 	rectangle(), text(), keyboardManager(), m_renderTexture(), m_font(),
-	m_framerateLimit(1000), m_isDone(false), m_fullscreenTimer(0.f),
+	m_framerateLimit(120), m_isDone(false), m_fullscreenTimer(0.f),
 	m_event(), m_clock(), m_time(), m_deltaTime(), m_mousePos(), m_sprite(), m_texture()
 {
 	srand((unsigned int)time(NULL));
@@ -170,6 +170,12 @@ sf::Vector2f Window::viewDefaultPos(const sf::Vector2f& _pos) const
 sf::Vector2f Window::viewCurrentPos(const sf::Vector2f& _pos) const
 {
 	return (sf::Vector2f(_pos.x - m_view.getCenter().x + m_view.getSize().x * 0.5f, _pos.y));
+}
+
+void Window::textCenterOrigin()
+{
+	sf::FloatRect tmpRect = this->text.getGlobalBounds();
+	this->text.setOrigin(sf::Vector2f(tmpRect.width * 0.5f, tmpRect.height));
 }
 
 void Window::toggleFullscreen()

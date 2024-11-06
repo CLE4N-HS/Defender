@@ -2,8 +2,7 @@
 #include "Lander.h"
 #include "particleManager.h"
 
-
-Game::Game() : m_viewPos(), m_player(), m_highScore()
+Game::Game() : m_viewPos(), m_player()
 {
 	enemiesList.push_back(new Lander());
 	enemiesList.push_back(new Lander());
@@ -12,14 +11,6 @@ Game::Game() : m_viewPos(), m_player(), m_highScore()
 	enemiesList.push_back(new Lander());
 	enemiesList.push_back(new Lander());
 	enemiesList.push_back(new Lander());
-
-	m_highScore.display();
-	m_highScore.addScore(12, "douze");
-	m_highScore.addScore(24, "vQuatre");
-	m_highScore.addScore(100000, "beacoup");
-	m_highScore.addScore(0, "no");
-	m_highScore.addScore(22, "middle");
-	m_highScore.display();
 }
 
 Game::~Game()
@@ -53,7 +44,6 @@ void Game::update(Window& _window , State*& _state)
 	colManager.update(bulletsList, m_player, enemiesList);
 		
 	prt_UpdateParticles(_window.getDeltaTime());
-
 }
 
 void Game::display(Window& _window)
