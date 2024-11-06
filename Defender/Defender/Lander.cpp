@@ -14,6 +14,20 @@ Lander::Lander()
 	m_directionY = rand() % 2;          //direction y of the lander
 }
 
+Lander::Lander(sf::Vector2f _pos, Window& _window)
+{
+	pos = sf::Vector2f(randomFloat( _window.viewCurrentPos(_pos).x +1920.f, _window.viewCurrentPos(_pos).x - 1920.f) , 0.0f);
+	//pos = sf::Vector2f(_window.viewCurrentPos(_pos).x - 960.f, 0.0f);
+	//pos = sf::Vector2f(_pos.x - 1920.f, 0.0f);
+	velocity = sf::Vector2f(300.f, 300.f);
+	state = E_GODOWN;		           //the current state
+	attackTimer = rand() % 5 + 1;          //timer bewteen each attack
+	m_timerEachMoveY = rand() % 4 + 1;     //timer between each Y movement 
+	m_timerDuringMoveY = rand() % 2 + 1;   //timer during Y movement 
+	m_directionX = rand() % 2;          //direction x of the lander
+	m_directionY = rand() % 2;          //direction y of the lander
+}
+
 void Lander::update(Window& _window, Player _player, std::list<Bullets*>& _bulList)
 {
 	float delta = _window.getDeltaTime();  //difference between player and enemy = 3500

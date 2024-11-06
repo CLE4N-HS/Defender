@@ -6,6 +6,7 @@ class Lander : public Enemies
 public:
 
 	Lander();
+	Lander(sf::Vector2f _pos, Window& _window);
 
 	void update(Window& _window, Player _player,std::list<Bullets*>& _bulList);
 	void display(Window& _window, bool _isMainView);
