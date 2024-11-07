@@ -210,11 +210,6 @@ void Player::setDamage(int _damage)
 	m_life -= _damage;
 }
 
-int Player::getLife() const
-{
-	return m_life;
-}
-
 sf::Vector2f Player::getViewCenterPos() const
 {
 	return (m_pos - m_posOffset);

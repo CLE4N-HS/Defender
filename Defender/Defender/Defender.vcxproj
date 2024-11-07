@@ -155,8 +155,10 @@
     <ClCompile Include="BonusManager.cpp" />
     <ClCompile Include="BonusSpeed.cpp" />
     <ClCompile Include="Bullets.cpp" />
+    <ClCompile Include="civilians.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="controller.cpp" />
+    <ClCompile Include="Detection.cpp" />
     <ClCompile Include="DetectionPlayerBonus.cpp" />
     <ClCompile Include="Enemies.cpp" />
     <ClCompile Include="enemiesBullets.cpp" />
@@ -182,6 +184,7 @@
     <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="textureManager.cpp" />
     <ClCompile Include="tools.cpp" />
+    <ClCompile Include="wave.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -191,8 +194,10 @@
     <ClInclude Include="BonusManager.h" />
     <ClInclude Include="BonusSpeed.h" />
     <ClInclude Include="Bullets.h" />
+    <ClInclude Include="civilians.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="controller.h" />
+    <ClInclude Include="Detection.h" />
     <ClInclude Include="DetectionPlayerBonus.h" />
     <ClInclude Include="Enemies.h" />
     <ClInclude Include="enemiesBullets.h" />
@@ -217,6 +222,7 @@
     <ClInclude Include="StateManager.h" />
     <ClInclude Include="textureManager.h" />
     <ClInclude Include="tools.h" />
+    <ClInclude Include="wave.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>

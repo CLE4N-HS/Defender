@@ -33,5 +33,4 @@ private:
 	Detection detectionManager;
 	DetectionPlayerBonus m_detectionPlayerBonus;
 	Hud m_hud;
-
 };
