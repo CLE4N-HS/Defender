@@ -28,6 +28,7 @@ public:
 	virtual bool isEnemyTarget() = 0;
 	virtual void setVelocity(sf::Vector2f _vel) = 0;
 	virtual civilians* getTargetedCivil() = 0;
+	virtual void setGrabbedCivil() = 0;
 
 protected:
 	virtual void addBullet(sf::Vector2f _pos) = 0;
@@ -39,6 +40,7 @@ protected:
 	sf::Vector2f velocity;
 	sf::FloatRect colRect;
 	civilians* targetCivil;
+	bool haveGrabbedCivil;
 };
 
 

@@ -33,7 +33,14 @@ void Detection::update(std::list<Enemies*> _enemiesList, std::list<civilians*> _
 			}
 			else // if he targeted a civil 
 			{
+				
+
+				
 				if (tmpEPos.y > 172.f + 16.f)
+				{
+					
+				}
+				else
 				{
 					eraseCivil(_civilList, (*e)->getTargetedCivil());
 					(*e)->setEnemyState(E_MUTANT);

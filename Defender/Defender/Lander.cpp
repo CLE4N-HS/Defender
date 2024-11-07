@@ -29,6 +29,7 @@ Lander::Lander(sf::Vector2f _pos, Window& _window)
 	m_directionY = rand() % 2;          //direction y of the lander
 	m_timerToCatch = randomFloat(5.f, 20.f);
 	targetCivil = nullptr;
+	haveGrabbedCivil = false;
 }
 
 void Lander::update(Window& _window, Player _player, std::list<Bullets*>& _bulList)
