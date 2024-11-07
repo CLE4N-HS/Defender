@@ -21,6 +21,10 @@ public:
 	void addBomb(unsigned int _bomb);
 	void addLife(unsigned int _life);
 
+	inline int getLife() { return m_life; }
+	inline int getScore() { return m_score; }
+	inline int getBomb() { return m_bomb; }
+		
 	void setDamage(int _damage);
 
 private:
