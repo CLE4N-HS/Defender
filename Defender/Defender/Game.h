@@ -23,4 +23,5 @@ private:
 	Player m_player;
 	Map m_map;
 	CollisionManager colManager;
+
 };

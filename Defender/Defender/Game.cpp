@@ -1,7 +1,8 @@
 #include "Game.h"
 #include "Lander.h"
 #include "particleManager.h"
-
+#include "Menu.h"
+#include "HighScore.h"
 
 Game::Game() : m_viewPos(), m_player()
 {
@@ -45,6 +46,13 @@ void Game::update(Window& _window , State*& _state)
 	colManager.update(bulletsList, m_player, enemiesList);
 		
 	prt_UpdateParticles(_window.getDeltaTime());
+
+	if (_window.keyboardManager.hasJustPressed(sf::Keyboard::M))
+	{
+		HighScore::save();
+		_state = new Menu;
+	}
+
 
 }
 
