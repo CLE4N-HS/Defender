@@ -3,8 +3,9 @@
 #include "particleManager.h"
 #include "Menu.h"
 #include "HighScore.h"
+#include "BonusManager.h"
 
-Game::Game() : m_viewPos(), m_player()
+Game::Game() : m_viewPos(), m_player(), m_detectionPlayerBonus()
 {
 	enemiesList.push_back(new Lander());
 	enemiesList.push_back(new Lander());
@@ -32,6 +33,8 @@ void Game::update(Window& _window , State*& _state)
 	for (std::list<Bullets*>::iterator it = bulletsList.begin(); it != bulletsList.end(); it++)
 		(*it)->update(_window, particuleList);
 
+	BonusManager::update(_window);
+
 	for (std::list<Particule*>::iterator it = particuleList.begin(); it != particuleList.end();)
 	{
 		if ((*it)->getTimerValue() > 0)
@@ -46,6 +49,10 @@ void Game::update(Window& _window , State*& _state)
 	colManager.update(bulletsList, m_player, enemiesList);
 		
 	prt_UpdateParticles(_window.getDeltaTime());
+
+
+	m_detectionPlayerBonus.detectCollision(m_player);
+
 
 	if (_window.keyboardManager.hasJustPressed(sf::Keyboard::M))
 	{
@@ -90,6 +97,8 @@ void Game::display(Window& _window)
 	for (std::list<Bullets*>::iterator it = bulletsList.begin(); it != bulletsList.end(); it++)
 		(*it)->display(_window);
 
+	BonusManager::display(_window, true);
+
 	for (std::list<Particule*>::iterator it = particuleList.begin(); it != particuleList.end(); it++)
 		(*it)->display(_window);
 
@@ -118,6 +127,8 @@ void Game::display(Window& _window)
 	
 	for (std::list<Enemies*>::iterator it = enemiesList.begin(); it != enemiesList.end(); it++)
 		(*it)->display(_window, false);
+
+	BonusManager::display(_window, false);
 
 	m_map.display(_window, false, m_player.getViewCenterPos());
 

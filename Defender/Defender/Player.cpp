@@ -14,7 +14,8 @@ Player::Player(sf::Vector2f _pos) : m_pos(_pos), m_forward(1.f, 0.f), m_speed(10
 	m_size = sf::Vector2f(tmpRect.getSize());
 	m_origin = m_size * 0.5f;
 	m_life = 100.f;
-	m_fireRate = 0.2f;
+	m_maxFireRate = 0.2f;
+	m_fireRate = m_maxFireRate;
 
 }
 
@@ -29,7 +30,7 @@ void Player::update(Window& _window, std::list<Bullets*>& _bulletsList)
 
 	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || Gamepad_isButtonPressed(0, gamepadXBOX::X) || Gamepad_getTriggerPos(0, false) > 0.1f) && m_fireRate < 0.0f)
 	{
-		m_fireRate = 0.2f;
+		m_fireRate = m_maxFireRate;
 		_bulletsList.push_back(new playerBullets(m_pos, _window.viewCurrentPos(m_pos), m_wasFacingRight == 1 ? sf::Vector2f(1.f,0.f) : sf::Vector2f(-1.f, 0.f),sf::Vector2f(2000.f,2000.f)));
 	}
 
@@ -211,4 +212,28 @@ void Player::setDamage(int _damage)
 sf::Vector2f Player::getViewCenterPos() const
 {
 	return (m_pos - m_posOffset);
+}
+
+void Player::decreaseFirerate(float _speed)
+{
+	m_maxFireRate -= _speed;
+
+	if (m_maxFireRate < 0.05f)
+		m_maxFireRate = 0.05f;
+}
+
+void Player::addBomb(unsigned int _bomb)
+{
+	m_bomb += _bomb;
+
+	if (m_bomb > 3)
+		m_bomb = 3;
+}
+
+void Player::addLife(unsigned int _life)
+{
+	m_life += _life;
+
+	if (m_life > 5)
+		m_life = 5;
 }
