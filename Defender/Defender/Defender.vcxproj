@@ -149,16 +149,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Bonus.cpp" />
+    <ClCompile Include="BonusBomb.cpp" />
+    <ClCompile Include="BonusLife.cpp" />
+    <ClCompile Include="BonusManager.cpp" />
+    <ClCompile Include="BonusSpeed.cpp" />
     <ClCompile Include="Bullets.cpp" />
-    <ClCompile Include="civilians.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="controller.cpp" />
-    <ClCompile Include="Detection.cpp" />
+    <ClCompile Include="DetectionPlayerBonus.cpp" />
     <ClCompile Include="Enemies.cpp" />
     <ClCompile Include="enemiesBullets.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="HighScore.cpp" />
+    <ClCompile Include="Hud.cpp" />
     <ClCompile Include="KeyboardManager.cpp" />
     <ClCompile Include="Lander.cpp" />
     <ClCompile Include="main.cpp" />
@@ -177,20 +182,24 @@
     <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="textureManager.cpp" />
     <ClCompile Include="tools.cpp" />
-    <ClCompile Include="wave.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bonus.h" />
+    <ClInclude Include="BonusBomb.h" />
+    <ClInclude Include="BonusLife.h" />
+    <ClInclude Include="BonusManager.h" />
+    <ClInclude Include="BonusSpeed.h" />
     <ClInclude Include="Bullets.h" />
-    <ClInclude Include="civilians.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="controller.h" />
-    <ClInclude Include="Detection.h" />
+    <ClInclude Include="DetectionPlayerBonus.h" />
     <ClInclude Include="Enemies.h" />
     <ClInclude Include="enemiesBullets.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="HighScore.h" />
+    <ClInclude Include="Hud.h" />
     <ClInclude Include="KeyboardManager.h" />
     <ClInclude Include="Lander.h" />
     <ClInclude Include="Map.h" />
@@ -208,7 +217,6 @@
     <ClInclude Include="StateManager.h" />
     <ClInclude Include="textureManager.h" />
     <ClInclude Include="tools.h" />
-    <ClInclude Include="wave.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>

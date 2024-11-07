@@ -17,8 +17,15 @@ public:
 	sf::Vector2f getPos() const;
 	sf::Vector2f getViewCenterPos() const;
 
+	void decreaseFirerate(float _speed);
+	void addBomb(unsigned int _bomb);
+	void addLife(unsigned int _life);
+
+	inline int getLife() { return m_life; }
+	inline int getScore() { return m_score; }
+	inline int getBomb() { return m_bomb; }
+		
 	void setDamage(int _damage);
-	int getLife() const;
 
 private:
 	sf::Vector2f m_pos;
@@ -39,11 +46,14 @@ private:
 
 	int m_life;
 	float m_fireRate;
+	float m_maxFireRate;
 
 	bool m_wasMoving;
 	bool m_hasReleased;
 
 	float m_facingTime;
 	int m_score;
+
+	int m_bomb;
 
 };

@@ -9,6 +9,8 @@
 #include "wave.h"
 #include "civilians.h"
 #include "Detection.h"
+#include "DetectionPlayerBonus.h"
+#include "Hud.h"
 
 class Game : public State
 {
@@ -29,5 +31,7 @@ private:
 	wave m_wave;
 	CollisionManager colManager;
 	Detection detectionManager;
+	DetectionPlayerBonus m_detectionPlayerBonus;
+	Hud m_hud;
 
 };

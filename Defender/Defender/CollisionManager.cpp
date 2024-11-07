@@ -1,5 +1,7 @@
 #include "CollisionManager.h"
 #include "particleManager.h"
+#include "BonusManager.h"
+
 
 void CollisionManager::update(std::list<Bullets*>& _bulletsList, Player& _player, std::list<Enemies*>& _enemiesList)
 {
@@ -56,6 +58,9 @@ void CollisionManager::update(std::list<Bullets*>& _bulletsList, Player& _player
 				
 				if (tmpEnemyRect.intersects(tmpBulletRect))
 				{
+					//if (rand() % 5 == 0)
+					//	BonusManager::createRandomBonus((*ite)->getPos());
+
 					ite = _enemiesList.erase(ite);
 					haveToChange = true;
 				}
