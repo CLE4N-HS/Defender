@@ -17,7 +17,7 @@ civilians::civilians()
 
 }
 
-void civilians::update(Window& _window)
+void civilians::update(Window& _window, sf::Vector2f _playerPos)
 {
 	float delta = _window.getDeltaTime();
 	sf::Vector2f tmpViewPos = _window.getViewPos();
@@ -90,9 +90,19 @@ void civilians::update(Window& _window)
 		
 		m_pos.y -= 200.f * delta;
 		break;
+	case C_GRABBED_BY_PLAYER:
+		if (m_pos.y < 980.f)
+		{
+			m_pos = sf::Vector2f(_playerPos.x, _playerPos.y + 25.f);
+		}
+		else
+			m_state = C_WALK;
+		break;
 	case C_FALL:
-
-		m_pos.y += 300.f;
+		//if (m_pos.y < 980.f)
+			m_pos.y += 300.f * delta;
+		/*else
+			m_state = C_WALK;*/
 		break;
 	default:
 		m_state = C_WAITING;

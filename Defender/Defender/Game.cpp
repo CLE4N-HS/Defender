@@ -10,9 +10,6 @@ Game::Game() : m_viewPos(), m_player(), m_detectionPlayerBonus(), m_hud()
 	{
 		civilianList.push_back(new civilians());
 	}
-		enemiesList.push_back(new Lander());
-		enemiesList.push_back(new Lander());
-		enemiesList.push_back(new Lander());
 }
 
 Game::~Game()
@@ -21,7 +18,7 @@ Game::~Game()
 
 void Game::update(Window& _window , State*& _state)
 {
-	//m_wave.update(_window, enemiesList, m_player.getPos());
+	m_wave.update(_window, enemiesList, m_player.getPos());
 
 	if (!m_wave.isScreenWave())
 	{
@@ -39,7 +36,7 @@ void Game::update(Window& _window , State*& _state)
 			(*it)->update(_window, particuleList);
 
 		for (std::list<civilians*>::iterator it = civilianList.begin(); it != civilianList.end(); it++)
-			(*it)->update(_window);
+			(*it)->update(_window, m_player.getPos());
 
 		for (std::list<Particule*>::iterator it = particuleList.begin(); it != particuleList.end();)
 		{
@@ -52,8 +49,8 @@ void Game::update(Window& _window , State*& _state)
 				it = particuleList.erase(it);
 		}
 
-		colManager.update(bulletsList, m_player, enemiesList);
-		detectionManager.update(enemiesList, civilianList);
+		colManager.update(bulletsList, m_player, enemiesList, civilianList);
+		detectionManager.update(enemiesList, civilianList, m_player);
 		m_detectionPlayerBonus.detectCollision(m_player);
 		prt_UpdateParticles(_window.getDeltaTime());
 	}		

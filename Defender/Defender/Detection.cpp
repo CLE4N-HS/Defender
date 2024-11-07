@@ -1,5 +1,6 @@
 #include "Detection.h"
 #include "tools.h"
+#include "particleManager.h"
 
 sf::Vector2f createVector22222(sf::Vector2f _pos1, sf::Vector2f _pos2);
 
@@ -14,6 +15,7 @@ civilians* getCivil(std::list<civilians*> _civilList, civilians* _civilTargeted)
 		i++;
 	}
 	return nullptr;
+	
 }
 
 void eraseCivil(std::list<civilians*>& _civilList, civilians* _civilTargeted)
@@ -29,8 +31,33 @@ void eraseCivil(std::list<civilians*>& _civilList, civilians* _civilTargeted)
 	}
 }
 
-void Detection::update(std::list<Enemies*> _enemiesList, std::list<civilians*>& _civilList)
+void checkDeadByFalling(std::list<civilians*>& _civilList, Player _player)
 {
+	for (auto i = _civilList.begin(); i != _civilList.end();)
+	{
+		if ((*i)->getState() != C_FALL) { i++; continue; }
+
+		if (vec2fGetMagnitude(createVector22222((*i)->getCivilPos(), _player.getPos())) < 100.f)
+			(*i)->setState(C_GRABBED_BY_PLAYER);
+
+		if ((*i)->getCivilPos().y > 980.f)
+		{
+			for (int o = 0; o < 10; o++)
+			{
+				prt_CreateSquareParticles((*i)->getCivilPos(), 1, sf::Color::White, sf::Color::Magenta, 2.f, sf::Vector2f(5.0f, 5.0f), sf::Vector2f(10.f, 10.f), 0, 360, 200.f, 0.0f, 0.0f, sf::Color::White, sf::Color::White, false, false, false, nullptr, false, false, LOADING);
+			}
+			i = _civilList.erase(i);
+		}
+		else
+			i++;
+	}
+}
+
+
+void Detection::update(std::list<Enemies*> _enemiesList, std::list<civilians*>& _civilList, Player _player)
+{
+	checkDeadByFalling(_civilList, _player);
+
 	for (auto e = _enemiesList.begin(); e != _enemiesList.end();)
 	{
 		if ((*e)->getEnemyState() == E_CHASE) // Is it, in the chase state ?
@@ -60,7 +87,7 @@ void Detection::update(std::list<Enemies*> _enemiesList, std::list<civilians*>& 
 					if ( tmp < 100.f)
 					{
 						(*e)->setGrabbedCivil();
-						civilTargeted->setCivilIsGrabbed();
+						civilTargeted->setCivilIsGrabbed(true);
 					}
 
 				}

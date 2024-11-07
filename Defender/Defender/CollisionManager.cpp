@@ -3,7 +3,7 @@
 #include "BonusManager.h"
 
 
-void CollisionManager::update(std::list<Bullets*>& _bulletsList, Player& _player, std::list<Enemies*>& _enemiesList)
+void CollisionManager::update(std::list<Bullets*>& _bulletsList, Player& _player, std::list<Enemies*>& _enemiesList, std::list<civilians*> _civilList)
 {
 	
 	sf::Vector2f tmpPlayerPos = _player.getPos();
@@ -60,7 +60,13 @@ void CollisionManager::update(std::list<Bullets*>& _bulletsList, Player& _player
 				{
 					//if (rand() % 5 == 0)
 					//	BonusManager::createRandomBonus((*ite)->getPos());
-
+					civilians* tmpCivil = (*ite)->getTargetedCivil();
+					if(tmpCivil != nullptr)
+					{
+						(*ite)->getTargetedCivil()->setCivilIsTargeted(false);
+						(*ite)->getTargetedCivil()->setCivilIsGrabbed(false);
+						(*ite)->getTargetedCivil()->setState(C_FALL);
+					}
 					ite = _enemiesList.erase(ite);
 					haveToChange = true;
 				}
