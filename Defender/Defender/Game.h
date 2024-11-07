@@ -27,4 +27,5 @@ private:
 	Map m_map;
 	wave m_wave;
 	CollisionManager colManager;
+
 };

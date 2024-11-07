@@ -15,6 +15,7 @@ void Master::loop()
 		if (m_newState)
 		{
 			m_stateManager.changeState(m_newState);
+			m_window.setView(sf::Vector2f(960.f, 540.f), sf::FloatRect(0.f, 0.f, 1.f, 1.f));
 			m_newState = nullptr;
 		}
 

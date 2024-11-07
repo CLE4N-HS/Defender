@@ -1,7 +1,8 @@
 #include "Game.h"
 #include "Lander.h"
 #include "particleManager.h"
-
+#include "Menu.h"
+#include "HighScore.h"
 
 Game::Game() : m_viewPos(), m_player()
 {

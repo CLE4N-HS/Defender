@@ -1,8 +1,8 @@
 #include "StateManager.h"
 #include "ressourcesManager.h"
-#include "Game.h"
+#include "Menu.h"
 
-StateManager::StateManager() : m_state(new Game)
+StateManager::StateManager() : m_state(new Menu)
 {
 }
 
