@@ -47,7 +47,7 @@ void HighScore::addScore(int _score, std::string _name)
 		{
 			if (_score > mycelium_highScore[i].first)
 			{
-				mycelium_highScore[i].swap(mycelium_highScore[i + 1]);
+				mycelium_highScore[i].swap(mycelium_highScore[i + 1]);  
 			}
 		}
 	}

@@ -149,9 +149,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Bonus.cpp" />
+    <ClCompile Include="BonusBomb.cpp" />
+    <ClCompile Include="BonusLife.cpp" />
+    <ClCompile Include="BonusManager.cpp" />
+    <ClCompile Include="BonusSpeed.cpp" />
     <ClCompile Include="Bullets.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="controller.cpp" />
+    <ClCompile Include="DetectionPlayerBonus.cpp" />
     <ClCompile Include="Enemies.cpp" />
     <ClCompile Include="enemiesBullets.cpp" />
     <ClCompile Include="Entity.cpp" />
@@ -178,9 +184,15 @@
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bonus.h" />
+    <ClInclude Include="BonusBomb.h" />
+    <ClInclude Include="BonusLife.h" />
+    <ClInclude Include="BonusManager.h" />
+    <ClInclude Include="BonusSpeed.h" />
     <ClInclude Include="Bullets.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="controller.h" />
+    <ClInclude Include="DetectionPlayerBonus.h" />
     <ClInclude Include="Enemies.h" />
     <ClInclude Include="enemiesBullets.h" />
     <ClInclude Include="Entity.h" />
