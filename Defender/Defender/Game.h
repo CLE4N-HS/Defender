@@ -8,6 +8,7 @@
 #include "Particule.h"
 #include "wave.h"
 #include "civilians.h"
+#include "Detection.h"
 
 class Game : public State
 {
@@ -27,5 +28,6 @@ private:
 	Map m_map;
 	wave m_wave;
 	CollisionManager colManager;
+	Detection detectionManager;
 
 };

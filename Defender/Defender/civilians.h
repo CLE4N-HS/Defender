@@ -17,6 +17,10 @@ public:
 	void update(Window& _window);
 	void display(Window& _window, bool _isMainView);
 
+	inline sf::Vector2f getCivilPos() { return m_pos; }
+	inline void setCivilIsTargeted(bool _isTargeted) { m_isTargeted = _isTargeted; }
+	inline bool getIsTargeted() const { return m_isTargeted; }
+
 private:
 
 	void shouldMove2(sf::Vector2f _centerView);

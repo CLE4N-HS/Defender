@@ -12,6 +12,7 @@ Lander::Lander()
 	m_timerDuringMoveY = rand() % 2 + 1;   //timer during Y movement 
 	m_directionX = rand() % 2;          //direction x of the lander
 	m_directionY = rand() % 2;          //direction y of the lander
+	m_timerToCatch = randomFloat(5.f, 20.f);
 }
 
 Lander::Lander(sf::Vector2f _pos, Window& _window)
@@ -26,6 +27,8 @@ Lander::Lander(sf::Vector2f _pos, Window& _window)
 	m_timerDuringMoveY = rand() % 2 + 1;   //timer during Y movement 
 	m_directionX = rand() % 2;          //direction x of the lander
 	m_directionY = rand() % 2;          //direction y of the lander
+	m_timerToCatch = randomFloat(5.f, 20.f);
+	targetCivil = nullptr;
 }
 
 void Lander::update(Window& _window, Player _player, std::list<Bullets*>& _bulList)
@@ -34,6 +37,13 @@ void Lander::update(Window& _window, Player _player, std::list<Bullets*>& _bulLi
 	sf::Vector2f tmpViewPos = _window.getViewPos();
 	sf::Vector2f tmpPlayerPos = _player.getPos();
 	shouldMove(tmpViewPos);
+
+	if (state == E_NATURAL || state == E_GODOWN)
+	{
+		m_timerToCatch -= delta;
+		if (m_timerToCatch <= 0.0f)
+			state = E_CHASE;
+	}
 
 	if (state != E_MUTANT)
 	{
@@ -88,7 +98,10 @@ void Lander::update(Window& _window, Player _player, std::list<Bullets*>& _bulLi
 	}
 	else if (state == E_CHASE)
 	{
-		
+		if (targetCivil)
+		{
+			pos.y -= 200.f * delta;
+		}
 	}
 	else if (state == E_MUTANT)
 	{
@@ -105,7 +118,12 @@ void Lander::display(Window& _window, bool _isMainView)
 {
 	_window.rectangle.setTexture(tex_getTexture("all"));
 	if(_isMainView)
-		_window.rectangle.setTextureRect(tex_getAnimRect("all", "lander"));
+	{
+		if(state != E_MUTANT)
+			_window.rectangle.setTextureRect(tex_getAnimRect("all", "lander"));
+		else
+			_window.rectangle.setTextureRect(tex_getAnimRect("all", "mutant"));
+	}
 	else
 		_window.rectangle.setTextureRect(tex_getAnimRect("all", "babyLander"));
 	_window.rectangle.setPosition(_window.viewCorrectPos(pos, _isMainView));

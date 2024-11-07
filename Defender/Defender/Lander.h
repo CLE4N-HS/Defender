@@ -10,7 +10,15 @@ public:
 
 	void update(Window& _window, Player _player,std::list<Bullets*>& _bulList);
 	void display(Window& _window, bool _isMainView);
-	virtual sf::FloatRect getEnemyColRect() const;
+	sf::FloatRect getEnemyColRect() const;
+	virtual inline Enemy_state getEnemyState() const { return state; }
+	virtual inline void setEnemyState(Enemy_state _state) { state = _state; }
+	virtual inline void setEnemyTarget(civilians* _target) { targetCivil = _target;}
+	virtual inline sf::Vector2f getEnemyPos() const { return pos; }
+	virtual inline bool isEnemyTarget() { return targetCivil == nullptr ? false : true; }
+	virtual inline void setVelocity(sf::Vector2f _vel) { velocity = _vel;}
+	virtual inline civilians* getTargetedCivil() { return targetCivil; }
+
 
 private:
 	void addBullet(sf::Vector2f _pos);
@@ -18,6 +26,7 @@ private:
 
 	float m_timerEachMoveY;
 	float m_timerDuringMoveY;
+	float m_timerToCatch;
 	int m_directionX;
 	int m_directionY;
 };

@@ -50,7 +50,7 @@ void Game::update(Window& _window , State*& _state)
 		}
 
 		colManager.update(bulletsList, m_player, enemiesList);
-
+		detectionManager.update(enemiesList, civilianList);
 		prt_UpdateParticles(_window.getDeltaTime());
 	}		
 }
