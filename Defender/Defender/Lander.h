@@ -18,7 +18,9 @@ public:
 	virtual inline bool isEnemyTarget() { return targetCivil == nullptr ? false : true; }
 	virtual inline void setVelocity(sf::Vector2f _vel) { velocity = _vel;}
 	virtual inline civilians* getTargetedCivil() { return targetCivil; }
+	virtual inline bool getGrabbedCivil() { return haveGrabbedCivil; }
 	virtual inline void setGrabbedCivil() { haveGrabbedCivil = true; }
+	virtual inline void setNormVec(sf::Vector2f _normVec) { normVec = _normVec; }
 
 
 private:

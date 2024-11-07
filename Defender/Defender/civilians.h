@@ -20,6 +20,7 @@ public:
 	inline sf::Vector2f getCivilPos() { return m_pos; }
 	inline void setCivilIsTargeted(bool _isTargeted) { m_isTargeted = _isTargeted; }
 	inline bool getIsTargeted() const { return m_isTargeted; }
+	inline void setCivilIsGrabbed() { m_isGrabbed = true; }
 
 private:
 

@@ -13,6 +13,8 @@ Lander::Lander()
 	m_directionX = rand() % 2;          //direction x of the lander
 	m_directionY = rand() % 2;          //direction y of the lander
 	m_timerToCatch = randomFloat(5.f, 20.f);
+
+	normVec = sf::Vector2f(0.0f, 0.0f);
 }
 
 Lander::Lander(sf::Vector2f _pos, Window& _window)
@@ -30,6 +32,8 @@ Lander::Lander(sf::Vector2f _pos, Window& _window)
 	m_timerToCatch = randomFloat(5.f, 20.f);
 	targetCivil = nullptr;
 	haveGrabbedCivil = false;
+	normVec = sf::Vector2f(0.0f, 0.0f);
+
 }
 
 void Lander::update(Window& _window, Player _player, std::list<Bullets*>& _bulList)
@@ -54,7 +58,7 @@ void Lander::update(Window& _window, Player _player, std::list<Bullets*>& _bulLi
 				attackTimer -= delta;
 			else
 			{
-				_bulList.push_back(new enemiesBullets(pos, vec2fNormalizeValue(sf::Vector2f(tmpPlayerPos - pos)), sf::Vector2f(500.f, 500.f)));
+				//_bulList.push_back(new enemiesBullets(pos, vec2fNormalizeValue(sf::Vector2f(tmpPlayerPos - pos)), sf::Vector2f(500.f, 500.f)));
 				attackTimer = rand() % 5 + 1;
 			}
 		}
@@ -99,9 +103,14 @@ void Lander::update(Window& _window, Player _player, std::list<Bullets*>& _bulLi
 	}
 	else if (state == E_CHASE)
 	{
-		if (targetCivil)
+		if (haveGrabbedCivil)
 		{
 			pos.y -= 200.f * delta;
+		}
+		else
+		{
+			normVec = sf::Vector2f(normVec.x * velocity.x * delta, normVec.y * velocity.y * delta);
+			pos += normVec;
 		}
 	}
 	else if (state == E_MUTANT)

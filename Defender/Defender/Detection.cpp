@@ -1,7 +1,22 @@
 #include "Detection.h"
 #include "tools.h"
 
-void eraseCivil(std::list<civilians*> _civilList, civilians* _civilTargeted)
+sf::Vector2f createVector22222(sf::Vector2f _pos1, sf::Vector2f _pos2);
+
+civilians* getCivil(std::list<civilians*> _civilList, civilians* _civilTargeted)
+{
+	for (auto i = _civilList.begin(); i != _civilList.end();)
+	{
+		if ((*i) == _civilTargeted)
+		{
+			return (*i);
+		}
+		i++;
+	}
+	return nullptr;
+}
+
+void eraseCivil(std::list<civilians*>& _civilList, civilians* _civilTargeted)
 {
 	for (auto i = _civilList.begin(); i != _civilList.end();)
 	{
@@ -14,7 +29,7 @@ void eraseCivil(std::list<civilians*> _civilList, civilians* _civilTargeted)
 	}
 }
 
-void Detection::update(std::list<Enemies*> _enemiesList, std::list<civilians*> _civilList)
+void Detection::update(std::list<Enemies*> _enemiesList, std::list<civilians*>& _civilList)
 {
 	for (auto e = _enemiesList.begin(); e != _enemiesList.end();)
 	{
@@ -33,17 +48,33 @@ void Detection::update(std::list<Enemies*> _enemiesList, std::list<civilians*> _
 			}
 			else // if he targeted a civil 
 			{
-				
+				if (!(*e)->getGrabbedCivil()) // has he grabbed the civil ?
+				{
+					civilians* civilTargeted = getCivil(_civilList, (*e)->getTargetedCivil());
+					sf::Vector2f tmpNormVectorE_C = createVector22222(tmpEPos, sf::Vector2f(civilTargeted->getCivilPos().x, civilTargeted->getCivilPos().y - 25.f));
+					vec2fNormalize(tmpNormVectorE_C);
+					(*e)->setNormVec(tmpNormVectorE_C);
 
-				
-				if (tmpEPos.y > 172.f + 16.f)
-				{
-					
+					sf::Vector2f tmpVectorE_C = createVector22222(tmpEPos, sf::Vector2f(civilTargeted->getCivilPos().x, civilTargeted->getCivilPos().y - 25.f) );
+					float tmp = vec2fGetSqrtMagnitude(tmpVectorE_C);
+					if ( tmp < 100.f)
+					{
+						(*e)->setGrabbedCivil();
+						civilTargeted->setCivilIsGrabbed();
+					}
+
 				}
-				else
+				else // if he has already grabbed the civil
 				{
-					eraseCivil(_civilList, (*e)->getTargetedCivil());
-					(*e)->setEnemyState(E_MUTANT);
+					if (tmpEPos.y > 172.f + 16.f) // go up
+					{
+
+					}
+					else // kill civil and become a mutant
+					{
+						eraseCivil(_civilList, (*e)->getTargetedCivil());
+						(*e)->setEnemyState(E_MUTANT);
+					}
 				}
 			}
 		}

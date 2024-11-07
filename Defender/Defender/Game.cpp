@@ -10,6 +10,9 @@ Game::Game() : m_viewPos(), m_player(), m_detectionPlayerBonus(), m_hud()
 	{
 		civilianList.push_back(new civilians());
 	}
+		enemiesList.push_back(new Lander());
+		enemiesList.push_back(new Lander());
+		enemiesList.push_back(new Lander());
 }
 
 Game::~Game()
@@ -18,7 +21,7 @@ Game::~Game()
 
 void Game::update(Window& _window , State*& _state)
 {
-	m_wave.update(_window, enemiesList, m_player.getPos());
+	//m_wave.update(_window, enemiesList, m_player.getPos());
 
 	if (!m_wave.isScreenWave())
 	{

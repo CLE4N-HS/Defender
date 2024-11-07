@@ -57,11 +57,13 @@ void civilians::update(Window& _window)
 		else
 			i++;
 	}*/
-
+	
 	/*for (auto i : m_civiliansList)
 	{
 
 	}*/
+
+	if (m_isGrabbed) m_state = C_GRABBED;
 
 	switch (m_state)
 	{
@@ -86,7 +88,7 @@ void civilians::update(Window& _window)
 		break;
 	case C_GRABBED:
 		
-		m_pos.y -= 200.f;
+		m_pos.y -= 200.f * delta;
 		break;
 	case C_FALL:
 
