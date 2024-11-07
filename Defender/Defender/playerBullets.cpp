@@ -34,6 +34,7 @@ void playerBullets::update(Window& _window, std::list<Particule*>& _particuleLis
 	}
 
 	pos += vec2fMultiplyVector(norDirction, vec2fMultiply(velocity, delta));
+	viewPos += vec2fMultiplyVector(norDirction, vec2fMultiply(velocity, delta));
 }
 
 void playerBullets::display(Window& _window)

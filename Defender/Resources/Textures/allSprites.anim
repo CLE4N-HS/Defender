@@ -4,4 +4,6 @@ playerL 170 157 60 24 0.0 0
 lander 441 53 36 32 0.0 0
 babyLander 443 157 12 12 0.0 0
 eBullet 281 53 12 12 0.0 0
+civilian 329 1 12 32 0.0 0
+mutant 2 1 36 32 0.0 0
 bomb 397 157 24 12 0.0 0
