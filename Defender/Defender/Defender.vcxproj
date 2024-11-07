@@ -174,8 +174,10 @@
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="MouseManager.cpp" />
     <ClCompile Include="musicManager.cpp" />
+    <ClCompile Include="Options.cpp" />
     <ClCompile Include="particleManager.cpp" />
     <ClCompile Include="Particule.cpp" />
+    <ClCompile Include="Pause.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="playerBullets.cpp" />
     <ClCompile Include="ressourcesManager.cpp" />
@@ -212,8 +214,10 @@
     <ClInclude Include="Menu.h" />
     <ClInclude Include="MouseManager.h" />
     <ClInclude Include="musicManager.h" />
+    <ClInclude Include="Options.h" />
     <ClInclude Include="particleManager.h" />
     <ClInclude Include="Particule.h" />
+    <ClInclude Include="Pause.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="playerBullets.h" />
     <ClInclude Include="ressourcesManager.h" />

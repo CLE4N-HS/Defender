@@ -84,3 +84,13 @@ void sound_deinit(bool _deinitStateAll)
 			tmpSound = tmpSound->pNext;
 	}
 }
+
+void sound_setVolume(const int& _volume)
+{
+	sound_SData* tmpSound = sound_BeginSound;
+	while (tmpSound != NULL)
+	{
+		tmpSound->sound.setVolume(static_cast<float>(_volume));
+		tmpSound = tmpSound->pNext;
+	}
+}

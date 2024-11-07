@@ -40,6 +40,7 @@ public:
 
 	void textCenterOrigin();
 	inline float getItime() {return m_iTime;}
+	inline void setIsDone(bool _isDone) { m_isDone = _isDone; }
 
 	sf::RectangleShape rectangle;
 	sf::Text text;

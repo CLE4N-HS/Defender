@@ -82,3 +82,13 @@ void music_deinit(bool _deinitStateAll)
 			tmpMusic = tmpMusic->pNext;
 	}
 }
+
+void music_setVolume(const int& _volume)
+{
+	music_SData* tmpMusic = music_BeginMusic;
+	while (tmpMusic != NULL)
+	{
+		tmpMusic->music.setVolume(static_cast<int>(_volume));
+		tmpMusic = tmpMusic->pNext;
+	}
+}

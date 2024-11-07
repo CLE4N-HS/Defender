@@ -14,7 +14,7 @@ Menu::~Menu()
 
 void Menu::update(Window& _window, State*& _state)
 {
-	const bool changeStateInput = (_window.keyboardManager.hasJustPressed(sf::Keyboard::Enter) || Gamepad_isButtonPressed(0, gamepadXBOX::A));
+	const bool changeStateInput = (_window.keyboardManager.hasJustPressed(sf::Keyboard::Space) || Gamepad_isButtonPressed(0, gamepadXBOX::A));
 
 	if (changeStateInput)
 	{
@@ -33,6 +33,16 @@ void Menu::display(Window& _window)
 
 	_window.draw(_window.rectangle);
 	_window.rectangle.setScale(sf::Vector2f(1.f, 1.f));
+
+	_window.text.setCharacterSize(30);
+	_window.text.setPosition(sf::Vector2f(960.f, 400.f));
+	_window.text.setFillColor(sf::Color(255, 255, 255));
+	_window.text.setString("SPACE TO PLAY");
+	_window.text.setStyle(sf::Text::Style::Italic);
+	_window.textCenterOrigin();
+
+	_window.draw(_window.text);
+	_window.text.setStyle(sf::Text::Style::Regular);
 
 	HighScore::display(_window);
 }
