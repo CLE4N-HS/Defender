@@ -5,7 +5,10 @@
 
 Game::Game() : m_viewPos(), m_player()
 {
-
+	for (int i = 0; i < 10; i++)
+	{
+		civilianList.push_back(new civilians());
+	}
 }
 
 Game::~Game()
@@ -30,6 +33,9 @@ void Game::update(Window& _window , State*& _state)
 
 		for (std::list<Bullets*>::iterator it = bulletsList.begin(); it != bulletsList.end(); it++)
 			(*it)->update(_window, particuleList);
+
+		for (std::list<civilians*>::iterator it = civilianList.begin(); it != civilianList.end(); it++)
+			(*it)->update(_window);
 
 		for (std::list<Particule*>::iterator it = particuleList.begin(); it != particuleList.end();)
 		{
@@ -89,6 +95,9 @@ void Game::display(Window& _window)
 		for (std::list<Particule*>::iterator it = particuleList.begin(); it != particuleList.end(); it++)
 			(*it)->display(_window);
 
+		for (std::list<civilians*>::iterator it = civilianList.begin(); it != civilianList.end(); it++)
+			(*it)->display(_window,true);
+
 		prt_DisplayParticlesBehind(_window, _window.getDeltaTime());
 	}
 	else
@@ -116,6 +125,9 @@ void Game::display(Window& _window)
 	m_player.display(_window, false);
 	
 	for (std::list<Enemies*>::iterator it = enemiesList.begin(); it != enemiesList.end(); it++)
+		(*it)->display(_window, false);
+
+	for (std::list<civilians*>::iterator it = civilianList.begin(); it != civilianList.end(); it++)
 		(*it)->display(_window, false);
 
 	m_map.display(_window, false, m_player.getViewCenterPos());

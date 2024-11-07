@@ -140,8 +140,6 @@ void Window::setViewPos(sf::Vector2f _pos)
 
 sf::Vector2f Window::viewCorrectPos(const sf::Vector2f& _pos, const bool& mainView) const
 {
-	sf::Vector2f z = (mainView ? _pos : sf::Vector2f(_pos.x * 0.25f, _pos.y + lerp(-172.f, 0.f, _pos.y / 1080.f)));
-	//return (mainView ? _pos : sf::Vector2f(_pos.x * 0.25f, _pos.y));
 	return (mainView ? _pos : sf::Vector2f(_pos.x * 0.25f, _pos.y + lerp(-172.f, 0.f, _pos.y / 1080.f)));
 }
 

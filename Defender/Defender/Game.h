@@ -7,6 +7,7 @@
 #include "CollisionManager.h"
 #include "Particule.h"
 #include "wave.h"
+#include "civilians.h"
 
 class Game : public State
 {
@@ -21,6 +22,7 @@ private:
 	std::list<Enemies*> enemiesList;
 	std::list<Bullets*> bulletsList;
 	std::list<Particule*> particuleList;
+	std::list<civilians*> civilianList;
 	Player m_player;
 	Map m_map;
 	wave m_wave;

@@ -153,6 +153,7 @@
     <ClCompile Include="civilians.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="controller.cpp" />
+    <ClCompile Include="Detection.cpp" />
     <ClCompile Include="Enemies.cpp" />
     <ClCompile Include="enemiesBullets.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -181,6 +182,7 @@
     <ClInclude Include="civilians.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="controller.h" />
+    <ClInclude Include="Detection.h" />
     <ClInclude Include="Enemies.h" />
     <ClInclude Include="enemiesBullets.h" />
     <ClInclude Include="Game.h" />

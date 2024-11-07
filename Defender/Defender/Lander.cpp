@@ -31,9 +31,9 @@ Lander::Lander(sf::Vector2f _pos, Window& _window)
 void Lander::update(Window& _window, Player _player, std::list<Bullets*>& _bulList)
 {
 	float delta = _window.getDeltaTime();  //difference between player and enemy = 3500
+	sf::Vector2f tmpViewPos = _window.getViewPos();
 	sf::Vector2f tmpPlayerPos = _player.getPos();
-
-	shouldMove(tmpPlayerPos);
+	shouldMove(tmpViewPos);
 
 	if (state != E_MUTANT)
 	{
@@ -74,7 +74,7 @@ void Lander::update(Window& _window, Player _player, std::list<Bullets*>& _bulLi
 		}
 		
 		if (pos.y >= 800.f) m_directionY = 0;
-		if (pos.y <= 172.f - 16.f) m_directionY = 1;
+		if (pos.y <= 172.f + 16.f) m_directionY = 1;
 
 
 	}

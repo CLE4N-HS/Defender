@@ -60,7 +60,7 @@ void wave::display(Window& _window)
 
 
 		_window.text.setString("Wave " + std::to_string(m_currentNbWave) + " cleared !");
-		_window.text.setPosition(sf::Vector2f(150.f, 300.f));
+		_window.text.setPosition(_window.viewDefaultPos(sf::Vector2f(600.f, 400.f)));
 		_window.text.setCharacterSize(100);
 
 		_window.draw(_window.text);
