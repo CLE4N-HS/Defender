@@ -163,6 +163,7 @@
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="HighScore.cpp" />
+    <ClCompile Include="Hud.cpp" />
     <ClCompile Include="KeyboardManager.cpp" />
     <ClCompile Include="Lander.cpp" />
     <ClCompile Include="main.cpp" />
@@ -198,6 +199,7 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="HighScore.h" />
+    <ClInclude Include="Hud.h" />
     <ClInclude Include="KeyboardManager.h" />
     <ClInclude Include="Lander.h" />
     <ClInclude Include="Map.h" />

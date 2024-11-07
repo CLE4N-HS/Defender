@@ -7,6 +7,7 @@
 #include "CollisionManager.h"
 #include "Particule.h"
 #include "DetectionPlayerBonus.h"
+#include "Hud.h"
 
 class Game : public State
 {
@@ -25,5 +26,6 @@ private:
 	Map m_map;
 	CollisionManager colManager;
 	DetectionPlayerBonus m_detectionPlayerBonus;
+	Hud m_hud;
 
 };

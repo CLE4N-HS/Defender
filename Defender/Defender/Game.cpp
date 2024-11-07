@@ -5,7 +5,7 @@
 #include "HighScore.h"
 #include "BonusManager.h"
 
-Game::Game() : m_viewPos(), m_player(), m_detectionPlayerBonus()
+Game::Game() : m_viewPos(), m_player(), m_detectionPlayerBonus(), m_hud()
 {
 	enemiesList.push_back(new Lander());
 	enemiesList.push_back(new Lander());
@@ -75,11 +75,13 @@ void Game::display(Window& _window)
 	_window.rectangle.setTexture(nullptr);
 	_window.draw(_window.rectangle);
 
+	m_hud.display(_window, m_player);
+
 	// hud TODO
-	_window.rectangle.setPosition(sf::Vector2f(576.f - 10.f, 0.f - 10.f));
-	_window.rectangle.setSize(sf::Vector2f(768.f + 20.f, 162.f + 20.f));
-	_window.rectangle.setFillColor(sf::Color::Green);
-	_window.draw(_window.rectangle);
+	//_window.rectangle.setPosition(sf::Vector2f(576.f - 10.f, 0.f - 10.f));
+	//_window.rectangle.setSize(sf::Vector2f(768.f + 20.f, 162.f + 20.f));
+	//_window.rectangle.setFillColor(sf::Color::Green);
+	//_window.draw(_window.rectangle);
 	//
 
 	_window.rectangle.setFillColor(sf::Color(255, 255, 255, 255));

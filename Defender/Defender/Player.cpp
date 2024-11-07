@@ -13,9 +13,10 @@ Player::Player(sf::Vector2f _pos) : m_pos(_pos), m_forward(1.f, 0.f), m_speed(10
 	sf::IntRect tmpRect = tex_getAnimRect("all", "playerR");
 	m_size = sf::Vector2f(tmpRect.getSize());
 	m_origin = m_size * 0.5f;
-	m_life = 100.f;
+	m_life = 3;
 	m_maxFireRate = 0.2f;
 	m_fireRate = m_maxFireRate;
+	m_bomb = 3;
 
 }
 
