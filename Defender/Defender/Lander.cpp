@@ -127,6 +127,8 @@ void Lander::update(Window& _window, Player _player, std::list<Bullets*>& _bulLi
 void Lander::display(Window& _window, bool _isMainView)
 {
 	_window.rectangle.setTexture(tex_getTexture("all"));
+	_window.rectangle.setFillColor(sf::Color(255, 255, 255, 255));
+
 	if(_isMainView)
 	{
 		if(state != E_MUTANT)
@@ -135,7 +137,16 @@ void Lander::display(Window& _window, bool _isMainView)
 			_window.rectangle.setTextureRect(tex_getAnimRect("all", "mutant"));
 	}
 	else
-		_window.rectangle.setTextureRect(tex_getAnimRect("all", "babyLander"));
+	{
+		if (state == E_MUTANT)
+		{
+			_window.rectangle.setFillColor(sf::Color(100, 100, 0, 255));
+			_window.rectangle.setTextureRect(tex_getAnimRect("all", "babyLander"));
+		}
+		else
+			_window.rectangle.setTextureRect(tex_getAnimRect("all", "babyLander"));
+	}
+
 	_window.rectangle.setPosition(_window.viewCorrectPos(pos, _isMainView));
 	_window.rectangle.setSize(sf::Vector2f(36.f, 32.f));
 	_window.rectangle.setOrigin(sf::Vector2f(18.f, 16.f));
