@@ -86,7 +86,7 @@ void Detection::update(std::list<Enemies*> _enemiesList, std::list<civilians*>& 
 					float tmp = vec2fGetSqrtMagnitude(tmpVectorE_C);
 					if ( tmp < 100.f)
 					{
-						(*e)->setGrabbedCivil();
+						(*e)->setGrabbedCivil(true);
 						civilTargeted->setCivilIsGrabbed(true);
 					}
 

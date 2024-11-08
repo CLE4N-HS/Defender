@@ -2,8 +2,22 @@
 #include "particleManager.h"
 #include "BonusManager.h"
 
+void resetTargetEnemy(std::list<Enemies*> _enemiesList, civilians* _civil)
+{
+	for (auto i = _enemiesList.begin(); i != _enemiesList.end();)
+	{
+		if (_civil == (*i)->getTargetedCivil())
+		{
+			(*i)->setEnemyTarget(nullptr);
+			(*i)->setGrabbedCivil(false);
+			(*i)->setEnemyState(E_NATURAL);
+			(*i)->resetTimerCatch();
+		}
+		i++;
+	}
+}
 
-void CollisionManager::update(std::list<Bullets*>& _bulletsList, Player& _player, std::list<Enemies*>& _enemiesList, std::list<civilians*> _civilList)
+void CollisionManager::update(std::list<Bullets*>& _bulletsList, Player& _player, std::list<Enemies*>& _enemiesList, std::list<civilians*>& _civilList)
 {
 	
 	sf::Vector2f tmpPlayerPos = _player.getPos();
@@ -61,22 +75,21 @@ void CollisionManager::update(std::list<Bullets*>& _bulletsList, Player& _player
 				if (tmpBulletRect.intersects(sf::FloatRect(tmpCivilPos.x, tmpCivilPos.y, 12.f, 32.f)))
 				{
 					haveToChange = true;
+					resetTargetEnemy(_enemiesList, *civil);
 					civil = _civilList.erase(civil);
+					for (int o = 0; o < 10; o++)
+					{
+						prt_CreateSquareParticles(tmpCivilPos, 1, sf::Color::White, sf::Color::Magenta, 0.5f, sf::Vector2f(5.0f, 5.0f), sf::Vector2f(10.f, 10.f), o * 36.f, o * 36.f, 200.f, 0.0f, 0.0f, sf::Color::White, sf::Color::White, false, false, false, nullptr, false, false, LOADING);
+					}
 				}
 				else
 					civil++;
 
 			}
-			if (haveToChange)
-			{
-				it = _bulletsList.erase(it);
-			}
-			else
-				it++;
 
 			for (std::list<Enemies*>::iterator ite = _enemiesList.begin(); ite != _enemiesList.end();)
 			{
-
+				if (haveToChange) { ite++; continue; }
 				sf::FloatRect tmpEnemyRect = (*ite)->getEnemyColRect();
 				
 				if (tmpEnemyRect.intersects(tmpBulletRect))

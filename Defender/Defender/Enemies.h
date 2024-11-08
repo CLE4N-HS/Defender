@@ -29,8 +29,9 @@ public:
 	virtual void setVelocity(sf::Vector2f _vel) = 0;
 	virtual civilians* getTargetedCivil() = 0;
 	virtual bool getGrabbedCivil() = 0;
-	virtual void setGrabbedCivil() = 0;
+	virtual void setGrabbedCivil(bool _value) = 0;
 	virtual void setNormVec(sf::Vector2f _normVec) = 0;
+	virtual inline void resetTimerCatch() = 0;
 
 protected:
 	virtual void addBullet(sf::Vector2f _pos) = 0;

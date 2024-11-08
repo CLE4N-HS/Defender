@@ -19,9 +19,9 @@ public:
 	virtual inline void setVelocity(sf::Vector2f _vel) { velocity = _vel;}
 	virtual inline civilians* getTargetedCivil() { return targetCivil; }
 	virtual inline bool getGrabbedCivil() { return haveGrabbedCivil; }
-	virtual inline void setGrabbedCivil() { haveGrabbedCivil = true; }
+	virtual inline void setGrabbedCivil(bool _value) { haveGrabbedCivil = _value; }
 	virtual inline void setNormVec(sf::Vector2f _normVec) { normVec = _normVec; }
-
+	virtual inline void resetTimerCatch() { m_timerToCatch = 10.f; }
 
 private:
 	void addBullet(sf::Vector2f _pos);
