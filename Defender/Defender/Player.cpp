@@ -8,7 +8,7 @@ Player::Player() : Player(sf::Vector2f(100.f, 540.f))
 }
 
 Player::Player(sf::Vector2f _pos) : m_pos(_pos), m_forward(1.f, 0.f), m_speed(1000.f), m_movingTime(0.f), m_wasFacingRight(true), m_hasReleased(true), m_wasMoving(false), m_facingTime(0.f),
-	m_boostTime(0.f), m_score(0), m_colRect()
+	m_boostTime(0.f), m_score(rand() % 100), m_colRect()
 {
 	sf::IntRect tmpRect = tex_getAnimRect("all", "playerR");
 	m_size = sf::Vector2f(tmpRect.getSize());

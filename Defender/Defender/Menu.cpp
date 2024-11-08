@@ -4,7 +4,7 @@
 #include "textureManager.h"
 #include "HighScore.h"
 
-Menu::Menu() : Entity()
+Menu::Menu() : Entity(), m_timer(0.f)
 {
 }
 
@@ -14,7 +14,10 @@ Menu::~Menu()
 
 void Menu::update(Window& _window, State*& _state)
 {
-	const bool changeStateInput = (_window.keyboardManager.hasJustPressed(sf::Keyboard::Space) || Gamepad_isButtonPressed(0, gamepadXBOX::A));
+	if (m_timer < 10.f)
+		m_timer += _window.getDeltaTime();
+
+	const bool changeStateInput = (m_timer >= 1.f && (_window.keyboardManager.hasJustPressed(sf::Keyboard::Space) || Gamepad_isButtonPressed(0, gamepadXBOX::A)));
 
 	if (changeStateInput)
 	{

@@ -164,6 +164,7 @@
     <ClCompile Include="enemiesBullets.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="HighScore.cpp" />
     <ClCompile Include="Hud.cpp" />
     <ClCompile Include="KeyboardManager.cpp" />
@@ -205,6 +206,7 @@
     <ClInclude Include="enemiesBullets.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameOver.h" />
     <ClInclude Include="HighScore.h" />
     <ClInclude Include="Hud.h" />
     <ClInclude Include="KeyboardManager.h" />
