@@ -17,7 +17,7 @@ public:
 	static void addMusicVolume(int _value);
 
 	static void update(Window& _window, const bool& _isInMenu, State*& _state);
-	static void display(Window& _window);
+	static void display(Window& _window, const bool& _isInMenu);
 
 private:
 	static bool m_isOpen;

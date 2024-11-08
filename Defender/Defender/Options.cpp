@@ -2,6 +2,7 @@
 #include "Menu.h"
 #include "soundManager.h"
 #include "musicManager.h"
+#include "Pause.h"
 
 bool Options::m_isOpen(false);
 int Options::m_songVolume(50);
@@ -30,6 +31,8 @@ void Options::addSongVolume(int _value)
 		m_songVolume = 0;
 	else if (m_songVolume > 100)
 		m_songVolume = 100;
+
+	sound_setVolume(m_songVolume);
 }
 
 void Options::addMusicVolume(int _value)
@@ -40,6 +43,8 @@ void Options::addMusicVolume(int _value)
 		m_musicVolume = 0;
 	else if (m_musicVolume > 100)
 		m_musicVolume = 100;
+
+	music_setVolume(m_musicVolume);
 }
 
 void Options::update(Window& _window, const bool& _isInMenu, State*& _state)
@@ -48,7 +53,7 @@ void Options::update(Window& _window, const bool& _isInMenu, State*& _state)
 		_window.keyboardManager.hasJustPressed(sf::Keyboard::S))
 	{
 		m_index++;
-		if (m_index > 2)
+		if (m_index > (_isInMenu ? 2 : 3))
 			m_index = 0;
 	}
 	else if (_window.keyboardManager.hasJustPressed(sf::Keyboard::Up) ||
@@ -56,7 +61,7 @@ void Options::update(Window& _window, const bool& _isInMenu, State*& _state)
 	{
 		m_index--;
 		if (m_index < 0)
-			m_index = 2;
+			m_index = (_isInMenu ? 2 : 3);
 	}
 
 	// SONG & MUSIC
@@ -79,18 +84,16 @@ void Options::update(Window& _window, const bool& _isInMenu, State*& _state)
 			if (m_index == 0)
 			{
 				addSongVolume(addedVolume);
-				sound_setVolume(m_songVolume);
 			}
 			else if (m_index == 1)
 			{
 				addMusicVolume(addedVolume);
-				music_setVolume(m_musicVolume);
 			}
 		}
 	}
 
 	// QUIT
-	if (m_index == 2)
+	else if (m_index == 2)
 	{
 		if (_window.keyboardManager.hasJustPressed(sf::Keyboard::Enter))
 		{
@@ -105,9 +108,19 @@ void Options::update(Window& _window, const bool& _isInMenu, State*& _state)
 			}
 		}
 	}
+
+	// BACK
+	else if (m_index == 3)
+	{
+		if (_window.keyboardManager.hasJustPressed(sf::Keyboard::Enter))
+		{
+			Options::toggle();
+			Pause::toggle();
+		}
+	}
 }
 
-void Options::display(Window& _window)
+void Options::display(Window& _window, const bool& _isInMenu)
 {
 	_window.setView(sf::Vector2f(960.f, 540.f), sf::FloatRect(0.f, 0.f, 1.f, 1.f));
 
@@ -139,6 +152,29 @@ void Options::display(Window& _window)
 
 	_window.draw(_window.text);
 
+	// PLUS
+	_window.text.setString("+");
+	_window.text.setPosition(1110.f, 364.f);
+	_window.text.setStyle((m_index == 0 ? sf::Text::Style::Bold : sf::Text::Style::Regular));
+	_window.textCenterStringOrigin();
+	_window.draw(_window.text);
+	_window.text.setPosition(1110.f, 464.f);
+	_window.text.setStyle((m_index == 1 ? sf::Text::Style::Bold : sf::Text::Style::Regular));
+	_window.textCenterStringOrigin();
+	_window.draw(_window.text);
+
+	// MINUS
+	_window.text.setString("-");
+	_window.text.setPosition(810.f, 364.f);
+	_window.text.setStyle((m_index == 0 ? sf::Text::Style::Bold : sf::Text::Style::Regular));
+	_window.textCenterStringOrigin();
+	_window.draw(_window.text);
+	_window.text.setPosition(810.f, 464.f);
+	_window.text.setStyle((m_index == 1 ? sf::Text::Style::Bold : sf::Text::Style::Regular));
+	_window.textCenterStringOrigin();
+	_window.draw(_window.text);
+
+
 	// QUIT
 	_window.text.setString("QUIT");
 	_window.text.setPosition(960.f, 700.f);
@@ -147,7 +183,17 @@ void Options::display(Window& _window)
 
 	_window.draw(_window.text);
 
+	if (!_isInMenu)
+	{
+		// BACK
+		_window.text.setString("Back");
+		_window.text.setPosition(960.f, 800.f);
+		_window.text.setStyle((m_index == 3 ? sf::Text::Style::Underlined : sf::Text::Style::Regular));
+		_window.textCenterOrigin();
+
+		_window.draw(_window.text);
+	}
 
 
-
+	_window.text.setStyle(sf::Text::Style::Regular);
 }

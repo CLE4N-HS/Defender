@@ -2,6 +2,7 @@
 #include "ressourcesManager.h"
 #include "Menu.h"
 #include "Options.h"
+#include "Pause.h"
 
 StateManager::StateManager() : m_state(new Menu), m_isInMenu(true)
 {
@@ -14,9 +15,23 @@ StateManager::~StateManager()
 void StateManager::update(Window& _window, State*& _state)
 {
 	if (_window.keyboardManager.hasJustPressed(sf::Keyboard::Escape))
-		Options::toggle();
+	{
+		if (m_isInMenu)
+			Options::toggle();
+		else if (!Pause::isOpen() && !Options::isOpen())
+			Pause::toggle();
+		else if (Pause::isOpen())
+			Pause::toggle();
+		else
+		{
+			Options::toggle();
+			Pause::toggle();
+		}
+	}
 
-	if (Options::isOpen())
+	if (Pause::isOpen())
+		Pause::update(_window);
+	else if (Options::isOpen())
 		Options::update(_window, m_isInMenu, _state);
 	else
 		m_state->update(_window, _state);
@@ -24,8 +39,10 @@ void StateManager::update(Window& _window, State*& _state)
 
 void StateManager::display(Window& _window)
 {
-	if (Options::isOpen())
-		Options::display(_window);
+	if (Pause::isOpen())
+		Pause::display(_window);
+	else if (Options::isOpen())
+		Options::display(_window, m_isInMenu);
 	else
 		m_state->display(_window);
 }
