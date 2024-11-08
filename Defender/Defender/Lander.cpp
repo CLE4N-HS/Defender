@@ -13,15 +13,14 @@ Lander::Lander()
 	m_directionX = rand() % 2;          //direction x of the lander
 	m_directionY = rand() % 2;          //direction y of the lander
 	m_timerToCatch = randomFloat(5.f, 20.f);
-
+	targetCivil = nullptr;
+	haveGrabbedCivil = false;
 	normVec = sf::Vector2f(0.0f, 0.0f);
 }
 
 Lander::Lander(sf::Vector2f _pos, Window& _window)
 {
 	pos = sf::Vector2f(randomFloat( _window.viewCurrentPos(_pos).x +1920.f, _window.viewCurrentPos(_pos).x - 1920.f) , 0.0f);
-	//pos = sf::Vector2f(_window.viewCurrentPos(_pos).x - 960.f, 0.0f);
-	//pos = sf::Vector2f(_pos.x - 1920.f, 0.0f);
 	velocity = sf::Vector2f(300.f, 300.f);
 	state = E_GODOWN;		           //the current state
 	attackTimer = rand() % 5 + 1;          //timer bewteen each attack
@@ -36,14 +35,14 @@ Lander::Lander(sf::Vector2f _pos, Window& _window)
 
 }
 
-void Lander::update(Window& _window, Player _player, std::list<Bullets*>& _bulList)
+void Lander::update(Window& _window, Player _player, std::list<Bullets*>& _bulList, bool _isCivilListEmpty)
 {
 	float delta = _window.getDeltaTime();  //difference between player and enemy = 3500
 	sf::Vector2f tmpViewPos = _window.getViewPos();
 	sf::Vector2f tmpPlayerPos = _player.getPos();
 	shouldMove(tmpViewPos);
 
-	if (state == E_NATURAL || state == E_GODOWN)
+	if ((state == E_NATURAL || state == E_GODOWN) && !_isCivilListEmpty)
 	{
 		m_timerToCatch -= delta;
 		if (m_timerToCatch <= 0.0f)
@@ -52,7 +51,7 @@ void Lander::update(Window& _window, Player _player, std::list<Bullets*>& _bulLi
 
 	if (state != E_MUTANT)
 	{
-		if (_player.getLife() > 0)
+		if (_player.getLife() > 0 && haveGrabbedCivil == false)
 		{
 			if (attackTimer > 0.0f)
 				attackTimer -= delta;

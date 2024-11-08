@@ -18,7 +18,7 @@ public:
 
 	Enemies();
 
-	virtual void update(Window& _window, Player _player, std::list<Bullets*>& _bulList) = 0;
+	virtual void update(Window& _window, Player _player, std::list<Bullets*>& _bulList, bool _isCivilListEmpty) = 0;
 	virtual void display(Window& _window, bool _isMainView) = 0;
 	virtual sf::FloatRect getEnemyColRect() const = 0;
 	virtual Enemy_state getEnemyState() const = 0;

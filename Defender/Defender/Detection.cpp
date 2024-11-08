@@ -44,7 +44,7 @@ void checkDeadByFalling(std::list<civilians*>& _civilList, Player _player)
 		{
 			for (int o = 0; o < 10; o++)
 			{
-				prt_CreateSquareParticles((*i)->getCivilPos(), 1, sf::Color::White, sf::Color::Magenta, 2.f, sf::Vector2f(5.0f, 5.0f), sf::Vector2f(10.f, 10.f), 0, 360, 200.f, 0.0f, 0.0f, sf::Color::White, sf::Color::White, false, false, false, nullptr, false, false, LOADING);
+				prt_CreateSquareParticles((*i)->getCivilPos(), 1, sf::Color::White, sf::Color::Magenta, 0.5f, sf::Vector2f(5.0f, 5.0f), sf::Vector2f(10.f, 10.f), o * 36.f, o * 36.f, 200.f, 0.0f, 0.0f, sf::Color::White, sf::Color::White, false, false, false, nullptr, false, false, LOADING);
 			}
 			i = _civilList.erase(i);
 		}
@@ -63,7 +63,7 @@ void Detection::update(std::list<Enemies*> _enemiesList, std::list<civilians*>& 
 		if ((*e)->getEnemyState() == E_CHASE) // Is it, in the chase state ?
 		{
 			sf::Vector2f tmpEPos = (*e)->getEnemyPos();
-			if(!(*e)->isEnemyTarget())  // Is already targeted a civil ?
+			if(!(*e)->isEnemyTarget() && _civilList.size() > 0)  // Is already targeted a civil ?
 			{
 
 				civilians* targetCivil = getClosestCivil(_civilList, tmpEPos);
@@ -73,7 +73,7 @@ void Detection::update(std::list<Enemies*> _enemiesList, std::list<civilians*>& 
 					(*e)->setEnemyTarget(targetCivil);  // Now he's targetting a civil
 				}
 			}
-			else // if he targeted a civil 
+			else if( (*e)->getTargetedCivil() != nullptr)// if he targeted a civil 
 			{
 				if (!(*e)->getGrabbedCivil()) // has he grabbed the civil ?
 				{

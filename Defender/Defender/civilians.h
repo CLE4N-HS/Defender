@@ -21,6 +21,7 @@ public:
 	inline sf::Vector2f getCivilPos() { return m_pos; }
 	inline void setCivilIsTargeted(bool _isTargeted) { m_isTargeted = _isTargeted; }
 	inline bool getIsTargeted() const { return m_isTargeted; }
+	inline bool getIsGrabbed() const { return m_isGrabbed; }
 	inline void setCivilIsGrabbed(bool _isGrabbed) { m_isGrabbed = _isGrabbed; }
 	inline void setState(Civilian_State _state) { m_state = _state; }
 	inline Civilian_State getState() { return m_state; }

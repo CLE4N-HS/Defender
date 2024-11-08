@@ -8,7 +8,7 @@ public:
 	Lander();
 	Lander(sf::Vector2f _pos, Window& _window);
 
-	void update(Window& _window, Player _player,std::list<Bullets*>& _bulList);
+	void update(Window& _window, Player _player,std::list<Bullets*>& _bulList, bool _isCivilListEmpty);
 	void display(Window& _window, bool _isMainView);
 	sf::FloatRect getEnemyColRect() const;
 	virtual inline Enemy_state getEnemyState() const { return state; }

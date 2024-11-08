@@ -43,7 +43,7 @@ void CollisionManager::update(std::list<Bullets*>& _bulletsList, Player& _player
 
 
 
-		else
+		else // player bullets
 		{
 			sf::Vector2f tmpBulletPos = (*it)->getBulletPos();
 			sf::FloatRect tmpBulletRect = (*it)->getBulletColRect();
@@ -52,20 +52,58 @@ void CollisionManager::update(std::list<Bullets*>& _bulletsList, Player& _player
 			if (tmpBulletPos.x < tmpPlayerPos.x - 1000.f || tmpBulletPos.x > tmpPlayerPos.x + 1000.f)
 				haveToChange = true;
 
+			for (auto civil = _civilList.begin(); civil != _civilList.end();)
+			{
+				if (!(*civil)->getIsGrabbed()) { civil++; continue;}
+
+				sf::Vector2f tmpCivilPos = (*civil)->getCivilPos();
+
+				if (tmpBulletRect.intersects(sf::FloatRect(tmpCivilPos.x, tmpCivilPos.y, 12.f, 32.f)))
+				{
+					haveToChange = true;
+					civil = _civilList.erase(civil);
+				}
+				else
+					civil++;
+
+			}
+			if (haveToChange)
+			{
+				it = _bulletsList.erase(it);
+			}
+			else
+				it++;
+
 			for (std::list<Enemies*>::iterator ite = _enemiesList.begin(); ite != _enemiesList.end();)
 			{
+
 				sf::FloatRect tmpEnemyRect = (*ite)->getEnemyColRect();
 				
 				if (tmpEnemyRect.intersects(tmpBulletRect))
 				{
-					//if (rand() % 5 == 0)
-					//	BonusManager::createRandomBonus((*ite)->getPos());
+					if (rand() % 5 == 0)
+						BonusManager::createRandomBonus((*ite)->getEnemyPos());
 					civilians* tmpCivil = (*ite)->getTargetedCivil();
 					if(tmpCivil != nullptr)
 					{
+						if(tmpCivil->getIsGrabbed() == true)
+							(*ite)->getTargetedCivil()->setState(C_FALL);
 						(*ite)->getTargetedCivil()->setCivilIsTargeted(false);
 						(*ite)->getTargetedCivil()->setCivilIsGrabbed(false);
-						(*ite)->getTargetedCivil()->setState(C_FALL);
+					}
+					if((*ite)->getEnemyState() == E_MUTANT)
+					{
+						for (int o = 0; o < 10; o++)
+						{
+							prt_CreateSquareParticles((*ite)->getEnemyPos(), 1, sf::Color::Green, sf::Color::Magenta, 0.5f, sf::Vector2f(5.0f, 5.0f), sf::Vector2f(10.f, 10.f), o * 36.f, o * 36.f, 200.f, 0.0f, 0.0f, sf::Color::White, sf::Color::White, false, false, false, nullptr, false, false, LOADING);
+						}
+					}
+					else
+					{
+						for (int o = 0; o < 10; o++)
+						{
+							prt_CreateSquareParticles((*ite)->getEnemyPos(), 1, sf::Color::White, sf::Color::Green, 0.5f, sf::Vector2f(5.0f, 5.0f), sf::Vector2f(10.f, 10.f), o * 36.f, o * 36.f, 200.f, 0.0f, 0.0f, sf::Color::White, sf::Color::White, false, false, false, nullptr, false, false, LOADING);
+						}
 					}
 					ite = _enemiesList.erase(ite);
 					haveToChange = true;

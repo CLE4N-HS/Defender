@@ -6,14 +6,27 @@
 
 Game::Game() : m_viewPos(), m_player(), m_detectionPlayerBonus(), m_hud()
 {
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 1; i++)
 	{
 		civilianList.push_back(new civilians());
+		enemiesList.push_back(new Lander());
+		enemiesList.push_back(new Lander());
 	}
 }
 
 Game::~Game()
 {
+}
+
+bool getNbOfCivilianAreTargeted(std::list<civilians*> _civilList)
+{
+	int count = 0;
+	for (auto i = _civilList.begin(); i != _civilList.end(); i++)
+	{
+		if ((*i)->getIsTargeted() || (*i)->getIsGrabbed()) count++;
+	}
+	if (count == _civilList.size()) return true;
+	return false;
 }
 
 void Game::update(Window& _window , State*& _state)
@@ -30,7 +43,7 @@ void Game::update(Window& _window , State*& _state)
 		m_map.update(_window, m_player.getPos());
 
 		for (std::list<Enemies*>::iterator it = enemiesList.begin(); it != enemiesList.end(); it++)
-			(*it)->update(_window, m_player, bulletsList);
+			(*it)->update(_window, m_player, bulletsList, getNbOfCivilianAreTargeted(civilianList));
 
 		for (std::list<Bullets*>::iterator it = bulletsList.begin(); it != bulletsList.end(); it++)
 			(*it)->update(_window, particuleList);
