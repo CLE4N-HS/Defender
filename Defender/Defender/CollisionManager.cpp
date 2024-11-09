@@ -27,11 +27,7 @@ void CollisionManager::update(std::list<Bullets*>& _bulletsList, Player& _player
 		sf::FloatRect tmpPRect =  _player.getRect();
 		if (tmpERect.intersects(tmpPRect))
 		{
-			_player.setDamage(100);
-			for (int i = 0; i < 100; i++)
-			{
-				prt_CreateSquareParticles(_player.getPos(), 1, sf::Color::White, sf::Color::White, 10.f, sf::Vector2f(10.0f, 10.0f), sf::Vector2f(10.f, 10.f), 0, 360, i + 10 * 10.f, 0.0f, 0.0f, sf::Color::White, sf::Color::White, false, false, false, nullptr, false, false, LOADING);
-			}
+			_player.setDamage(1);
 		}
 		ite++;
 	}
