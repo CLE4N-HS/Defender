@@ -12,7 +12,7 @@ void DetectionPlayerBonus::detectCollision(Player& _player)
 
 	if (closestBonus != nullptr)
 	{
-		if (closestBonus->getRect().intersects(_player.getRect()))
+		if (closestBonus->getRect().intersects(_player.getRect()) && _player.getLife() > 0)
 		{
 			BonusSpeed* tmpBonusSpeed = dynamic_cast<BonusSpeed*>(closestBonus);
 			BonusBomb* tmpBonusBomb = dynamic_cast<BonusBomb*>(closestBonus);
