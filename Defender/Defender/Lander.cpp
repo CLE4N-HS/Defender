@@ -7,9 +7,9 @@ Lander::Lander()
 	pos = sf::Vector2f(randomFloat(0.0f,1920.f), randomFloat(0.0f,1080.f));
 	velocity = sf::Vector2f(300.f, 300.f);
 	state = E_GODOWN;		           //the current state
-	attackTimer = rand() % 5 + 1;          //timer bewteen each attack
-	m_timerEachMoveY = rand() % 4 + 1;     //timer between each Y movement 
-	m_timerDuringMoveY = rand() % 2 + 1;   //timer during Y movement 
+	attackTimer = static_cast<float>(rand() % 5 + 1);          //timer bewteen each attack
+	m_timerEachMoveY = static_cast<float>(rand() % 4 + 1);     //timer between each Y movement 
+	m_timerDuringMoveY = static_cast<float>(rand() % 2 + 1);   //timer during Y movement 
 	m_directionX = rand() % 2;          //direction x of the lander
 	m_directionY = rand() % 2;          //direction y of the lander
 	m_timerToCatch = randomFloat(5.f, 20.f);
@@ -23,9 +23,9 @@ Lander::Lander(sf::Vector2f _pos, Window& _window)
 	pos = sf::Vector2f(randomFloat( _window.viewCurrentPos(_pos).x +1920.f, _window.viewCurrentPos(_pos).x - 1920.f) , 0.0f);
 	velocity = sf::Vector2f(300.f, 300.f);
 	state = E_GODOWN;		           //the current state
-	attackTimer = rand() % 5 + 1;          //timer bewteen each attack
-	m_timerEachMoveY = rand() % 4 + 1;     //timer between each Y movement 
-	m_timerDuringMoveY = rand() % 2 + 1;   //timer during Y movement 
+	attackTimer = static_cast<float>(rand() % 5 + 1);          //timer bewteen each attack
+	m_timerEachMoveY = static_cast<float>(rand() % 4 + 1);     //timer between each Y movement 
+	m_timerDuringMoveY = static_cast<float>(rand() % 2 + 1);   //timer during Y movement 
 	m_directionX = rand() % 2;          //direction x of the lander
 	m_directionY = rand() % 2;          //direction y of the lander
 	m_timerToCatch = randomFloat(5.f, 20.f);
@@ -49,7 +49,7 @@ void Lander::update(Window& _window, Player _player, std::list<Bullets*>& _bulLi
 			state = E_CHASE;
 	}
 
-	if (state != E_MUTANT)
+	if (state == E_NATURAL || state == E_GODOWN)
 	{
 		if (_player.getLife() > 0 && haveGrabbedCivil == false)
 		{
@@ -60,6 +60,16 @@ void Lander::update(Window& _window, Player _player, std::list<Bullets*>& _bulLi
 				_bulList.push_back(new enemiesBullets(pos, vec2fNormalizeValue(sf::Vector2f(tmpPlayerPos - pos)), sf::Vector2f(500.f, 500.f)));
 				attackTimer = rand() % 5 + 1;
 			}
+		}
+	}
+	else if (state == E_MUTANT)
+	{
+		if (attackTimer > 0.0f)
+			attackTimer -= delta;
+		else
+		{
+			_bulList.push_back(new enemiesBullets(pos, vec2fNormalizeValue(sf::Vector2f(tmpPlayerPos - pos)), sf::Vector2f(500.f, 500.f)));
+			attackTimer = rand() % 5 + 1;
 		}
 	}
 

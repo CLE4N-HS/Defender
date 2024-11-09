@@ -6,11 +6,11 @@
 
 Game::Game() : m_viewPos(), m_player(), m_detectionPlayerBonus(), m_hud()
 {
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 1; i++)
 	{
 		civilianList.push_back(new civilians());
-		//enemiesList.push_back(new Lander());
-		//enemiesList.push_back(new Lander());
+		enemiesList.push_back(new Lander());
+		enemiesList.push_back(new Lander());
 	}
 }
 
@@ -31,7 +31,7 @@ bool getNbOfCivilianAreTargeted(std::list<civilians*> _civilList)
 
 void Game::update(Window& _window , State*& _state)
 {
-	m_wave.update(_window, enemiesList, m_player.getPos());
+	//m_wave.update(_window, enemiesList, m_player.getPos());
 
 	if (!m_wave.isScreenWave())
 	{

@@ -19,7 +19,24 @@ void resetTargetEnemy(std::list<Enemies*> _enemiesList, civilians* _civil)
 
 void CollisionManager::update(std::list<Bullets*>& _bulletsList, Player& _player, std::list<Enemies*>& _enemiesList, std::list<civilians*>& _civilList)
 {
-	
+	for (std::list<Enemies*>::iterator ite = _enemiesList.begin(); ite != _enemiesList.end();)
+	{
+		if (vec2fGetSqrtMagnitude(_player.getPos() - (*ite)->getEnemyPos()) > 500.f || _player.getLife() <= 0) { ite++; continue; }
+		
+		sf::FloatRect tmpERect = (*ite)->getEnemyColRect();
+		sf::FloatRect tmpPRect =  _player.getRect();
+		if (tmpERect.intersects(tmpPRect))
+		{
+			_player.setDamage(100);
+			for (int i = 0; i < 100; i++)
+			{
+				prt_CreateSquareParticles(_player.getPos(), 1, sf::Color::White, sf::Color::White, 10.f, sf::Vector2f(10.0f, 10.0f), sf::Vector2f(10.f, 10.f), 0, 360, i + 10 * 10.f, 0.0f, 0.0f, sf::Color::White, sf::Color::White, false, false, false, nullptr, false, false, LOADING);
+			}
+		}
+		ite++;
+	}
+
+
 	sf::Vector2f tmpPlayerPos = _player.getPos();
 	for (std::list<Bullets*>::iterator it = _bulletsList.begin(); it != _bulletsList.end();)
 	{
@@ -33,8 +50,9 @@ void CollisionManager::update(std::list<Bullets*>& _bulletsList, Player& _player
 			sf::FloatRect tmpBulletRect = (*it)->getBulletColRect();
 
 
-			if (tmpBulletPos.x < tmpPlayerPos.x - 1000.f || tmpBulletPos.x > tmpPlayerPos.x + 1000.f || tmpBulletPos.y < 162.f || tmpBulletPos.y > 1080.f)
+			if (tmpBulletPos.x < tmpPlayerPos.x - 1200.f || tmpBulletPos.x > tmpPlayerPos.x + 1200.f || tmpBulletPos.y < 162.f || tmpBulletPos.y > 1080.f)
 				it = _bulletsList.erase(it);
+
 			else if (tmpBulletRect.intersects(tmpPlayerRect))
 			{
 				_player.setDamage(100);
