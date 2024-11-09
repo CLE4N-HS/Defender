@@ -8,13 +8,13 @@ Player::Player() : Player(sf::Vector2f(100.f, 540.f))
 }
 
 Player::Player(sf::Vector2f _pos) : m_pos(_pos), m_forward(1.f, 0.f), m_speed(1000.f), m_movingTime(0.f), m_wasFacingRight(true), m_hasReleased(true), m_wasMoving(false), m_facingTime(0.f),
-	m_boostTime(0.f), m_score(0), m_colRect()
+	m_boostTime(0.f), m_score(0), m_colRect(), m_invulnerability(1.f), m_deadTimer(3.f)
 {
 	sf::IntRect tmpRect = tex_getAnimRect("all", "playerR");
 	m_size = sf::Vector2f(tmpRect.getSize());
 	m_origin = m_size * 0.5f;
 	m_life = 3;
-	m_maxFireRate = 0.2f;
+	m_maxFireRate = 0.5f;
 	m_fireRate = m_maxFireRate;
 	m_bomb = 3;
 
@@ -27,7 +27,18 @@ Player::~Player()
 void Player::update(Window& _window, std::list<Bullets*>& _bulletsList)
 {
 	float dt = _window.getDeltaTime();
-	m_fireRate -= dt;
+
+	if (m_deadTimer > -10.f && m_life <= 0)
+		m_deadTimer -= dt;
+
+	if (m_life <= 0)
+		return;
+
+	if (m_fireRate > -10.f)
+		m_fireRate -= dt;
+	if (m_invulnerability > -10.f)
+		m_invulnerability -= dt;
+	
 
 	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || Gamepad_isButtonPressed(0, gamepadXBOX::X) || Gamepad_getTriggerPos(0, false) > 0.1f) && m_fireRate < 0.0f)
 	{
@@ -207,7 +218,33 @@ sf::FloatRect Player::getRect() const
 
 void Player::setDamage(int _damage)
 {
+	if (m_invulnerability > 0.f)
+		return;
+
 	m_life -= _damage;
+	if (m_life > 0)
+	{
+		for (int i = 0; i < 10; i++)
+		{
+			prt_CreateSquareParticles(m_pos, 1, sf::Color::White, sf::Color(255, 255, 255, 0), 3.f, sf::Vector2f(10.0f, 10.0f), sf::Vector2f(10.f, 10.f), 0, 360, static_cast<float>(i + 10) * 100.f, 0.0f, 0.0f, sf::Color::White, sf::Color::White, false, false, false, nullptr, false, false, LOADING);
+		}
+		m_invulnerability = 1.f;
+	}
+	else
+	{
+		for (int i = 0; i < 100; i++)
+		{
+			prt_CreateSquareParticles(m_pos, 1, sf::Color::White, sf::Color::White, m_deadTimer, sf::Vector2f(10.0f, 10.0f), sf::Vector2f(10.f, 10.f), 0, 360, static_cast<float>(i + 10) * 10.f, 0.0f, 0.0f, sf::Color::White, sf::Color::White, false, false, false, nullptr, false, false, LOADING);
+		}
+	}
+}
+
+void Player::useBomb(int _nbBomb)
+{
+	m_bomb -= _nbBomb;
+
+	if (m_bomb < 0)
+		m_bomb = 0;
 }
 
 sf::Vector2f Player::getViewCenterPos() const
@@ -219,8 +256,8 @@ void Player::decreaseFirerate(float _speed)
 {
 	m_maxFireRate -= _speed;
 
-	if (m_maxFireRate < 0.05f)
-		m_maxFireRate = 0.05f;
+	if (m_maxFireRate < 0.1f)
+		m_maxFireRate = 0.1f;
 }
 
 void Player::addBomb(unsigned int _bomb)
@@ -237,4 +274,9 @@ void Player::addLife(unsigned int _life)
 
 	if (m_life > 5)
 		m_life = 5;
+}
+
+void Player::addScore(unsigned int _score)
+{
+	m_score += _score;
 }

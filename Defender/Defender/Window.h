@@ -39,7 +39,9 @@ public:
 	sf::Vector2f viewCurrentPos(const sf::Vector2f& _pos) const;
 
 	void textCenterOrigin();
+	void textCenterStringOrigin();
 	inline float getItime() {return m_iTime;}
+	inline void setIsDone(bool _isDone) { m_isDone = _isDone; }
 
 	sf::RectangleShape rectangle;
 	sf::Text text;

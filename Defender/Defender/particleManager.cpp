@@ -17,7 +17,7 @@ sf::Color color_lerp_no_opacity(sf::Color v0, sf::Color v1, float t)
 	tmp.g = (sf::Uint8)((1.f - t) * (float)v0.g + t * (float)v1.g);
 	tmp.b = (sf::Uint8)((1.f - t) * (float)v0.b + t * (float)v1.b);
 	tmp.a = v0.a;
-	//tmp.a = (sf::Uint8)(1.f - t) * v0.a;
+	//tmp.a = (sf::Uint8)((1.f - t) * (float)v0.a + t * (float)v1.a);
 	return tmp;
 }
 

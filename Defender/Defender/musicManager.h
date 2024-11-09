@@ -25,3 +25,4 @@ void music_add(music_SData* _music);
 music_SData* music_remove(music_SData* _music);
 void music_play(char* _name);
 void music_deinit(bool _deinitStateAll);
+void music_setVolume(const int& _volume);

@@ -5,7 +5,6 @@ std::vector<std::pair<int, std::string>> HighScore::mycelium_highScore;
 sf::Vector2f HighScore::m_pos = sf::Vector2f(960.f, 540.f);
 
 HighScore m_h;
-//HighScore HighScore::m_h;
 
 HighScore::HighScore()
 {
@@ -50,6 +49,8 @@ void HighScore::addScore(int _score, std::string _name)
 				mycelium_highScore[i].swap(mycelium_highScore[i + 1]);  
 			}
 		}
+
+		HighScore::save();
 	}
 }
 
@@ -83,10 +84,15 @@ void HighScore::display(Window& _window)
 			continue;
 
 		_window.text.setString(mycelium_highScore[mycelium].second + " " + std::to_string(mycelium_highScore[mycelium].first));
-		_window.text.setPosition(m_pos + sf::Vector2f(0.f, 200.f + 70.f * static_cast<float>(mycelium)));
+		_window.text.setPosition(m_pos + sf::Vector2f(0.f, 150.f + 70.f * static_cast<float>(mycelium)));
 		_window.textCenterOrigin();
 
 		//_window.draw(_window.text, _window.getRenderState());
 		_window.draw(_window.text);
 	}
+}
+
+bool HighScore::isScoreHighEnough(const int& _score)
+{
+	return (_score > mycelium_highScore[4].first);
 }

@@ -26,3 +26,4 @@ void sound_add(sound_SData* _sound);
 sound_SData* sound_remove(sound_SData* _sound);
 void sound_play(char* _name);
 void sound_deinit(bool _deinitStateAll);
+void sound_setVolume(const int& _volume);

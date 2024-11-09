@@ -78,18 +78,20 @@ void Detection::update(std::list<Enemies*> _enemiesList, std::list<civilians*>& 
 				if (!(*e)->getGrabbedCivil()) // has he grabbed the civil ?
 				{
 					civilians* civilTargeted = getCivil(_civilList, (*e)->getTargetedCivil());
-					sf::Vector2f tmpNormVectorE_C = createVector22222(tmpEPos, sf::Vector2f(civilTargeted->getCivilPos().x, civilTargeted->getCivilPos().y - 25.f));
-					vec2fNormalize(tmpNormVectorE_C);
-					(*e)->setNormVec(tmpNormVectorE_C);
-
-					sf::Vector2f tmpVectorE_C = createVector22222(tmpEPos, sf::Vector2f(civilTargeted->getCivilPos().x, civilTargeted->getCivilPos().y - 25.f) );
-					float tmp = vec2fGetSqrtMagnitude(tmpVectorE_C);
-					if ( tmp < 100.f)
+					if (civilTargeted != nullptr)
 					{
-						(*e)->setGrabbedCivil(true);
-						civilTargeted->setCivilIsGrabbed(true);
-					}
+						sf::Vector2f tmpNormVectorE_C = createVector22222(tmpEPos, sf::Vector2f(civilTargeted->getCivilPos().x, civilTargeted->getCivilPos().y - 25.f));
+						vec2fNormalize(tmpNormVectorE_C);
+						(*e)->setNormVec(tmpNormVectorE_C);
 
+						sf::Vector2f tmpVectorE_C = createVector22222(tmpEPos, sf::Vector2f(civilTargeted->getCivilPos().x, civilTargeted->getCivilPos().y - 25.f));
+						float tmp = vec2fGetSqrtMagnitude(tmpVectorE_C);
+						if (tmp < 100.f)
+						{
+							(*e)->setGrabbedCivil(true);
+							civilTargeted->setCivilIsGrabbed(true);
+						}
+					}
 				}
 				else // if he has already grabbed the civil
 				{

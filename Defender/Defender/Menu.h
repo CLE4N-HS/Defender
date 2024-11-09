@@ -12,5 +12,6 @@ public:
 	void display(Window& _window);
 
 private:
+	float m_timer;
 
 };

@@ -16,6 +16,8 @@ Lander::Lander()
 	targetCivil = nullptr;
 	haveGrabbedCivil = false;
 	normVec = sf::Vector2f(0.0f, 0.0f);
+
+	m_scoreValue = 150;
 }
 
 Lander::Lander(sf::Vector2f _pos, Window& _window)
@@ -33,6 +35,7 @@ Lander::Lander(sf::Vector2f _pos, Window& _window)
 	haveGrabbedCivil = false;
 	normVec = sf::Vector2f(0.0f, 0.0f);
 
+	m_scoreValue = 150;
 }
 
 void Lander::update(Window& _window, Player _player, std::list<Bullets*>& _bulList, bool _isCivilListEmpty)

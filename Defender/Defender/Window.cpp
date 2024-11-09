@@ -176,6 +176,12 @@ void Window::textCenterOrigin()
 	this->text.setOrigin(sf::Vector2f(tmpRect.width * 0.5f, tmpRect.height));
 }
 
+void Window::textCenterStringOrigin()
+{
+	sf::FloatRect tmpRect = this->text.getGlobalBounds();
+	this->text.setOrigin(sf::Vector2f(tmpRect.width * 0.5f, 0.f));
+}
+
 void Window::toggleFullscreen()
 {
 	m_fullscreenTimer = 0.f;

@@ -30,6 +30,7 @@ void music_load(int _state)
 		tmpMusic->name = (char*)malloc(sizeof(char) * 30);
 		strcpy(tmpMusic->name, tmpMusicName);
 		tmpMusic->music.openFromFile(tmpMusicFullPath);
+		tmpMusic->music.setVolume(50.f);
 		tmpMusic->state = _state;
 
 		music_add(tmpMusic);
@@ -80,5 +81,15 @@ void music_deinit(bool _deinitStateAll)
 			tmpMusic = music_remove(tmpMusic);
 		else
 			tmpMusic = tmpMusic->pNext;
+	}
+}
+
+void music_setVolume(const int& _volume)
+{
+	music_SData* tmpMusic = music_BeginMusic;
+	while (tmpMusic != NULL)
+	{
+		tmpMusic->music.setVolume(static_cast<int>(_volume));
+		tmpMusic = tmpMusic->pNext;
 	}
 }
