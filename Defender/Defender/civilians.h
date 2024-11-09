@@ -1,5 +1,6 @@
 #pragma once
 #include "Window.h"
+#include "Player.h"
 
 typedef enum {
 	C_WALK,
@@ -15,7 +16,7 @@ class civilians
 public:
 	civilians();
 
-	void update(Window& _window, sf::Vector2f _playerPos);
+	void update(Window& _window, Player& _player);
 	void display(Window& _window, bool _isMainView);
 
 	inline sf::Vector2f getCivilPos() { return m_pos; }

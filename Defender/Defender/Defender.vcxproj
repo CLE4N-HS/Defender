@@ -149,6 +149,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="Bonus.cpp" />
     <ClCompile Include="BonusBomb.cpp" />
     <ClCompile Include="BonusLife.cpp" />
@@ -191,6 +192,7 @@
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bomb.h" />
     <ClInclude Include="Bonus.h" />
     <ClInclude Include="BonusBomb.h" />
     <ClInclude Include="BonusLife.h" />

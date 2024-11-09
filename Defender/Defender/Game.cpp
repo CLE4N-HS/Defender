@@ -4,8 +4,9 @@
 #include "Menu.h"
 #include "HighScore.h"
 #include "GameOver.h"
+#include "BonusManager.h"
 
-Game::Game() : m_viewPos(), m_player(), particuleList(), m_detectionPlayerBonus(), m_hud()
+Game::Game() : m_viewPos(), m_player(), particuleList(), m_detectionPlayerBonus(), m_hud(), m_bomb()
 {
 	particuleList.clear();
 	for (int i = 0; i < 10; i++)
@@ -35,7 +36,7 @@ void Game::update(Window& _window , State*& _state)
 {
 	m_wave.update(_window, enemiesList, m_player.getPos());
 
-	if (!GameOver::isGameOver() && m_player.getLife() <= 0)
+	if (!GameOver::isGameOver() && (m_player.getDeadTimer() < 0.f || civilianList.size() <= 0))
 		GameOver::setup(m_player.getScore());
 
 	GameOver::update(_window, _state, m_player);
@@ -44,7 +45,7 @@ void Game::update(Window& _window , State*& _state)
 	{
 		_window.setView(sf::Vector2f(m_player.getViewCenterPos().x, 540.f), sf::FloatRect(0.f, 0.f, 1.f, 1.f));
 
-		if (m_player.getLife() > 0)
+		if (m_player.getDeadTimer() > 0.f)
 			m_player.update(_window, bulletsList);
 
 		m_map.update(_window, m_player.getPos());
@@ -56,7 +57,7 @@ void Game::update(Window& _window , State*& _state)
 			(*it)->update(_window, particuleList);
 
 		for (std::list<civilians*>::iterator it = civilianList.begin(); it != civilianList.end(); it++)
-			(*it)->update(_window, m_player.getPos());
+			(*it)->update(_window, m_player);
 
 		for (std::list<Particule*>::iterator it = particuleList.begin(); it != particuleList.end();)
 		{
@@ -74,7 +75,10 @@ void Game::update(Window& _window , State*& _state)
 		m_detectionPlayerBonus.detectCollision(m_player);
 		prt_UpdateParticles(_window.getDeltaTime());
 
+		BonusManager::update(_window, m_player.getViewCenterPos());
 
+		if (m_player.getBomb() > 0)
+			m_bomb.update(_window, enemiesList, m_player);
 
 	}
 }
@@ -124,6 +128,8 @@ void Game::display(Window& _window)
 		for (std::list<civilians*>::iterator it = civilianList.begin(); it != civilianList.end(); it++)
 			(*it)->display(_window,true);
 
+		BonusManager::display(_window, true);
+
 		prt_DisplayParticlesBehind(_window, _window.getDeltaTime());
 	}
 	else
@@ -157,6 +163,7 @@ void Game::display(Window& _window)
 		(*it)->display(_window, false);
 
 	m_map.display(_window, false, m_player.getViewCenterPos());
+	BonusManager::display(_window, false);
 
 	//
 }

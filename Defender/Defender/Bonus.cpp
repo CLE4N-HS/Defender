@@ -9,8 +9,7 @@ void Bonus::update(Window& _window)
 {
 	float dt = _window.getDeltaTime();
 
-	m_pos.y += 100 * dt;
-
+	m_pos.y += 100.f * dt;
 
 	if (m_pos.y + m_origin.y > 1080.f)
 		m_isAlive = false;
@@ -26,6 +25,11 @@ void Bonus::display(Window& _window, const bool& mainView)
 	_window.rectangle.setTextureRect(tex_getAnimRect("bonus", m_anim.c_str()));
 	
 	_window.draw(_window.rectangle);
+
+	_window.rectangle.setOrigin(sf::Vector2f());
+	_window.rectangle.setTexture(nullptr);
+	_window.rectangle.setScale(sf::Vector2f(1.f, 1.f));
+
 }
 
 sf::FloatRect Bonus::getRect() const

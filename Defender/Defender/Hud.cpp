@@ -62,6 +62,7 @@ void Hud::display(Window& _window, Player& _player)
 	_window.text.setString(std::to_string(_player.getScore()));
 	_window.text.setOrigin(sf::Vector2f());
 	_window.text.setPosition(sf::Vector2f(100.f, 80.f));
+	_window.text.setCharacterSize(50);
 
 	float iTime = _window.getItime();
 

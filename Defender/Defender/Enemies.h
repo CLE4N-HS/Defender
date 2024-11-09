@@ -32,6 +32,7 @@ public:
 	virtual void setGrabbedCivil(bool _value) = 0;
 	virtual void setNormVec(sf::Vector2f _normVec) = 0;
 	virtual inline void resetTimerCatch() = 0;
+	int getScoreValue();
 
 protected:
 	virtual void addBullet(sf::Vector2f _pos) = 0;
@@ -45,6 +46,8 @@ protected:
 	sf::FloatRect colRect;
 	civilians* targetCivil;
 	bool haveGrabbedCivil;
+	int m_scoreValue;
+
 };
 
 
