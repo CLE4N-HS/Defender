@@ -40,7 +40,7 @@ void Menu::display(Window& _window)
 	_window.text.setCharacterSize(30);
 	_window.text.setPosition(sf::Vector2f(960.f, 400.f));
 	_window.text.setFillColor(sf::Color(255, 255, 255));
-	_window.text.setString("SPACE TO PLAY");
+	_window.text.setString("PRESS FIRE (A) TO PLAY");
 	_window.text.setStyle(sf::Text::Style::Italic);
 	_window.textCenterOrigin();
 

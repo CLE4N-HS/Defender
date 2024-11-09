@@ -59,11 +59,20 @@ void BonusManager::eraseBonuses()
 	}
 }
 
-void BonusManager::update(Window& _window)
+void BonusManager::update(Window& _window, sf::Vector2f _centerViewPos)
 {
 	for (std::list<Bonus*>::iterator it = m_bonus.begin(); it != m_bonus.end();)
 	{
 		(*it)->update(_window);
+
+		sf::Vector2f p_ePos(_centerViewPos - (*it)->getPos());
+		float magnitude = vec2fGetSqrtMagnitude(p_ePos);
+
+		if (magnitude > 12250000.f)
+		{
+			if (p_ePos.x < 1.f) (*it)->setPos(sf::Vector2f((*it)->getPos().x - 7000.f, (*it)->getPos().y));
+			else (*it)->setPos(sf::Vector2f((*it)->getPos().x + 7000.f, (*it)->getPos().y));
+		}
 
 		if (!(*it)->isAlive())
 		{

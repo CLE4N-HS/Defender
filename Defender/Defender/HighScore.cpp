@@ -84,7 +84,7 @@ void HighScore::display(Window& _window)
 			continue;
 
 		_window.text.setString(mycelium_highScore[mycelium].second + " " + std::to_string(mycelium_highScore[mycelium].first));
-		_window.text.setPosition(m_pos + sf::Vector2f(0.f, 200.f + 70.f * static_cast<float>(mycelium)));
+		_window.text.setPosition(m_pos + sf::Vector2f(0.f, 150.f + 70.f * static_cast<float>(mycelium)));
 		_window.textCenterOrigin();
 
 		//_window.draw(_window.text, _window.getRenderState());

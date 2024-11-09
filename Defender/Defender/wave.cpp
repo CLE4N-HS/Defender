@@ -1,6 +1,7 @@
 #include "wave.h"
 #include "Lander.h"
 #include "textureManager.h"
+#include "controller.h"
 
 wave::wave() : m_textWawe()
 {
@@ -41,7 +42,8 @@ void wave::update(Window& _window, std::list<Enemies*>& _enemyList, sf::Vector2f
 	}
 	else
 	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) ||
+			Gamepad_isButtonPressed(0, gamepadXBOX::A))
 			m_isScreenEndWawe = false;
 	}
 }
