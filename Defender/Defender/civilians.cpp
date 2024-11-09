@@ -1,5 +1,6 @@
 #include "civilians.h"
 #include "textureManager.h"
+#include "particleManager.h"
 
 civilians::civilians()
 {
@@ -17,7 +18,7 @@ civilians::civilians()
 
 }
 
-void civilians::update(Window& _window)
+void civilians::update(Window& _window, sf::Vector2f _playerPos)
 {
 	float delta = _window.getDeltaTime();
 	sf::Vector2f tmpViewPos = _window.getViewPos();
@@ -57,11 +58,13 @@ void civilians::update(Window& _window)
 		else
 			i++;
 	}*/
-
+	
 	/*for (auto i : m_civiliansList)
 	{
 
 	}*/
+
+	if (m_isGrabbed) m_state = C_GRABBED;
 
 	switch (m_state)
 	{
@@ -86,11 +89,27 @@ void civilians::update(Window& _window)
 		break;
 	case C_GRABBED:
 		
-		m_pos.y -= 200.f;
+		m_pos.y -= 200.f * delta;
+		break;
+	case C_GRABBED_BY_PLAYER:
+		if (m_pos.y < 980.f)
+		{
+			m_pos = sf::Vector2f(_playerPos.x, _playerPos.y + 25.f);
+		}
+		else
+		{
+			m_state = C_WALK;
+			for (int o = 0; o < 10; o++)
+			{
+				prt_CreateSquareParticles(m_pos, 1, sf::Color::White, sf::Color::Magenta, 0.5f, sf::Vector2f(5.0f, 5.0f), sf::Vector2f(10.f, 10.f), o * 36.f, o * 36.f, 200.f, 0.0f, 0.0f, sf::Color::White, sf::Color::White, false, false, false, nullptr, false, false, LOADING);
+			}
+		}
 		break;
 	case C_FALL:
-
-		m_pos.y += 300.f;
+		//if (m_pos.y < 980.f)
+			m_pos.y += 300.f * delta;
+		/*else
+			m_state = C_WALK;*/
 		break;
 	default:
 		m_state = C_WAITING;

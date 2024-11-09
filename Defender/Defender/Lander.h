@@ -8,7 +8,7 @@ public:
 	Lander();
 	Lander(sf::Vector2f _pos, Window& _window);
 
-	void update(Window& _window, Player _player,std::list<Bullets*>& _bulList);
+	void update(Window& _window, Player _player,std::list<Bullets*>& _bulList, bool _isCivilListEmpty);
 	void display(Window& _window, bool _isMainView);
 	sf::FloatRect getEnemyColRect() const;
 	virtual inline Enemy_state getEnemyState() const { return state; }
@@ -18,8 +18,10 @@ public:
 	virtual inline bool isEnemyTarget() { return targetCivil == nullptr ? false : true; }
 	virtual inline void setVelocity(sf::Vector2f _vel) { velocity = _vel;}
 	virtual inline civilians* getTargetedCivil() { return targetCivil; }
-	virtual inline void setGrabbedCivil() { haveGrabbedCivil = true; }
-
+	virtual inline bool getGrabbedCivil() { return haveGrabbedCivil; }
+	virtual inline void setGrabbedCivil(bool _value) { haveGrabbedCivil = _value; }
+	virtual inline void setNormVec(sf::Vector2f _normVec) { normVec = _normVec; }
+	virtual inline void resetTimerCatch() { m_timerToCatch = 10.f; }
 
 private:
 	void addBullet(sf::Vector2f _pos);
