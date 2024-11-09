@@ -30,6 +30,7 @@ void sound_load(int _state)
 		tmpSound->name = (char*)malloc(sizeof(char) * 30);
 		strcpy(tmpSound->name, tmpSoundName);
 		tmpSound->sound;
+		tmpSound->sound.setVolume(50.f);
 		tmpSound->soundBuffer.loadFromFile(tmpSoundFullPath);
 		tmpSound->state = _state;
 		
@@ -82,5 +83,15 @@ void sound_deinit(bool _deinitStateAll)
 			tmpSound = sound_remove(tmpSound);
 		else
 			tmpSound = tmpSound->pNext;
+	}
+}
+
+void sound_setVolume(const int& _volume)
+{
+	sound_SData* tmpSound = sound_BeginSound;
+	while (tmpSound != NULL)
+	{
+		tmpSound->sound.setVolume(static_cast<float>(_volume));
+		tmpSound = tmpSound->pNext;
 	}
 }

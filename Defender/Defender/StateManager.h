@@ -14,5 +14,7 @@ public:
 
 private:
 	State* m_state;
+	bool m_isInMenu;
+	float m_timer;
 
 };

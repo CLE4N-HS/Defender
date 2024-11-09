@@ -3,9 +3,11 @@
 #include "particleManager.h"
 #include "Menu.h"
 #include "HighScore.h"
+#include "GameOver.h"
 
-Game::Game() : m_viewPos(), m_player(), m_detectionPlayerBonus(), m_hud()
+Game::Game() : m_viewPos(), m_player(), particuleList(), m_detectionPlayerBonus(), m_hud()
 {
+	particuleList.clear();
 	for (int i = 0; i < 10; i++)
 	{
 		civilianList.push_back(new civilians());
@@ -33,7 +35,12 @@ void Game::update(Window& _window , State*& _state)
 {
 	m_wave.update(_window, enemiesList, m_player.getPos());
 
-	if (!m_wave.isScreenWave())
+	if (!GameOver::isGameOver() && m_player.getLife() <= 0)
+		GameOver::setup(m_player.getScore());
+
+	GameOver::update(_window, _state, m_player);
+
+	if (!m_wave.isScreenWave() && !GameOver::isGameOver())
 	{
 		_window.setView(sf::Vector2f(m_player.getViewCenterPos().x, 540.f), sf::FloatRect(0.f, 0.f, 1.f, 1.f));
 
@@ -66,11 +73,20 @@ void Game::update(Window& _window , State*& _state)
 		detectionManager.update(enemiesList, civilianList, m_player);
 		m_detectionPlayerBonus.detectCollision(m_player);
 		prt_UpdateParticles(_window.getDeltaTime());
-	}		
+
+
+
+	}
 }
 
 void Game::display(Window& _window)
 {
+	if (GameOver::isGameOver())
+	{
+		GameOver::display(_window);
+		return;
+	}
+
 	// black background
 	_window.setView(sf::Vector2f(960.f, 540.f), sf::FloatRect(0.f, 0.f, 1.f, 1.f));
 
