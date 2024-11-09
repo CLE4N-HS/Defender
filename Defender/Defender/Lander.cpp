@@ -57,7 +57,7 @@ void Lander::update(Window& _window, Player _player, std::list<Bullets*>& _bulLi
 				attackTimer -= delta;
 			else
 			{
-			//	_bulList.push_back(new enemiesBullets(pos, vec2fNormalizeValue(sf::Vector2f(tmpPlayerPos - pos)), sf::Vector2f(500.f, 500.f)));
+				_bulList.push_back(new enemiesBullets(pos, vec2fNormalizeValue(sf::Vector2f(tmpPlayerPos - pos)), sf::Vector2f(500.f, 500.f)));
 				attackTimer = rand() % 5 + 1;
 			}
 		}
