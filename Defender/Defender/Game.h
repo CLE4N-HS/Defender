@@ -11,6 +11,7 @@
 #include "Detection.h"
 #include "DetectionPlayerBonus.h"
 #include "Hud.h"
+#include "Bomb.h"
 
 class Game : public State
 {
@@ -33,4 +34,6 @@ private:
 	Detection detectionManager;
 	DetectionPlayerBonus m_detectionPlayerBonus;
 	Hud m_hud;
+	Bomb m_bomb;
+
 };

@@ -118,6 +118,7 @@ void CollisionManager::update(std::list<Bullets*>& _bulletsList, Player& _player
 							prt_CreateSquareParticles((*ite)->getEnemyPos(), 1, sf::Color::White, sf::Color::Green, 0.5f, sf::Vector2f(5.0f, 5.0f), sf::Vector2f(10.f, 10.f), o * 36.f, o * 36.f, 200.f, 0.0f, 0.0f, sf::Color::White, sf::Color::White, false, false, false, nullptr, false, false, LOADING);
 						}
 					}
+					_player.addScore((*ite)->getScoreValue());
 					ite = _enemiesList.erase(ite);
 					haveToChange = true;
 				}

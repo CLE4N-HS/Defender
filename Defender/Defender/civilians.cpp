@@ -18,7 +18,7 @@ civilians::civilians()
 
 }
 
-void civilians::update(Window& _window, sf::Vector2f _playerPos)
+void civilians::update(Window& _window, Player& _player)
 {
 	float delta = _window.getDeltaTime();
 	sf::Vector2f tmpViewPos = _window.getViewPos();
@@ -94,7 +94,7 @@ void civilians::update(Window& _window, sf::Vector2f _playerPos)
 	case C_GRABBED_BY_PLAYER:
 		if (m_pos.y < 980.f)
 		{
-			m_pos = sf::Vector2f(_playerPos.x, _playerPos.y + 25.f);
+			m_pos = sf::Vector2f(_player.getPos().x, _player.getPos().y + 25.f);
 		}
 		else
 		{
@@ -103,6 +103,7 @@ void civilians::update(Window& _window, sf::Vector2f _playerPos)
 			{
 				prt_CreateSquareParticles(m_pos, 1, sf::Color::White, sf::Color::Magenta, 0.5f, sf::Vector2f(5.0f, 5.0f), sf::Vector2f(10.f, 10.f), o * 36.f, o * 36.f, 200.f, 0.0f, 0.0f, sf::Color::White, sf::Color::White, false, false, false, nullptr, false, false, LOADING);
 			}
+			_player.addScore(500);
 		}
 		break;
 	case C_FALL:

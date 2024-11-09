@@ -5,7 +5,7 @@
 #include "HighScore.h"
 #include "GameOver.h"
 
-Game::Game() : m_viewPos(), m_player(), particuleList(), m_detectionPlayerBonus(), m_hud()
+Game::Game() : m_viewPos(), m_player(), particuleList(), m_detectionPlayerBonus(), m_hud(), m_bomb()
 {
 	particuleList.clear();
 	for (int i = 0; i < 10; i++)
@@ -56,7 +56,7 @@ void Game::update(Window& _window , State*& _state)
 			(*it)->update(_window, particuleList);
 
 		for (std::list<civilians*>::iterator it = civilianList.begin(); it != civilianList.end(); it++)
-			(*it)->update(_window, m_player.getPos());
+			(*it)->update(_window, m_player);
 
 		for (std::list<Particule*>::iterator it = particuleList.begin(); it != particuleList.end();)
 		{
@@ -74,7 +74,8 @@ void Game::update(Window& _window , State*& _state)
 		m_detectionPlayerBonus.detectCollision(m_player);
 		prt_UpdateParticles(_window.getDeltaTime());
 
-
+		if (m_player.getBomb() > 0)
+			m_bomb.update(_window, enemiesList, m_player);
 
 	}
 }

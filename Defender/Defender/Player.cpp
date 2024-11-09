@@ -210,6 +210,14 @@ void Player::setDamage(int _damage)
 	m_life -= _damage;
 }
 
+void Player::useBomb(int _nbBomb)
+{
+	m_bomb -= _nbBomb;
+
+	if (m_bomb < 0)
+		m_bomb = 0;
+}
+
 sf::Vector2f Player::getViewCenterPos() const
 {
 	return (m_pos - m_posOffset);
@@ -237,4 +245,9 @@ void Player::addLife(unsigned int _life)
 
 	if (m_life > 5)
 		m_life = 5;
+}
+
+void Player::addScore(unsigned int _score)
+{
+	m_score += _score;
 }

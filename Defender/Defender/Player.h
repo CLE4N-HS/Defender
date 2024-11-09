@@ -20,12 +20,14 @@ public:
 	void decreaseFirerate(float _speed);
 	void addBomb(unsigned int _bomb);
 	void addLife(unsigned int _life);
+	void addScore(unsigned int _score);
 
 	inline int getLife() { return m_life; }
 	inline int getScore() { return m_score; }
 	inline int getBomb() { return m_bomb; }
 		
 	void setDamage(int _damage);
+	void useBomb(int _nbBomb);
 
 private:
 	sf::Vector2f m_pos;
