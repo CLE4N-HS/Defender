@@ -5,8 +5,9 @@
 #include "HighScore.h"
 #include "GameOver.h"
 
-Game::Game() : m_viewPos(), m_player(), m_detectionPlayerBonus(), m_hud()
+Game::Game() : m_viewPos(), m_player(), particuleList(), m_detectionPlayerBonus(), m_hud()
 {
+	particuleList.clear();
 	for (int i = 0; i < 10; i++)
 	{
 		civilianList.push_back(new civilians());

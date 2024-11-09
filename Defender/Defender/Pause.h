@@ -16,5 +16,6 @@ public:
 private:
 	static bool m_isOpen;
 	static int m_index;
+	static float m_timer;
 
 };

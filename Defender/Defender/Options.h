@@ -24,5 +24,6 @@ private:
 	static int m_songVolume;
 	static int m_musicVolume;
 	static int m_index;
+	static float m_timer;
 
 };

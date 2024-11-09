@@ -3,6 +3,7 @@
 
 bool Pause::m_isOpen = false;
 int Pause::m_index = 0;
+float Pause::m_timer(0.f);
 
 Pause::Pause()
 {
@@ -15,36 +16,52 @@ Pause::~Pause()
 void Pause::toggle()
 {
 	m_isOpen = !m_isOpen;
-
 	m_index = 0;
+	m_timer = 0.f;
 }
 
 void Pause::update(Window& _window)
 {
-	if (_window.keyboardManager.hasJustPressed(sf::Keyboard::Down) ||
-		_window.keyboardManager.hasJustPressed(sf::Keyboard::S))
+	if (m_timer < 10.f)
+		m_timer += _window.getDeltaTime();
+
+	if (m_timer < 0.2f)
+		return;
+
+	sf::Vector2f stickPos = Gamepad_getStickPos(0, STICKL);
+
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) ||
+		sf::Keyboard::isKeyPressed(sf::Keyboard::S) ||
+		stickPos.y > +30.f)
 	{
+		m_timer = 0.f;
 		m_index++;
 		if (m_index > 1)
 			m_index = 0;
 	}
-	else if (_window.keyboardManager.hasJustPressed(sf::Keyboard::Up) ||
-		_window.keyboardManager.hasJustPressed(sf::Keyboard::Z))
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) ||
+		sf::Keyboard::isKeyPressed(sf::Keyboard::Z) ||
+		stickPos.y < -30.f)
 	{
+		m_timer = 0.f;
 		m_index--;
 		if (m_index < 0)
 			m_index = 1;
 	}
 
-	if (_window.keyboardManager.hasJustPressed(sf::Keyboard::Enter))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) ||
+		Gamepad_isButtonPressed(0, A))
 	{
 		if (m_index == 0)
 		{
+			m_timer = 0.f;
 			Pause::toggle();
 			Options::toggle();
 		}
 		else if (m_index == 1)
 		{
+			m_timer = 0.f;
 			Pause::toggle();
 		}
 	}

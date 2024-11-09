@@ -30,6 +30,7 @@ void sound_load(int _state)
 		tmpSound->name = (char*)malloc(sizeof(char) * 30);
 		strcpy(tmpSound->name, tmpSoundName);
 		tmpSound->sound;
+		tmpSound->sound.setVolume(50.f);
 		tmpSound->soundBuffer.loadFromFile(tmpSoundFullPath);
 		tmpSound->state = _state;
 		

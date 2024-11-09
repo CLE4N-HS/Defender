@@ -30,6 +30,7 @@ void music_load(int _state)
 		tmpMusic->name = (char*)malloc(sizeof(char) * 30);
 		strcpy(tmpMusic->name, tmpMusicName);
 		tmpMusic->music.openFromFile(tmpMusicFullPath);
+		tmpMusic->music.setVolume(50.f);
 		tmpMusic->state = _state;
 
 		music_add(tmpMusic);

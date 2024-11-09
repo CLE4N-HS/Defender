@@ -3,6 +3,8 @@
 #include "Menu.h"
 #include "Options.h"
 #include "Pause.h"
+#include "particleManager.h"
+#include "GameOver.h"
 
 StateManager::StateManager() : m_state(new Menu), m_isInMenu(true)
 {
@@ -14,8 +16,11 @@ StateManager::~StateManager()
 
 void StateManager::update(Window& _window, State*& _state)
 {
-	if (_window.keyboardManager.hasJustPressed(sf::Keyboard::Escape))
+	if (m_timer < 10.f)
+		m_timer += _window.getDeltaTime();
+	if (!GameOver::isGameOver() && (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) || Gamepad_isButtonPressed(0, gamepadXBOX::START)) && m_timer > 0.5f)
 	{
+		m_timer = 0.f;
 		if (m_isInMenu)
 			Options::toggle();
 		else if (!Pause::isOpen() && !Options::isOpen())
@@ -54,4 +59,6 @@ void StateManager::changeState(State* _state)
 
 	Menu* menuState = dynamic_cast<Menu*>(_state);
 	m_isInMenu = (menuState != nullptr);
+
+	prt_clear();
 }

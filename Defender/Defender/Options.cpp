@@ -3,11 +3,13 @@
 #include "soundManager.h"
 #include "musicManager.h"
 #include "Pause.h"
+#include "controller.h"
 
 bool Options::m_isOpen(false);
 int Options::m_songVolume(50);
 int Options::m_musicVolume(50);
 int Options::m_index(0);
+float Options::m_timer(0.f);
 
 Options::Options()
 {
@@ -21,6 +23,7 @@ void Options::toggle()
 {
 	m_isOpen = !m_isOpen;
 	m_index = 0;
+	m_timer = 0.f;
 }
 
 void Options::addSongVolume(int _value)
@@ -49,16 +52,28 @@ void Options::addMusicVolume(int _value)
 
 void Options::update(Window& _window, const bool& _isInMenu, State*& _state)
 {
-	if (_window.keyboardManager.hasJustPressed(sf::Keyboard::Down) ||
-		_window.keyboardManager.hasJustPressed(sf::Keyboard::S))
+	if (m_timer < 10.f)
+		m_timer += _window.getDeltaTime();
+
+	if (m_timer < 0.2f)
+		return;
+
+	sf::Vector2f stickPos = Gamepad_getStickPos(0, STICKL);
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) ||
+		sf::Keyboard::isKeyPressed(sf::Keyboard::S) ||
+		stickPos.y > +30.f)
 	{
+		m_timer = 0.f;
 		m_index++;
 		if (m_index > (_isInMenu ? 2 : 3))
 			m_index = 0;
 	}
-	else if (_window.keyboardManager.hasJustPressed(sf::Keyboard::Up) ||
-		_window.keyboardManager.hasJustPressed(sf::Keyboard::Z))
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) ||
+		sf::Keyboard::isKeyPressed(sf::Keyboard::Z) ||
+		stickPos.y < -30.f)
 	{
+		m_timer = 0.f;
 		m_index--;
 		if (m_index < 0)
 			m_index = (_isInMenu ? 2 : 3);
@@ -69,14 +84,22 @@ void Options::update(Window& _window, const bool& _isInMenu, State*& _state)
 	{
 		int addedVolume(0);
 
-		if (_window.keyboardManager.hasJustPressed(sf::Keyboard::Add) ||
-			_window.keyboardManager.hasJustPressed(sf::Keyboard::Right) ||
-			_window.keyboardManager.hasJustPressed(sf::Keyboard::D))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Add) ||
+			sf::Keyboard::isKeyPressed(sf::Keyboard::Right) ||
+			sf::Keyboard::isKeyPressed(sf::Keyboard::D) ||
+			stickPos.x > +50.f)
+		{
 			addedVolume = 10;
-		else if (_window.keyboardManager.hasJustPressed(sf::Keyboard::Subtract) ||
-			_window.keyboardManager.hasJustPressed(sf::Keyboard::Left) ||
-			_window.keyboardManager.hasJustPressed(sf::Keyboard::Q))
+			m_timer = 0.f;
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Subtract) ||
+			sf::Keyboard::isKeyPressed(sf::Keyboard::Left) ||
+			sf::Keyboard::isKeyPressed(sf::Keyboard::Q) ||
+			stickPos.x < -50.f)
+		{
 			addedVolume = -10;
+			m_timer = 0.f;
+		}
 
 
 		if (addedVolume != 0)
@@ -95,8 +118,10 @@ void Options::update(Window& _window, const bool& _isInMenu, State*& _state)
 	// QUIT
 	else if (m_index == 2)
 	{
-		if (_window.keyboardManager.hasJustPressed(sf::Keyboard::Enter))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) ||
+			Gamepad_isButtonPressed(0, A))
 		{
+			m_timer = 0.f;
 			if (_isInMenu)
 			{
 				_window.setIsDone(true);
@@ -112,8 +137,10 @@ void Options::update(Window& _window, const bool& _isInMenu, State*& _state)
 	// BACK
 	else if (m_index == 3)
 	{
-		if (_window.keyboardManager.hasJustPressed(sf::Keyboard::Enter))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) ||
+			Gamepad_isButtonPressed(0, A))
 		{
+			m_timer = 0.f;
 			Options::toggle();
 			Pause::toggle();
 		}
