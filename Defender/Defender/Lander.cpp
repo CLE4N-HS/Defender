@@ -13,13 +13,14 @@ Lander::Lander()
 	m_directionX = rand() % 2;          //direction x of the lander
 	m_directionY = rand() % 2;          //direction y of the lander
 	m_timerToCatch = randomFloat(5.f, 20.f);
+	targetCivil = nullptr;
+	haveGrabbedCivil = false;
+	normVec = sf::Vector2f(0.0f, 0.0f);
 }
 
 Lander::Lander(sf::Vector2f _pos, Window& _window)
 {
 	pos = sf::Vector2f(randomFloat( _window.viewCurrentPos(_pos).x +1920.f, _window.viewCurrentPos(_pos).x - 1920.f) , 0.0f);
-	//pos = sf::Vector2f(_window.viewCurrentPos(_pos).x - 960.f, 0.0f);
-	//pos = sf::Vector2f(_pos.x - 1920.f, 0.0f);
 	velocity = sf::Vector2f(300.f, 300.f);
 	state = E_GODOWN;		           //the current state
 	attackTimer = rand() % 5 + 1;          //timer bewteen each attack
@@ -30,16 +31,18 @@ Lander::Lander(sf::Vector2f _pos, Window& _window)
 	m_timerToCatch = randomFloat(5.f, 20.f);
 	targetCivil = nullptr;
 	haveGrabbedCivil = false;
+	normVec = sf::Vector2f(0.0f, 0.0f);
+
 }
 
-void Lander::update(Window& _window, Player _player, std::list<Bullets*>& _bulList)
+void Lander::update(Window& _window, Player _player, std::list<Bullets*>& _bulList, bool _isCivilListEmpty)
 {
 	float delta = _window.getDeltaTime();  //difference between player and enemy = 3500
 	sf::Vector2f tmpViewPos = _window.getViewPos();
 	sf::Vector2f tmpPlayerPos = _player.getPos();
 	shouldMove(tmpViewPos);
 
-	if (state == E_NATURAL || state == E_GODOWN)
+	if ((state == E_NATURAL || state == E_GODOWN) && !_isCivilListEmpty)
 	{
 		m_timerToCatch -= delta;
 		if (m_timerToCatch <= 0.0f)
@@ -48,7 +51,7 @@ void Lander::update(Window& _window, Player _player, std::list<Bullets*>& _bulLi
 
 	if (state != E_MUTANT)
 	{
-		if (_player.getLife() > 0)
+		if (_player.getLife() > 0 && haveGrabbedCivil == false)
 		{
 			if (attackTimer > 0.0f)
 				attackTimer -= delta;
@@ -99,9 +102,14 @@ void Lander::update(Window& _window, Player _player, std::list<Bullets*>& _bulLi
 	}
 	else if (state == E_CHASE)
 	{
-		if (targetCivil)
+		if (haveGrabbedCivil)
 		{
 			pos.y -= 200.f * delta;
+		}
+		else
+		{
+			normVec = sf::Vector2f(normVec.x * velocity.x * delta, normVec.y * velocity.y * delta);
+			pos += normVec;
 		}
 	}
 	else if (state == E_MUTANT)
@@ -118,6 +126,8 @@ void Lander::update(Window& _window, Player _player, std::list<Bullets*>& _bulLi
 void Lander::display(Window& _window, bool _isMainView)
 {
 	_window.rectangle.setTexture(tex_getTexture("all"));
+	_window.rectangle.setFillColor(sf::Color(255, 255, 255, 255));
+
 	if(_isMainView)
 	{
 		if(state != E_MUTANT)
@@ -126,7 +136,16 @@ void Lander::display(Window& _window, bool _isMainView)
 			_window.rectangle.setTextureRect(tex_getAnimRect("all", "mutant"));
 	}
 	else
-		_window.rectangle.setTextureRect(tex_getAnimRect("all", "babyLander"));
+	{
+		if (state == E_MUTANT)
+		{
+			_window.rectangle.setFillColor(sf::Color(100, 100, 0, 255));
+			_window.rectangle.setTextureRect(tex_getAnimRect("all", "babyLander"));
+		}
+		else
+			_window.rectangle.setTextureRect(tex_getAnimRect("all", "babyLander"));
+	}
+
 	_window.rectangle.setPosition(_window.viewCorrectPos(pos, _isMainView));
 	_window.rectangle.setSize(sf::Vector2f(36.f, 32.f));
 	_window.rectangle.setOrigin(sf::Vector2f(18.f, 16.f));

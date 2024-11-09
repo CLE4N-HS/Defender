@@ -1,7 +1,24 @@
 #include "Detection.h"
 #include "tools.h"
+#include "particleManager.h"
 
-void eraseCivil(std::list<civilians*> _civilList, civilians* _civilTargeted)
+sf::Vector2f createVector22222(sf::Vector2f _pos1, sf::Vector2f _pos2);
+
+civilians* getCivil(std::list<civilians*> _civilList, civilians* _civilTargeted)
+{
+	for (auto i = _civilList.begin(); i != _civilList.end();)
+	{
+		if ((*i) == _civilTargeted)
+		{
+			return (*i);
+		}
+		i++;
+	}
+	return nullptr;
+	
+}
+
+void eraseCivil(std::list<civilians*>& _civilList, civilians* _civilTargeted)
 {
 	for (auto i = _civilList.begin(); i != _civilList.end();)
 	{
@@ -14,14 +31,39 @@ void eraseCivil(std::list<civilians*> _civilList, civilians* _civilTargeted)
 	}
 }
 
-void Detection::update(std::list<Enemies*> _enemiesList, std::list<civilians*> _civilList)
+void checkDeadByFalling(std::list<civilians*>& _civilList, Player _player)
 {
+	for (auto i = _civilList.begin(); i != _civilList.end();)
+	{
+		if ((*i)->getState() != C_FALL) { i++; continue; }
+
+		if (vec2fGetMagnitude(createVector22222((*i)->getCivilPos(), _player.getPos())) < 100.f)
+			(*i)->setState(C_GRABBED_BY_PLAYER);
+
+		if ((*i)->getCivilPos().y > 980.f)
+		{
+			for (int o = 0; o < 10; o++)
+			{
+				prt_CreateSquareParticles((*i)->getCivilPos(), 1, sf::Color::White, sf::Color::Magenta, 0.5f, sf::Vector2f(5.0f, 5.0f), sf::Vector2f(10.f, 10.f), o * 36.f, o * 36.f, 200.f, 0.0f, 0.0f, sf::Color::White, sf::Color::White, false, false, false, nullptr, false, false, LOADING);
+			}
+			i = _civilList.erase(i);
+		}
+		else
+			i++;
+	}
+}
+
+
+void Detection::update(std::list<Enemies*> _enemiesList, std::list<civilians*>& _civilList, Player _player)
+{
+	checkDeadByFalling(_civilList, _player);
+
 	for (auto e = _enemiesList.begin(); e != _enemiesList.end();)
 	{
 		if ((*e)->getEnemyState() == E_CHASE) // Is it, in the chase state ?
 		{
 			sf::Vector2f tmpEPos = (*e)->getEnemyPos();
-			if(!(*e)->isEnemyTarget())  // Is already targeted a civil ?
+			if(!(*e)->isEnemyTarget() && _civilList.size() > 0)  // Is already targeted a civil ?
 			{
 
 				civilians* targetCivil = getClosestCivil(_civilList, tmpEPos);
@@ -31,19 +73,35 @@ void Detection::update(std::list<Enemies*> _enemiesList, std::list<civilians*> _
 					(*e)->setEnemyTarget(targetCivil);  // Now he's targetting a civil
 				}
 			}
-			else // if he targeted a civil 
+			else if( (*e)->getTargetedCivil() != nullptr)// if he targeted a civil 
 			{
-				
+				if (!(*e)->getGrabbedCivil()) // has he grabbed the civil ?
+				{
+					civilians* civilTargeted = getCivil(_civilList, (*e)->getTargetedCivil());
+					sf::Vector2f tmpNormVectorE_C = createVector22222(tmpEPos, sf::Vector2f(civilTargeted->getCivilPos().x, civilTargeted->getCivilPos().y - 25.f));
+					vec2fNormalize(tmpNormVectorE_C);
+					(*e)->setNormVec(tmpNormVectorE_C);
 
-				
-				if (tmpEPos.y > 172.f + 16.f)
-				{
-					
+					sf::Vector2f tmpVectorE_C = createVector22222(tmpEPos, sf::Vector2f(civilTargeted->getCivilPos().x, civilTargeted->getCivilPos().y - 25.f) );
+					float tmp = vec2fGetSqrtMagnitude(tmpVectorE_C);
+					if ( tmp < 100.f)
+					{
+						(*e)->setGrabbedCivil(true);
+						civilTargeted->setCivilIsGrabbed(true);
+					}
+
 				}
-				else
+				else // if he has already grabbed the civil
 				{
-					eraseCivil(_civilList, (*e)->getTargetedCivil());
-					(*e)->setEnemyState(E_MUTANT);
+					if (tmpEPos.y > 172.f + 16.f) // go up
+					{
+
+					}
+					else // kill civil and become a mutant
+					{
+						eraseCivil(_civilList, (*e)->getTargetedCivil());
+						(*e)->setEnemyState(E_MUTANT);
+					}
 				}
 			}
 		}
