@@ -5,6 +5,7 @@
 #include "HighScore.h"
 #include "GameOver.h"
 #include "BonusManager.h"
+#include "Multiplication.h"
 
 Game::Game() : m_viewPos(), m_player(), particuleList(), m_detectionPlayerBonus(), m_hud(), m_bomb()
 {
@@ -12,8 +13,8 @@ Game::Game() : m_viewPos(), m_player(), particuleList(), m_detectionPlayerBonus(
 	for (int i = 0; i < 10; i++)
 	{
 		civilianList.push_back(new civilians());
-		enemiesList.push_back(new Lander());
-		enemiesList.push_back(new Lander());
+		//enemiesList.push_back(new Lander());
+		//enemiesList.push_back(new Lander());
 	}
 }
 
@@ -34,13 +35,13 @@ bool getNbOfCivilianAreTargeted(std::list<civilians*> _civilList)
 
 void Game::update(Window& _window , State*& _state)
 {
-	//m_wave.update(_window, enemiesList, m_player.getPos());
+	m_wave.update(_window, enemiesList, m_player.getPos());
 
 	if (!GameOver::isGameOver() && (m_player.getDeadTimer() < 0.f || civilianList.size() <= 0))
 		GameOver::setup(m_player.getScore());
 
 	GameOver::update(_window, _state, m_player);
-
+	
 	if (!m_wave.isScreenWave() && !GameOver::isGameOver())
 	{
 		_window.setView(sf::Vector2f(m_player.getViewCenterPos().x, 540.f), sf::FloatRect(0.f, 0.f, 1.f, 1.f));
@@ -102,6 +103,7 @@ void Game::display(Window& _window)
 	_window.draw(_window.rectangle);
 
 	m_hud.display(_window,m_player);
+	Multiplication::displayMultiplication(_window);
 
 	_window.rectangle.setFillColor(sf::Color(255, 255, 255, 255));
 	//

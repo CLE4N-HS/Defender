@@ -11,6 +11,7 @@ civilians::civilians()
 	m_timerWaiting = 0.0f;
 	m_mustDie = false;
 	m_direction = rand() % 2;
+	m_isGrabbedByPlayer = false;
 
 	int tmp2 = rand() % 2;
 	if (tmp2 == 0) m_state = C_WAITING;
@@ -108,7 +109,7 @@ void civilians::update(Window& _window, Player& _player)
 		break;
 	case C_FALL:
 		//if (m_pos.y < 980.f)
-			m_pos.y += 300.f * delta;
+			m_pos.y += 200.f * delta;
 		/*else
 			m_state = C_WALK;*/
 		break;

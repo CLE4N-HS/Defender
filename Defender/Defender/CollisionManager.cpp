@@ -1,6 +1,7 @@
 #include "CollisionManager.h"
 #include "particleManager.h"
 #include "BonusManager.h"
+#include "Multiplication.h"
 
 void resetTargetEnemy(std::list<Enemies*> _enemiesList, civilians* _civil)
 {
@@ -70,7 +71,10 @@ void CollisionManager::update(std::list<Bullets*>& _bulletsList, Player& _player
 			bool haveToChange = false;
 
 			if (tmpBulletPos.x < tmpPlayerPos.x - 1000.f || tmpBulletPos.x > tmpPlayerPos.x + 1000.f)
+			{
+				Multiplication::resetMultiplication();
 				haveToChange = true;
+			}
 
 			for (auto civil = _civilList.begin(); civil != _civilList.end();)
 			{
@@ -82,6 +86,7 @@ void CollisionManager::update(std::list<Bullets*>& _bulletsList, Player& _player
 					haveToChange = true;
 					resetTargetEnemy(_enemiesList, *civil);
 					civil = _civilList.erase(civil);
+					Multiplication::resetMultiplication();
 					for (int o = 0; o < 10; o++)
 					{
 						prt_CreateSquareParticles(tmpCivilPos, 1, sf::Color::White, sf::Color::Magenta, 0.5f, sf::Vector2f(5.0f, 5.0f), sf::Vector2f(10.f, 10.f), o * 36.f, o * 36.f, 200.f, 0.0f, 0.0f, sf::Color::White, sf::Color::White, false, false, false, nullptr, false, false, LOADING);
@@ -123,7 +128,8 @@ void CollisionManager::update(std::list<Bullets*>& _bulletsList, Player& _player
 							prt_CreateSquareParticles((*ite)->getEnemyPos(), 1, sf::Color::White, sf::Color::Green, 0.5f, sf::Vector2f(5.0f, 5.0f), sf::Vector2f(10.f, 10.f), o * 36.f, o * 36.f, 200.f, 0.0f, 0.0f, sf::Color::White, sf::Color::White, false, false, false, nullptr, false, false, LOADING);
 						}
 					}
-					_player.addScore((*ite)->getScoreValue());
+					_player.addScore((*ite)->getScoreValue() * Multiplication::getMultiplication());
+					Multiplication::addMultiplication(1);
 					ite = _enemiesList.erase(ite);
 					haveToChange = true;
 				}
@@ -136,7 +142,9 @@ void CollisionManager::update(std::list<Bullets*>& _bulletsList, Player& _player
 				it = _bulletsList.erase(it);
 			}
 			else
+			{
 				it++;
+			}
 		}
 	}
 
