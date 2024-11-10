@@ -5,6 +5,7 @@
 #include "HighScore.h"
 #include "GameOver.h"
 #include "BonusManager.h"
+#include "Multiplication.h"
 
 Game::Game() : m_viewPos(), m_player(), particuleList(), m_detectionPlayerBonus(), m_hud(), m_bomb()
 {
@@ -32,6 +33,8 @@ bool getNbOfCivilianAreTargeted(std::list<civilians*> _civilList)
 	return false;
 }
 
+int getNbOfCivilSaved(std::list<civilians*> _civilList) { return _civilList.size(); }
+
 void Game::update(Window& _window , State*& _state)
 {
 	m_wave.update(_window, enemiesList, m_player.getPos());
@@ -40,7 +43,7 @@ void Game::update(Window& _window , State*& _state)
 		GameOver::setup(m_player.getScore());
 
 	GameOver::update(_window, _state, m_player);
-
+	
 	if (!m_wave.isScreenWave() && !GameOver::isGameOver())
 	{
 		_window.setView(sf::Vector2f(m_player.getViewCenterPos().x, 540.f), sf::FloatRect(0.f, 0.f, 1.f, 1.f));
@@ -102,6 +105,7 @@ void Game::display(Window& _window)
 	_window.draw(_window.rectangle);
 
 	m_hud.display(_window,m_player);
+	Multiplication::displayMultiplication(_window);
 
 	_window.rectangle.setFillColor(sf::Color(255, 255, 255, 255));
 	//
@@ -133,7 +137,7 @@ void Game::display(Window& _window)
 		prt_DisplayParticlesBehind(_window, _window.getDeltaTime());
 	}
 	else
-		m_wave.display(_window);
+		m_wave.display(_window, getNbOfCivilSaved(civilianList));
 
 
 	//

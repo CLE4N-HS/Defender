@@ -175,6 +175,7 @@
     <ClCompile Include="Master.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="MouseManager.cpp" />
+    <ClCompile Include="Multiplication.cpp" />
     <ClCompile Include="musicManager.cpp" />
     <ClCompile Include="Options.cpp" />
     <ClCompile Include="particleManager.cpp" />
@@ -217,6 +218,7 @@
     <ClInclude Include="Master.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="MouseManager.h" />
+    <ClInclude Include="Multiplication.h" />
     <ClInclude Include="musicManager.h" />
     <ClInclude Include="Options.h" />
     <ClInclude Include="particleManager.h" />

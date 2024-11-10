@@ -48,7 +48,7 @@ void wave::update(Window& _window, std::list<Enemies*>& _enemyList, sf::Vector2f
 	}
 }
 
-void wave::display(Window& _window)
+void wave::display(Window& _window, int _numOfCivilAlive)
 {
 	if (m_isScreenEndWawe)
 	{
@@ -62,22 +62,42 @@ void wave::display(Window& _window)
 
 
 		_window.text.setString("Wave " + std::to_string(m_currentNbWave) + " cleared !");
-		_window.text.setPosition(_window.viewDefaultPos(sf::Vector2f(600.f, 400.f)));
+		_window.text.setPosition(_window.viewDefaultPos(sf::Vector2f(1000.f, 400.f)));
+		sf::Vector2f tmpPos = _window.text.getPosition();
 		_window.text.setCharacterSize(100);
+		_window.textCenterOrigin();
 
 		_window.draw(_window.text);
 
 
-		/*for (int i = 0; i < _numberOfCivilian; i++)
+		for (int i = 0; i < _numOfCivilAlive; i++)
 		{
 			_window.rectangle.setTexture(tex_getTexture("all"));
 			_window.rectangle.setTextureRect(tex_getAnimRect("all", "civilian"));
-			_window.rectangle.setPosition(_window.viewCorrectPos(sf::Vector2f(200.f + static_cast<float>(i) * 20.f, 500.f),true));
-			_window.rectangle.setSize(sf::Vector2f(12.f, 32.f));
+			_window.rectangle.setFillColor(sf::Color(255, 255, 255, 255));
+			float size = 2.f;
+			_window.rectangle.setPosition(_window.viewDefaultPos(sf::Vector2f(800.f + 20.f * size * i, 550.f)));
+			sf::Vector2f pos = _window.rectangle.getPosition();
+			_window.rectangle.setSize(sf::Vector2f(12.f * size, 32.f * size));
 			_window.rectangle.setOrigin(sf::Vector2f(6.f, 16.f));
 			
 			_window.draw(_window.rectangle);
-		}*/
+		}
+
+		if(_numOfCivilAlive == 10)
+			_window.text.setString("Excellent !");
+		else if(_numOfCivilAlive > 5)
+			_window.text.setString("Very good !");
+		else if(_numOfCivilAlive > 0)
+			_window.text.setString("good !");
+		else
+			_window.text.setString("Please man you are so bad as fuck !");
+
+		_window.text.setPosition(_window.viewDefaultPos(sf::Vector2f(960.f,700.f )));
+		_window.textCenterOrigin();
+		_window.text.setCharacterSize(50);
+
+		_window.draw(_window.text);
 	}
 }
 
