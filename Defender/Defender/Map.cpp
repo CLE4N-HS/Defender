@@ -20,6 +20,7 @@ void Map::update(Window& _window, sf::Vector2f _playerPos)
 void Map::display(Window& _window, bool mainView, sf::Vector2f _playerPos)
 {
 	// map
+	_window.rectangle.setFillColor(sf::Color(255, 255, 255));
 	_window.rectangle.setTexture(tex_getTexture("map"), true);
 	_window.rectangle.setPosition(_window.viewCorrectPos(m_pos1, mainView));
 	_window.rectangle.setOrigin(sf::Vector2f(0.f, 540.f));

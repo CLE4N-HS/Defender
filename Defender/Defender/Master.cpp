@@ -1,6 +1,6 @@
 #include "Master.h"
 
-Master::Master() : m_window("Defender", sf::Style::Default), m_stateManager(), m_newState(nullptr)
+Master::Master() : m_window("Defender", sf::Style::Fullscreen), m_stateManager(), m_newState(nullptr)
 {
 }
 

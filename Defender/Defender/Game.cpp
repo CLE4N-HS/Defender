@@ -10,6 +10,7 @@
 
 Game::Game() : m_viewPos(), m_player(), particuleList(), m_detectionPlayerBonus(), m_hud(), m_bomb()
 {
+	music_stop("gameOver");
 	music_stop("game");
 	music_play("game");
 	music_setLoop("game");
@@ -20,6 +21,7 @@ Game::Game() : m_viewPos(), m_player(), particuleList(), m_detectionPlayerBonus(
 		//enemiesList.push_back(new Lander());
 		//enemiesList.push_back(new Lander());
 	}
+	Multiplication::resetMultiplication();
 }
 
 Game::~Game()

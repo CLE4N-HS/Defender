@@ -3,9 +3,13 @@
 #include "Game.h"
 #include "textureManager.h"
 #include "HighScore.h"
+#include "musicManager.h"
 
 Menu::Menu() : Entity(), m_timer(0.f)
 {
+	music_stop("menu");
+	music_play("menu");
+	music_setLoop("menu");
 }
 
 Menu::~Menu()
@@ -21,6 +25,7 @@ void Menu::update(Window& _window, State*& _state)
 
 	if (changeStateInput)
 	{
+		music_stop("menu");
 		_state = new Game;
 	}
 }

@@ -133,6 +133,8 @@ void Options::update(Window& _window, const bool& _isInMenu, State*& _state)
 			}
 			else
 			{
+				music_stop("game");
+				music_stop("gameOver");
 				_state = new Menu;
 				toggle();
 				sound_play("press");

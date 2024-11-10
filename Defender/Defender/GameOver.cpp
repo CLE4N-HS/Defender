@@ -5,6 +5,7 @@
 #include "Game.h"
 #include "Menu.h"
 #include "soundManager.h"
+#include "musicManager.h"
 
 bool GameOver::m_isGameOver = false;
 
@@ -122,6 +123,8 @@ void GameOver::update(Window& _window, State*& _state, Player& _player)
 				{
 					sound_play("press");
 					m_isGameOver = false;
+					music_stop("game");
+					music_stop("gameOver");
 					_state = new Menu;
 				}
 			}
@@ -239,5 +242,8 @@ void GameOver::setup(const int& _score)
 	m_name = "A";
 	m_nameTimer = 0.f;
 	m_nameHighlight = false;
-	// TODO music
+	music_stop("game");
+	music_play("gameOver");
+	music_setLoop("gameOver");
+
 }
