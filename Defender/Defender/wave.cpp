@@ -62,10 +62,10 @@ void wave::display(Window& _window, int _numOfCivilAlive)
 
 
 		_window.text.setString("Wave " + std::to_string(m_currentNbWave) + " cleared !");
-		_window.text.setPosition(_window.viewDefaultPos(sf::Vector2f(650.f, 400.f)));
+		_window.text.setPosition(_window.viewDefaultPos(sf::Vector2f(1000.f, 400.f)));
 		sf::Vector2f tmpPos = _window.text.getPosition();
 		_window.text.setCharacterSize(100);
-		//_window.textCenterOrigin();
+		_window.textCenterOrigin();
 
 		_window.draw(_window.text);
 
@@ -76,7 +76,7 @@ void wave::display(Window& _window, int _numOfCivilAlive)
 			_window.rectangle.setTextureRect(tex_getAnimRect("all", "civilian"));
 			_window.rectangle.setFillColor(sf::Color(255, 255, 255, 255));
 			float size = 2.f;
-			_window.rectangle.setPosition(_window.viewDefaultPos(sf::Vector2f(650.f + 20.f * size * i, 550.f)));
+			_window.rectangle.setPosition(_window.viewDefaultPos(sf::Vector2f(800.f + 20.f * size * i, 550.f)));
 			sf::Vector2f pos = _window.rectangle.getPosition();
 			_window.rectangle.setSize(sf::Vector2f(12.f * size, 32.f * size));
 			_window.rectangle.setOrigin(sf::Vector2f(6.f, 16.f));
@@ -93,8 +93,8 @@ void wave::display(Window& _window, int _numOfCivilAlive)
 		else
 			_window.text.setString("Please man you are so bad as fuck !");
 
-		_window.text.setPosition(_window.viewDefaultPos(sf::Vector2f(900.f, 700.f)));
-		sf::Vector2f tmpPos2 = _window.text.getPosition();
+		_window.text.setPosition(_window.viewDefaultPos(sf::Vector2f(960.f,700.f )));
+		_window.textCenterOrigin();
 		_window.text.setCharacterSize(50);
 
 		_window.draw(_window.text);
