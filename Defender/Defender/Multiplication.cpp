@@ -15,10 +15,10 @@ Multiplication::~Multiplication()
 void Multiplication::displayMultiplication(Window& _window)
 {
 
-	_window.text.setPosition(sf::Vector2f(1700.f,100.f));
-	_window.text.setCharacterSize(50);
+	_window.text.setPosition(sf::Vector2f(1640.f, 81.f));
+	_window.text.setCharacterSize(40 + 10 * (m_multiplier > 4 ? 4 : m_multiplier));
 	_window.text.setString("Multiplier x" + std::to_string(m_multiplier));
-	_window.text.setStyle(sf::Text::Style::Underlined);
+	_window.text.setStyle(sf::Text::Style::Regular);
 	_window.textCenterOrigin();
 
 	float iTime = _window.getItime();

@@ -2,6 +2,7 @@
 #include "controller.h"
 #include "particleManager.h"
 #include "BonusManager.h"
+#include "soundManager.h"
 
 Bomb::Bomb() : m_timer(0.f)
 {
@@ -26,6 +27,7 @@ void Bomb::update(Window& _window, std::list<Enemies*>& _enemies, Player& _playe
 		m_timer = 0.f;
 
 		_player.useBomb(1);
+		sound_play("bomb");
 
 		const sf::Vector2f centerPos = _player.getViewCenterPos();
 

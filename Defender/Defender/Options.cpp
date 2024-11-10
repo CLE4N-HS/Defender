@@ -68,6 +68,7 @@ void Options::update(Window& _window, const bool& _isInMenu, State*& _state)
 		m_index++;
 		if (m_index > (_isInMenu ? 2 : 3))
 			m_index = 0;
+		sound_play("selection");
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) ||
 		sf::Keyboard::isKeyPressed(sf::Keyboard::Z) ||
@@ -77,6 +78,7 @@ void Options::update(Window& _window, const bool& _isInMenu, State*& _state)
 		m_index--;
 		if (m_index < 0)
 			m_index = (_isInMenu ? 2 : 3);
+		sound_play("selection");
 	}
 
 	// SONG & MUSIC
@@ -91,6 +93,7 @@ void Options::update(Window& _window, const bool& _isInMenu, State*& _state)
 		{
 			addedVolume = 10;
 			m_timer = 0.f;
+			sound_play("selection");
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Subtract) ||
 			sf::Keyboard::isKeyPressed(sf::Keyboard::Left) ||
@@ -99,6 +102,7 @@ void Options::update(Window& _window, const bool& _isInMenu, State*& _state)
 		{
 			addedVolume = -10;
 			m_timer = 0.f;
+			sound_play("selection");
 		}
 
 
@@ -125,11 +129,13 @@ void Options::update(Window& _window, const bool& _isInMenu, State*& _state)
 			if (_isInMenu)
 			{
 				_window.setIsDone(true);
+				sound_play("press");
 			}
 			else
 			{
 				_state = new Menu;
 				toggle();
+				sound_play("press");
 			}
 		}
 	}
@@ -143,6 +149,7 @@ void Options::update(Window& _window, const bool& _isInMenu, State*& _state)
 			m_timer = 0.f;
 			Options::toggle();
 			Pause::toggle();
+			sound_play("press");
 		}
 	}
 }

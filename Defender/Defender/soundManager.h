@@ -17,13 +17,13 @@ struct sound_SData {
 	sound_SData* pNext;
 	int state;
 	char* name;
-	sf::Sound sound;
-	sf::SoundBuffer soundBuffer;
+	sf::Sound* sound;
+	sf::SoundBuffer* soundBuffer;
 };
 
 void sound_load(int _state);
 void sound_add(sound_SData* _sound);
 sound_SData* sound_remove(sound_SData* _sound);
-void sound_play(char* _name);
+void sound_play(const char* _name);
 void sound_deinit(bool _deinitStateAll);
 void sound_setVolume(const int& _volume);

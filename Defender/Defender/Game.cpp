@@ -6,9 +6,13 @@
 #include "GameOver.h"
 #include "BonusManager.h"
 #include "Multiplication.h"
+#include "musicManager.h"
 
 Game::Game() : m_viewPos(), m_player(), particuleList(), m_detectionPlayerBonus(), m_hud(), m_bomb()
 {
+	music_stop("game");
+	music_play("game");
+	music_setLoop("game");
 	particuleList.clear();
 	for (int i = 0; i < 10; i++)
 	{
@@ -104,9 +108,6 @@ void Game::display(Window& _window)
 	_window.rectangle.setTexture(nullptr);
 	_window.draw(_window.rectangle);
 
-	m_hud.display(_window,m_player);
-	Multiplication::displayMultiplication(_window);
-
 	_window.rectangle.setFillColor(sf::Color(255, 255, 255, 255));
 	//
 
@@ -139,7 +140,8 @@ void Game::display(Window& _window)
 	else
 		m_wave.display(_window, getNbOfCivilSaved(civilianList));
 
-
+	m_hud.display(_window, m_player);
+	Multiplication::displayMultiplication(_window);
 	//
 	
 

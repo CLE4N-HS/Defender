@@ -14,6 +14,12 @@ void Hud::display(Window& _window, Player& _player)
 	_window.setView(sf::Vector2f(960.f, 540.f), sf::FloatRect(0.f, 0.f, 1.f, 1.f));
 
 	_window.rectangle.setOrigin(sf::Vector2f());
+	_window.rectangle.setTexture(nullptr);
+
+	_window.rectangle.setPosition(sf::Vector2f());
+	_window.rectangle.setSize(sf::Vector2f(1920.f, 172.f));
+	_window.rectangle.setFillColor(sf::Color::Black);
+	_window.draw(_window.rectangle);
 
 	_window.rectangle.setPosition(sf::Vector2f(576.f - 10.f, 0.f - 10.f));
 	_window.rectangle.setSize(sf::Vector2f(768.f + 20.f, 162.f + 20.f));
@@ -76,5 +82,5 @@ void Hud::display(Window& _window, Player& _player)
 	_window.draw(_window.text);
 	
 
-
+	_window.rectangle.setTexture(nullptr);
 }

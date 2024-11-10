@@ -1,5 +1,6 @@
 #include "Pause.h"
 #include "Options.h"
+#include "soundManager.h"
 
 bool Pause::m_isOpen = false;
 int Pause::m_index = 0;
@@ -39,6 +40,7 @@ void Pause::update(Window& _window)
 		m_index++;
 		if (m_index > 1)
 			m_index = 0;
+		sound_play("selection");
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) ||
 		sf::Keyboard::isKeyPressed(sf::Keyboard::Z) ||
@@ -48,6 +50,7 @@ void Pause::update(Window& _window)
 		m_index--;
 		if (m_index < 0)
 			m_index = 1;
+		sound_play("selection");
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) ||
@@ -58,11 +61,13 @@ void Pause::update(Window& _window)
 			m_timer = 0.f;
 			Pause::toggle();
 			Options::toggle();
+			sound_play("press");
 		}
 		else if (m_index == 1)
 		{
 			m_timer = 0.f;
 			Pause::toggle();
+			sound_play("press");
 		}
 	}
 }

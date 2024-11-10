@@ -2,6 +2,7 @@
 #include "textureManager.h"
 #include "playerBullets.h"
 #include "particleManager.h"
+#include "soundManager.h"
 
 Player::Player() : Player(sf::Vector2f(100.f, 540.f))
 {
@@ -44,6 +45,7 @@ void Player::update(Window& _window, std::list<Bullets*>& _bulletsList)
 	{
 		m_fireRate = m_maxFireRate;
 		_bulletsList.push_back(new playerBullets(m_pos, _window.viewCurrentPos(m_pos), m_wasFacingRight == 1 ? sf::Vector2f(1.f,0.f) : sf::Vector2f(-1.f, 0.f),sf::Vector2f(2000.f,2000.f)));
+		sound_play("shot");
 	}
 
 	bool isMoving(false);
@@ -229,6 +231,7 @@ void Player::setDamage(int _damage)
 			prt_CreateSquareParticles(m_pos, 1, sf::Color::White, sf::Color(255, 255, 255, 0), 3.f, sf::Vector2f(10.0f, 10.0f), sf::Vector2f(10.f, 10.f), 0, 360, static_cast<float>(i + 10) * 100.f, 0.0f, 0.0f, sf::Color::White, sf::Color::White, false, false, false, nullptr, false, false, LOADING);
 		}
 		m_invulnerability = 1.f;
+		sound_play("hit");
 	}
 	else
 	{
@@ -236,6 +239,7 @@ void Player::setDamage(int _damage)
 		{
 			prt_CreateSquareParticles(m_pos, 1, sf::Color::White, sf::Color::White, m_deadTimer, sf::Vector2f(10.0f, 10.0f), sf::Vector2f(10.f, 10.f), 0, 360, static_cast<float>(i + 10) * 10.f, 0.0f, 0.0f, sf::Color::White, sf::Color::White, false, false, false, nullptr, false, false, LOADING);
 		}
+		sound_play("death");
 	}
 }
 
@@ -245,6 +249,7 @@ void Player::useBomb(int _nbBomb)
 
 	if (m_bomb < 0)
 		m_bomb = 0;
+	// TODO song
 }
 
 sf::Vector2f Player::getViewCenterPos() const
@@ -279,4 +284,5 @@ void Player::addLife(unsigned int _life)
 void Player::addScore(unsigned int _score)
 {
 	m_score += _score;
+	sound_play("score");
 }

@@ -47,5 +47,35 @@ void Menu::display(Window& _window)
 	_window.draw(_window.text);
 	_window.text.setStyle(sf::Text::Style::Regular);
 
+	// CREDITS
+	float iTime = _window.getItime() * 0.1f;
+
+	float r = cosf(sinf(iTime) * 10.f) * 0.5f + 0.5f;
+	float g = cosf(sinf(iTime) * 20.f) * 0.5f + 0.5f;
+	float b = cosf(sinf(iTime) * 30.f) * 0.5f + 0.5f;
+
+	_window.text.setFillColor(sf::Color(static_cast<sf::Uint8>(r * 255.f), static_cast<sf::Uint8>(g * 255.f), static_cast<sf::Uint8>(b * 255.f)));
+
+	_window.text.setCharacterSize(50);
+	_window.text.setStyle(sf::Text::Style::Underlined);
+	_window.text.setOrigin(sf::Vector2f());
+
+	_window.text.setPosition(sf::Vector2f(1500.f, 400.f));
+	_window.text.setString("DEVELOPERS :");
+	_window.draw(_window.text);
+
+	_window.text.setCharacterSize(40);
+	_window.text.setStyle(sf::Text::Style::Bold);
+
+	_window.text.setPosition(sf::Vector2f(1500.f, 500.f));
+	_window.text.setString("ANSEL BRYAN");
+	_window.draw(_window.text);
+
+	_window.text.setPosition(sf::Vector2f(1500.f, 550.f));
+	_window.text.setString("CLEENEWERCK NOÉ");
+	_window.draw(_window.text);
+
+
+	_window.text.setFillColor(sf::Color(255, 255, 255));
 	HighScore::display(_window);
 }
