@@ -33,6 +33,8 @@ bool getNbOfCivilianAreTargeted(std::list<civilians*> _civilList)
 	return false;
 }
 
+int getNbOfCivilSaved(std::list<civilians*> _civilList) { return _civilList.size(); }
+
 void Game::update(Window& _window , State*& _state)
 {
 	m_wave.update(_window, enemiesList, m_player.getPos());
@@ -135,7 +137,7 @@ void Game::display(Window& _window)
 		prt_DisplayParticlesBehind(_window, _window.getDeltaTime());
 	}
 	else
-		m_wave.display(_window);
+		m_wave.display(_window, getNbOfCivilSaved(civilianList));
 
 
 	//

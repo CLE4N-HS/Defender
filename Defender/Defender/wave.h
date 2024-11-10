@@ -7,8 +7,8 @@ class wave
 public:
 	wave();
 
-	void update(Window& _window, std::list<Enemies*>& _enemyList, sf::Vector2f _pos /*NbOfSavedPNJ*/);
-	void display(Window& _window);
+	void update(Window& _window, std::list<Enemies*>& _enemyList, sf::Vector2f _pos);
+	void display(Window& _window, int _numOfCivilAlive);
 
 	inline bool isScreenWave() { return m_isScreenEndWawe; }
 

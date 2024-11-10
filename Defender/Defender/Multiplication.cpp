@@ -15,9 +15,9 @@ Multiplication::~Multiplication()
 void Multiplication::displayMultiplication(Window& _window)
 {
 
-	_window.text.setPosition(sf::Vector2f(1800.f,100.f));
+	_window.text.setPosition(sf::Vector2f(1700.f,100.f));
 	_window.text.setCharacterSize(50);
-	_window.text.setString("x" + std::to_string(m_multiplier));
+	_window.text.setString("Multiplier x" + std::to_string(m_multiplier));
 	_window.text.setStyle(sf::Text::Style::Underlined);
 	_window.textCenterOrigin();
 
