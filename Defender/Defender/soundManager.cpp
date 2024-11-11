@@ -29,9 +29,10 @@ void sound_load(int _state)
 		sound_SData* tmpSound = (sound_SData*)calloc(1, sizeof(sound_SData));
 		tmpSound->name = (char*)malloc(sizeof(char) * 30);
 		strcpy(tmpSound->name, tmpSoundName);
-		tmpSound->sound;
-		tmpSound->sound.setVolume(50.f);
-		tmpSound->soundBuffer.loadFromFile(tmpSoundFullPath);
+		tmpSound->sound = new sf::Sound();
+		tmpSound->soundBuffer = new sf::SoundBuffer();
+		tmpSound->sound->setVolume(50.f);
+		tmpSound->soundBuffer->loadFromFile(tmpSoundFullPath);
 		tmpSound->state = _state;
 		
 		sound_add(tmpSound);
@@ -63,15 +64,15 @@ sound_SData* sound_remove(sound_SData* _sound)
 	}
 }
 
-void sound_play(char* _name)
+void sound_play(const char* _name)
 {
 	sound_SData* tmpSound = sound_BeginSound;
 	while (strcmp(_name, tmpSound->name) != 0)
 	{
 		tmpSound = tmpSound->pNext;
 	}
-	tmpSound->sound.setBuffer(tmpSound->soundBuffer);
-	tmpSound->sound.play();
+	tmpSound->sound->setBuffer(*tmpSound->soundBuffer);
+	tmpSound->sound->play();
 }
 
 void sound_deinit(bool _deinitStateAll)
@@ -91,7 +92,7 @@ void sound_setVolume(const int& _volume)
 	sound_SData* tmpSound = sound_BeginSound;
 	while (tmpSound != NULL)
 	{
-		tmpSound->sound.setVolume(static_cast<float>(_volume));
+		tmpSound->sound->setVolume(static_cast<float>(_volume));
 		tmpSound = tmpSound->pNext;
 	}
 }

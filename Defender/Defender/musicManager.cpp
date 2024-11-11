@@ -29,8 +29,9 @@ void music_load(int _state)
 		music_SData* tmpMusic = (music_SData*)calloc(1, sizeof(music_SData));
 		tmpMusic->name = (char*)malloc(sizeof(char) * 30);
 		strcpy(tmpMusic->name, tmpMusicName);
-		tmpMusic->music.openFromFile(tmpMusicFullPath);
-		tmpMusic->music.setVolume(50.f);
+		tmpMusic->music = new sf::Music();
+		tmpMusic->music->openFromFile(tmpMusicFullPath);
+		tmpMusic->music->setVolume(50.f);
 		tmpMusic->state = _state;
 
 		music_add(tmpMusic);
@@ -62,14 +63,34 @@ music_SData* music_remove(music_SData* _music)
 	}
 }
 
-void music_play(char* _name)
+void music_play(const char* _name)
 {
 	music_SData* tmpMusic = music_BeginMusic;
 	while (strcmp(_name, tmpMusic->name) != 0)
 	{
 		tmpMusic = tmpMusic->pNext;
 	}
-	tmpMusic->music.play();
+	tmpMusic->music->play();
+}
+
+void music_setLoop(const char* _name, const bool& _loop)
+{
+	music_SData* tmpMusic = music_BeginMusic;
+	while (strcmp(_name, tmpMusic->name) != 0)
+	{
+		tmpMusic = tmpMusic->pNext;
+	}
+	tmpMusic->music->setLoop(_loop);
+}
+
+void music_stop(const char* _name)
+{
+	music_SData* tmpMusic = music_BeginMusic;
+	while (strcmp(_name, tmpMusic->name) != 0)
+	{
+		tmpMusic = tmpMusic->pNext;
+	}
+	tmpMusic->music->stop();
 }
 
 void music_deinit(bool _deinitStateAll)
@@ -89,7 +110,7 @@ void music_setVolume(const int& _volume)
 	music_SData* tmpMusic = music_BeginMusic;
 	while (tmpMusic != NULL)
 	{
-		tmpMusic->music.setVolume(static_cast<int>(_volume));
+		tmpMusic->music->setVolume(static_cast<int>(_volume));
 		tmpMusic = tmpMusic->pNext;
 	}
 }

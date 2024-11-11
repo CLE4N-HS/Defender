@@ -2,6 +2,7 @@
 #include "Lander.h"
 #include "textureManager.h"
 #include "controller.h"
+#include "soundManager.h"
 
 wave::wave() : m_textWawe()
 {
@@ -27,6 +28,7 @@ void wave::update(Window& _window, std::list<Enemies*>& _enemyList, sf::Vector2f
 				m_currentNbOfPlayer = 0;  // So have to reinit each value
 				m_currentNbWave++;
 				m_timerEachSpawn -= 0.1f;
+				sound_play("nextWave");
 			}
 		}
 		else
@@ -94,8 +96,8 @@ void wave::display(Window& _window, int _numOfCivilAlive)
 			_window.text.setString("Please man you are so bad as fuck !");
 
 		_window.text.setPosition(_window.viewDefaultPos(sf::Vector2f(960.f,700.f )));
-		_window.textCenterOrigin();
 		_window.text.setCharacterSize(50);
+		_window.textCenterOrigin();
 
 		_window.draw(_window.text);
 	}

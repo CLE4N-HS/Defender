@@ -4,6 +4,8 @@
 #include "HighScore.h"
 #include "Game.h"
 #include "Menu.h"
+#include "soundManager.h"
+#include "musicManager.h"
 
 bool GameOver::m_isGameOver = false;
 
@@ -62,12 +64,14 @@ void GameOver::update(Window& _window, State*& _state, Player& _player)
 				m_name[m_scoreIndex] -= 1;
 				if (m_name[m_scoreIndex] < 'A')
 					m_name[m_scoreIndex] = 'Z';
+				sound_play("selection");
 			}
 			else if (direction == 2)
 			{
 				m_name[m_scoreIndex] += 1;
 				if (m_name[m_scoreIndex] > 'Z')
 					m_name[m_scoreIndex] = 'A';
+				sound_play("selection");
 			}
 			else if (direction == 3)
 			{
@@ -81,6 +85,8 @@ void GameOver::update(Window& _window, State*& _state, Player& _player)
 				}
 				else
 					m_name.push_back('A');
+
+				sound_play("press");
 			}
 		}
 	}
@@ -94,6 +100,7 @@ void GameOver::update(Window& _window, State*& _state, Player& _player)
 				m_index--;
 				if (m_index < 0)
 					m_index = 1;
+				sound_play("selection");
 			}
 			else if (_window.keyboardManager.hasJustPressed(sf::Keyboard::S) || _window.keyboardManager.hasJustPressed(sf::Keyboard::Down) || stickPos.y > 30.f)
 			{
@@ -101,18 +108,23 @@ void GameOver::update(Window& _window, State*& _state, Player& _player)
 				m_index++;
 				if (m_index > 1)
 					m_index = 0;
+				sound_play("selection");
 			}
 			else if (direction == 3)
 			{
 				if (m_index == 0)
 				{
+					sound_play("press");
 					m_isGameOver = false;
 					// RESTART A GAME
 					_state = new Game;
 				}
 				else if (m_index == 1)
 				{
+					sound_play("press");
 					m_isGameOver = false;
+					music_stop("game");
+					music_stop("gameOver");
 					_state = new Menu;
 				}
 			}
@@ -230,4 +242,8 @@ void GameOver::setup(const int& _score)
 	m_name = "A";
 	m_nameTimer = 0.f;
 	m_nameHighlight = false;
+	music_stop("game");
+	music_play("gameOver");
+	music_setLoop("gameOver");
+
 }

@@ -5,6 +5,7 @@
 #include "Pause.h"
 #include "particleManager.h"
 #include "GameOver.h"
+#include "soundManager.h"
 
 StateManager::StateManager() : m_state(new Menu), m_isInMenu(true)
 {
@@ -21,6 +22,7 @@ void StateManager::update(Window& _window, State*& _state)
 	if (!GameOver::isGameOver() && (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) || Gamepad_isButtonPressed(0, gamepadXBOX::START)) && m_timer > 0.5f)
 	{
 		m_timer = 0.f;
+		sound_play("selection");
 		if (m_isInMenu)
 			Options::toggle();
 		else if (!Pause::isOpen() && !Options::isOpen())

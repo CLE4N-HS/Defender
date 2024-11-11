@@ -17,12 +17,14 @@ struct music_SData {
 	music_SData* pNext;
 	int state;
 	char* name;
-	sf::Music music;
+	sf::Music* music;
 };
 
 void music_load(int _state);
 void music_add(music_SData* _music);
 music_SData* music_remove(music_SData* _music);
-void music_play(char* _name);
+void music_play(const char* _name);
+void music_setLoop(const char* _name, const bool& _loop = true);
+void music_stop(const char* _name);
 void music_deinit(bool _deinitStateAll);
 void music_setVolume(const int& _volume);

@@ -34,7 +34,7 @@ void CollisionManager::update(std::list<Bullets*>& _bulletsList, Player& _player
 	}
 
 
-	sf::Vector2f tmpPlayerPos = _player.getPos();
+	sf::Vector2f tmpPlayerPos = _player.getViewCenterPos();
 	for (std::list<Bullets*>::iterator it = _bulletsList.begin(); it != _bulletsList.end();)
 	{
 		if((*it)->getBulletId() == 1 )
@@ -47,7 +47,7 @@ void CollisionManager::update(std::list<Bullets*>& _bulletsList, Player& _player
 			sf::FloatRect tmpBulletRect = (*it)->getBulletColRect();
 
 
-			if (tmpBulletPos.x < tmpPlayerPos.x - 1200.f || tmpBulletPos.x > tmpPlayerPos.x + 1200.f || tmpBulletPos.y < 162.f || tmpBulletPos.y > 1080.f)
+			if (tmpBulletPos.x < tmpPlayerPos.x - 960.f || tmpBulletPos.x > tmpPlayerPos.x + 960.f || tmpBulletPos.y < 162.f || tmpBulletPos.y > 1080.f)
 				it = _bulletsList.erase(it);
 
 			else if (tmpBulletRect.intersects(tmpPlayerRect))
