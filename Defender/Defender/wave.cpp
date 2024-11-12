@@ -63,7 +63,7 @@ void wave::display(Window& _window, int _numOfCivilAlive)
 		_window.draw(_window.rectangle);
 
 
-		_window.text.setString("Wave " + std::to_string(m_currentNbWave) + " cleared !");
+		_window.text.setString("Wave " + std::to_string(m_currentNbWave - 1) + " cleared !");
 		_window.text.setPosition(_window.viewDefaultPos(sf::Vector2f(1000.f, 400.f)));
 		sf::Vector2f tmpPos = _window.text.getPosition();
 		_window.text.setCharacterSize(100);
