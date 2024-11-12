@@ -22,7 +22,7 @@ Window::Window(const sf::String& title, sf::Uint32 style) : m_videoMode(sf::Vide
 	m_font.loadFromFile("../Resources/Fonts/Square.ttf"); // default font
 	text.setFont(m_font);
 
-	m_shader.loadFromFile("shader.frag", sf::Shader::Type::Fragment);
+	m_shader.loadFromFile("../Resources/Shaders/shader.frag", sf::Shader::Type::Fragment);
 
 	m_renderState.blendMode = sf::BlendAlpha;
 	m_renderState.transform = sf::Transform::Identity;
